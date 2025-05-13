@@ -1,0 +1,22 @@
+{
+  "name": "nomad-hub",
+  "version": "1.0.0",
+  "private": true,
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "workspaces": [
+    "apps/*",
+    "shared/*"
+  ],
+  "scripts": {
+    "dev:web-app": "npm --workspace apps/web-app run dev",
+    "dev:server": "npm --workspace apps/server run start:dev",
+    "dev": "concurrently \"npm run dev:web-app\" \"npm run dev:server\"",
+    "add:web-app": "npm install --workspace apps/web-app",
+    "add:server": "npm install --workspace apps/server"
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  }
+}
