@@ -5,6 +5,8 @@
 /dist-ssr
 *.local
 
+notes.md
+
 # Logs
 logs
 *.log
