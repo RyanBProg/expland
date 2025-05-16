@@ -8,16 +8,71 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id                  Int      @id @default(autoincrement())
-  username            String   @unique
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
-  email               String   @unique
-  password            String
-  given_name          String
-  family_name         String
-  profile_picture_url String?
-  bio                 String?
-  location            String?
+model UserAccount {
+  id         Int      @id @default(autoincrement())
+  username   String   @unique
+  email      String   @unique
+  password   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  givenName  String
+  familyName String
+
+  // relations
+  profile   UserProfile?
+  Travel    Travel[]
+  followers Follow[]     @relation("Followee")
+  following Follow[]     @relation("Follower")
+}
+
+model UserProfile {
+  id                Int         @id @default(autoincrement())
+  user              UserAccount @relation(fields: [userId], references: [id])
+  userId            Int         @unique
+  profilePictureUrl String?
+  bio               String?
+  location          String?
+}
+
+model Follow {
+  id         Int         @id @default(autoincrement())
+  follower   UserAccount @relation("Follower", fields: [followerId], references: [id])
+  followerId Int
+  followee   UserAccount @relation("Followee", fields: [followeeId], references: [id])
+  followeeId Int
+  createdAt  DateTime    @default(now())
+
+  // ensures each pair of follower and followee can only exist once
+  @@unique([followerId, followeeId])
+}
+
+model Travel {
+  id          Int         @id @default(autoincrement())
+  user        UserAccount @relation(fields: [userId], references: [id])
+  userId      Int
+  country     Country     @relation(fields: [countryId], references: [id])
+  countryId   Int
+  title       String
+  description String?
+  dateTravel  DateTime
+  duration    Int?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Country {
+  id           Int     @id @default(autoincrement())
+  code         String  @unique
+  name         String
+  continent    String
+  flagImageUrl String?
+  capital      String?
+  population   Int?
+  language     String?
+  landArea     Float?
+  currency     String?
+  timezones    String?
+
+  // relations
+  travels Travel[]
 }

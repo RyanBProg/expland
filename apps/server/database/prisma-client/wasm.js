@@ -120,18 +120,56 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.UserScalarFieldEnum = {
+exports.Prisma.UserAccountScalarFieldEnum = {
   id: 'id',
   username: 'username',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
   email: 'email',
   password: 'password',
-  given_name: 'given_name',
-  family_name: 'family_name',
-  profile_picture_url: 'profile_picture_url',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  givenName: 'givenName',
+  familyName: 'familyName'
+};
+
+exports.Prisma.UserProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  profilePictureUrl: 'profilePictureUrl',
   bio: 'bio',
   location: 'location'
+};
+
+exports.Prisma.FollowScalarFieldEnum = {
+  id: 'id',
+  followerId: 'followerId',
+  followeeId: 'followeeId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.TravelScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  countryId: 'countryId',
+  title: 'title',
+  description: 'description',
+  dateTravel: 'dateTravel',
+  duration: 'duration',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CountryScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  continent: 'continent',
+  flagImageUrl: 'flagImageUrl',
+  capital: 'capital',
+  population: 'population',
+  language: 'language',
+  landArea: 'landArea',
+  currency: 'currency',
+  timezones: 'timezones'
 };
 
 exports.Prisma.SortOrder = {
@@ -151,7 +189,11 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  UserAccount: 'UserAccount',
+  UserProfile: 'UserProfile',
+  Follow: 'Follow',
+  Travel: 'Travel',
+  Country: 'Country'
 };
 
 /**
