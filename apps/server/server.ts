@@ -2,7 +2,7 @@ import express, { Request, Response, Express } from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import { env } from "./utils/zod/envSchema";
-import { PrismaClient } from "./prisma/generated";
+import { PrismaClient } from "./database/prisma-client";
 
 const app: Express = express();
 
