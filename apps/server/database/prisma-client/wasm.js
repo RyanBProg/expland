@@ -124,7 +124,8 @@ exports.Prisma.UserAccountScalarFieldEnum = {
   id: 'id',
   username: 'username',
   email: 'email',
-  password: 'password',
+  emailVerified: 'emailVerified',
+  passwordHash: 'passwordHash',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   givenName: 'givenName',
@@ -146,10 +147,19 @@ exports.Prisma.FollowScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.WishlistScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  countryId: 'countryId',
+  createdAt: 'createdAt',
+  cityId: 'cityId'
+};
+
 exports.Prisma.TravelScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   countryId: 'countryId',
+  cityId: 'cityId',
   title: 'title',
   description: 'description',
   dateTravel: 'dateTravel',
@@ -166,10 +176,28 @@ exports.Prisma.CountryScalarFieldEnum = {
   flagImageUrl: 'flagImageUrl',
   capital: 'capital',
   population: 'population',
-  language: 'language',
+  languages: 'languages',
   landArea: 'landArea',
   currency: 'currency',
-  timezones: 'timezones'
+  timezones: 'timezones',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CityScalarFieldEnum = {
+  id: 'id',
+  countryId: 'countryId',
+  code: 'code',
+  name: 'name',
+  population: 'population',
+  languages: 'languages',
+  landArea: 'landArea',
+  currency: 'currency',
+  timezones: 'timezones',
+  longitude: 'longitude',
+  latitude: 'latitude',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -192,8 +220,10 @@ exports.Prisma.ModelName = {
   UserAccount: 'UserAccount',
   UserProfile: 'UserProfile',
   Follow: 'Follow',
+  Wishlist: 'Wishlist',
   Travel: 'Travel',
-  Country: 'Country'
+  Country: 'Country',
+  City: 'City'
 };
 
 /**

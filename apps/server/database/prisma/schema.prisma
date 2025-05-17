@@ -9,70 +9,121 @@ datasource db {
 }
 
 model UserAccount {
-  id         Int      @id @default(autoincrement())
-  username   String   @unique
-  email      String   @unique
-  password   String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  givenName  String
-  familyName String
+  id            Int      @id @default(autoincrement())
+  username      String   @unique
+  email         String   @unique
+  emailVerified Boolean  @default(false)
+  passwordHash  String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  givenName     String
+  familyName    String
 
   // relations
   profile   UserProfile?
   Travel    Travel[]
+  Wishlist  Wishlist[]
   followers Follow[]     @relation("Followee")
   following Follow[]     @relation("Follower")
 }
 
 model UserProfile {
-  id                Int         @id @default(autoincrement())
-  user              UserAccount @relation(fields: [userId], references: [id])
-  userId            Int         @unique
+  id                Int     @id @default(autoincrement())
+  userId            Int     @unique
   profilePictureUrl String?
   bio               String?
   location          String?
+
+  // relations
+  user UserAccount @relation(fields: [userId], references: [id])
 }
 
 model Follow {
-  id         Int         @id @default(autoincrement())
-  follower   UserAccount @relation("Follower", fields: [followerId], references: [id])
+  id         Int      @id @default(autoincrement())
   followerId Int
-  followee   UserAccount @relation("Followee", fields: [followeeId], references: [id])
   followeeId Int
-  createdAt  DateTime    @default(now())
+  createdAt  DateTime @default(now())
+
+  // relations
+  follower UserAccount @relation("Follower", fields: [followerId], references: [id])
+  followee UserAccount @relation("Followee", fields: [followeeId], references: [id])
 
   // ensures each pair of follower and followee can only exist once
   @@unique([followerId, followeeId])
 }
 
+model Wishlist {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  countryId Int
+  createdAt DateTime @default(now())
+
+  // relations
+  user    UserAccount @relation(fields: [userId], references: [id])
+  country Country     @relation(fields: [countryId], references: [id])
+  City    City?       @relation(fields: [cityId], references: [id])
+  cityId  Int?
+
+  // ensures each pair of userId and countryId can only exist once
+  @@unique([userId, countryId])
+}
+
 model Travel {
-  id          Int         @id @default(autoincrement())
-  user        UserAccount @relation(fields: [userId], references: [id])
+  id          Int      @id @default(autoincrement())
   userId      Int
-  country     Country     @relation(fields: [countryId], references: [id])
   countryId   Int
+  cityId      Int?
   title       String
   description String?
   dateTravel  DateTime
   duration    Int?
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // relations
+  country Country     @relation(fields: [countryId], references: [id])
+  user    UserAccount @relation(fields: [userId], references: [id])
+  City    City?       @relation(fields: [cityId], references: [id])
 }
 
 model Country {
-  id           Int     @id @default(autoincrement())
-  code         String  @unique
+  id           Int      @id @default(autoincrement())
+  code         String   @unique
   name         String
   continent    String
   flagImageUrl String?
   capital      String?
   population   Int?
-  language     String?
+  languages    String[]
   landArea     Float?
   currency     String?
-  timezones    String?
+  timezones    String[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   // relations
-  travels Travel[]
+  travels  Travel[]
+  Wishlist Wishlist[]
+  cities   City[]
+}
+
+model City {
+  id         Int      @id @default(autoincrement())
+  countryId  Int
+  code       String   @unique
+  name       String
+  population Int?
+  languages  String[]
+  landArea   Float?
+  currency   String?
+  timezones  String[]
+  longitude  Float?
+  latitude   Float?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // relations
+  travels  Travel[]
+  Wishlist Wishlist[]
+  country  Country    @relation(fields: [countryId], references: [id])
 }
