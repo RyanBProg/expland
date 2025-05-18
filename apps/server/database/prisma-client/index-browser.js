@@ -129,7 +129,8 @@ exports.Prisma.UserAccountScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   givenName: 'givenName',
-  familyName: 'familyName'
+  familyName: 'familyName',
+  refreshTokenId: 'refreshTokenId'
 };
 
 exports.Prisma.UserProfileScalarFieldEnum = {

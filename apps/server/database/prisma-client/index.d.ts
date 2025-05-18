@@ -1591,6 +1591,7 @@ export namespace Prisma {
     updatedAt: Date | null
     givenName: string | null
     familyName: string | null
+    refreshTokenId: string | null
   }
 
   export type UserAccountMaxAggregateOutputType = {
@@ -1603,6 +1604,7 @@ export namespace Prisma {
     updatedAt: Date | null
     givenName: string | null
     familyName: string | null
+    refreshTokenId: string | null
   }
 
   export type UserAccountCountAggregateOutputType = {
@@ -1615,6 +1617,7 @@ export namespace Prisma {
     updatedAt: number
     givenName: number
     familyName: number
+    refreshTokenId: number
     _all: number
   }
 
@@ -1637,6 +1640,7 @@ export namespace Prisma {
     updatedAt?: true
     givenName?: true
     familyName?: true
+    refreshTokenId?: true
   }
 
   export type UserAccountMaxAggregateInputType = {
@@ -1649,6 +1653,7 @@ export namespace Prisma {
     updatedAt?: true
     givenName?: true
     familyName?: true
+    refreshTokenId?: true
   }
 
   export type UserAccountCountAggregateInputType = {
@@ -1661,6 +1666,7 @@ export namespace Prisma {
     updatedAt?: true
     givenName?: true
     familyName?: true
+    refreshTokenId?: true
     _all?: true
   }
 
@@ -1760,6 +1766,7 @@ export namespace Prisma {
     updatedAt: Date
     givenName: string
     familyName: string
+    refreshTokenId: string
     _count: UserAccountCountAggregateOutputType | null
     _avg: UserAccountAvgAggregateOutputType | null
     _sum: UserAccountSumAggregateOutputType | null
@@ -1791,6 +1798,7 @@ export namespace Prisma {
     updatedAt?: boolean
     givenName?: boolean
     familyName?: boolean
+    refreshTokenId?: boolean
     profile?: boolean | UserAccount$profileArgs<ExtArgs>
     Travel?: boolean | UserAccount$TravelArgs<ExtArgs>
     Wishlist?: boolean | UserAccount$WishlistArgs<ExtArgs>
@@ -1809,6 +1817,7 @@ export namespace Prisma {
     updatedAt?: boolean
     givenName?: boolean
     familyName?: boolean
+    refreshTokenId?: boolean
   }, ExtArgs["result"]["userAccount"]>
 
   export type UserAccountSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1821,6 +1830,7 @@ export namespace Prisma {
     updatedAt?: boolean
     givenName?: boolean
     familyName?: boolean
+    refreshTokenId?: boolean
   }, ExtArgs["result"]["userAccount"]>
 
   export type UserAccountSelectScalar = {
@@ -1833,9 +1843,10 @@ export namespace Prisma {
     updatedAt?: boolean
     givenName?: boolean
     familyName?: boolean
+    refreshTokenId?: boolean
   }
 
-  export type UserAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "emailVerified" | "passwordHash" | "createdAt" | "updatedAt" | "givenName" | "familyName", ExtArgs["result"]["userAccount"]>
+  export type UserAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "emailVerified" | "passwordHash" | "createdAt" | "updatedAt" | "givenName" | "familyName" | "refreshTokenId", ExtArgs["result"]["userAccount"]>
   export type UserAccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     profile?: boolean | UserAccount$profileArgs<ExtArgs>
     Travel?: boolean | UserAccount$TravelArgs<ExtArgs>
@@ -1866,6 +1877,7 @@ export namespace Prisma {
       updatedAt: Date
       givenName: string
       familyName: string
+      refreshTokenId: string
     }, ExtArgs["result"]["userAccount"]>
     composites: {}
   }
@@ -2303,6 +2315,7 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"UserAccount", 'DateTime'>
     readonly givenName: FieldRef<"UserAccount", 'String'>
     readonly familyName: FieldRef<"UserAccount", 'String'>
+    readonly refreshTokenId: FieldRef<"UserAccount", 'String'>
   }
     
 
@@ -9915,7 +9928,8 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     givenName: 'givenName',
-    familyName: 'familyName'
+    familyName: 'familyName',
+    refreshTokenId: 'refreshTokenId'
   };
 
   export type UserAccountScalarFieldEnum = (typeof UserAccountScalarFieldEnum)[keyof typeof UserAccountScalarFieldEnum]
@@ -10115,6 +10129,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"UserAccount"> | Date | string
     givenName?: StringFilter<"UserAccount"> | string
     familyName?: StringFilter<"UserAccount"> | string
+    refreshTokenId?: StringFilter<"UserAccount"> | string
     profile?: XOR<UserProfileNullableScalarRelationFilter, UserProfileWhereInput> | null
     Travel?: TravelListRelationFilter
     Wishlist?: WishlistListRelationFilter
@@ -10132,6 +10147,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     givenName?: SortOrder
     familyName?: SortOrder
+    refreshTokenId?: SortOrder
     profile?: UserProfileOrderByWithRelationInput
     Travel?: TravelOrderByRelationAggregateInput
     Wishlist?: WishlistOrderByRelationAggregateInput
@@ -10152,6 +10168,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"UserAccount"> | Date | string
     givenName?: StringFilter<"UserAccount"> | string
     familyName?: StringFilter<"UserAccount"> | string
+    refreshTokenId?: StringFilter<"UserAccount"> | string
     profile?: XOR<UserProfileNullableScalarRelationFilter, UserProfileWhereInput> | null
     Travel?: TravelListRelationFilter
     Wishlist?: WishlistListRelationFilter
@@ -10169,6 +10186,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     givenName?: SortOrder
     familyName?: SortOrder
+    refreshTokenId?: SortOrder
     _count?: UserAccountCountOrderByAggregateInput
     _avg?: UserAccountAvgOrderByAggregateInput
     _max?: UserAccountMaxOrderByAggregateInput
@@ -10189,6 +10207,7 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"UserAccount"> | Date | string
     givenName?: StringWithAggregatesFilter<"UserAccount"> | string
     familyName?: StringWithAggregatesFilter<"UserAccount"> | string
+    refreshTokenId?: StringWithAggregatesFilter<"UserAccount"> | string
   }
 
   export type UserProfileWhereInput = {
@@ -10671,6 +10690,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     givenName: string
     familyName: string
+    refreshTokenId: string
     profile?: UserProfileCreateNestedOneWithoutUserInput
     Travel?: TravelCreateNestedManyWithoutUserInput
     Wishlist?: WishlistCreateNestedManyWithoutUserInput
@@ -10688,6 +10708,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     givenName: string
     familyName: string
+    refreshTokenId: string
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     Travel?: TravelUncheckedCreateNestedManyWithoutUserInput
     Wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
@@ -10704,6 +10725,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     givenName?: StringFieldUpdateOperationsInput | string
     familyName?: StringFieldUpdateOperationsInput | string
+    refreshTokenId?: StringFieldUpdateOperationsInput | string
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     Travel?: TravelUpdateManyWithoutUserNestedInput
     Wishlist?: WishlistUpdateManyWithoutUserNestedInput
@@ -10721,6 +10743,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     givenName?: StringFieldUpdateOperationsInput | string
     familyName?: StringFieldUpdateOperationsInput | string
+    refreshTokenId?: StringFieldUpdateOperationsInput | string
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     Travel?: TravelUncheckedUpdateManyWithoutUserNestedInput
     Wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
@@ -10738,6 +10761,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     givenName: string
     familyName: string
+    refreshTokenId: string
   }
 
   export type UserAccountUpdateManyMutationInput = {
@@ -10749,6 +10773,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     givenName?: StringFieldUpdateOperationsInput | string
     familyName?: StringFieldUpdateOperationsInput | string
+    refreshTokenId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserAccountUncheckedUpdateManyInput = {
@@ -10761,6 +10786,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     givenName?: StringFieldUpdateOperationsInput | string
     familyName?: StringFieldUpdateOperationsInput | string
+    refreshTokenId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserProfileCreateInput = {
@@ -11318,6 +11344,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     givenName?: SortOrder
     familyName?: SortOrder
+    refreshTokenId?: SortOrder
   }
 
   export type UserAccountAvgOrderByAggregateInput = {
@@ -11334,6 +11361,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     givenName?: SortOrder
     familyName?: SortOrder
+    refreshTokenId?: SortOrder
   }
 
   export type UserAccountMinOrderByAggregateInput = {
@@ -11346,6 +11374,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     givenName?: SortOrder
     familyName?: SortOrder
+    refreshTokenId?: SortOrder
   }
 
   export type UserAccountSumOrderByAggregateInput = {
@@ -12893,6 +12922,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     givenName: string
     familyName: string
+    refreshTokenId: string
     Travel?: TravelCreateNestedManyWithoutUserInput
     Wishlist?: WishlistCreateNestedManyWithoutUserInput
     followers?: FollowCreateNestedManyWithoutFolloweeInput
@@ -12909,6 +12939,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     givenName: string
     familyName: string
+    refreshTokenId: string
     Travel?: TravelUncheckedCreateNestedManyWithoutUserInput
     Wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
     followers?: FollowUncheckedCreateNestedManyWithoutFolloweeInput
@@ -12940,6 +12971,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     givenName?: StringFieldUpdateOperationsInput | string
     familyName?: StringFieldUpdateOperationsInput | string
+    refreshTokenId?: StringFieldUpdateOperationsInput | string
     Travel?: TravelUpdateManyWithoutUserNestedInput
     Wishlist?: WishlistUpdateManyWithoutUserNestedInput
     followers?: FollowUpdateManyWithoutFolloweeNestedInput
@@ -12956,6 +12988,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     givenName?: StringFieldUpdateOperationsInput | string
     familyName?: StringFieldUpdateOperationsInput | string
+    refreshTokenId?: StringFieldUpdateOperationsInput | string
     Travel?: TravelUncheckedUpdateManyWithoutUserNestedInput
     Wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFolloweeNestedInput
@@ -12971,6 +13004,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     givenName: string
     familyName: string
+    refreshTokenId: string
     profile?: UserProfileCreateNestedOneWithoutUserInput
     Travel?: TravelCreateNestedManyWithoutUserInput
     Wishlist?: WishlistCreateNestedManyWithoutUserInput
@@ -12987,6 +13021,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     givenName: string
     familyName: string
+    refreshTokenId: string
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     Travel?: TravelUncheckedCreateNestedManyWithoutUserInput
     Wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
@@ -13007,6 +13042,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     givenName: string
     familyName: string
+    refreshTokenId: string
     profile?: UserProfileCreateNestedOneWithoutUserInput
     Travel?: TravelCreateNestedManyWithoutUserInput
     Wishlist?: WishlistCreateNestedManyWithoutUserInput
@@ -13023,6 +13059,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     givenName: string
     familyName: string
+    refreshTokenId: string
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     Travel?: TravelUncheckedCreateNestedManyWithoutUserInput
     Wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
@@ -13054,6 +13091,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     givenName?: StringFieldUpdateOperationsInput | string
     familyName?: StringFieldUpdateOperationsInput | string
+    refreshTokenId?: StringFieldUpdateOperationsInput | string
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     Travel?: TravelUpdateManyWithoutUserNestedInput
     Wishlist?: WishlistUpdateManyWithoutUserNestedInput
@@ -13070,6 +13108,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     givenName?: StringFieldUpdateOperationsInput | string
     familyName?: StringFieldUpdateOperationsInput | string
+    refreshTokenId?: StringFieldUpdateOperationsInput | string
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     Travel?: TravelUncheckedUpdateManyWithoutUserNestedInput
     Wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
@@ -13096,6 +13135,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     givenName?: StringFieldUpdateOperationsInput | string
     familyName?: StringFieldUpdateOperationsInput | string
+    refreshTokenId?: StringFieldUpdateOperationsInput | string
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     Travel?: TravelUpdateManyWithoutUserNestedInput
     Wishlist?: WishlistUpdateManyWithoutUserNestedInput
@@ -13112,6 +13152,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     givenName?: StringFieldUpdateOperationsInput | string
     familyName?: StringFieldUpdateOperationsInput | string
+    refreshTokenId?: StringFieldUpdateOperationsInput | string
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     Travel?: TravelUncheckedUpdateManyWithoutUserNestedInput
     Wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
@@ -13127,6 +13168,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     givenName: string
     familyName: string
+    refreshTokenId: string
     profile?: UserProfileCreateNestedOneWithoutUserInput
     Travel?: TravelCreateNestedManyWithoutUserInput
     followers?: FollowCreateNestedManyWithoutFolloweeInput
@@ -13143,6 +13185,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     givenName: string
     familyName: string
+    refreshTokenId: string
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     Travel?: TravelUncheckedCreateNestedManyWithoutUserInput
     followers?: FollowUncheckedCreateNestedManyWithoutFolloweeInput
@@ -13252,6 +13295,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     givenName?: StringFieldUpdateOperationsInput | string
     familyName?: StringFieldUpdateOperationsInput | string
+    refreshTokenId?: StringFieldUpdateOperationsInput | string
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     Travel?: TravelUpdateManyWithoutUserNestedInput
     followers?: FollowUpdateManyWithoutFolloweeNestedInput
@@ -13268,6 +13312,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     givenName?: StringFieldUpdateOperationsInput | string
     familyName?: StringFieldUpdateOperationsInput | string
+    refreshTokenId?: StringFieldUpdateOperationsInput | string
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     Travel?: TravelUncheckedUpdateManyWithoutUserNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFolloweeNestedInput
@@ -13413,6 +13458,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     givenName: string
     familyName: string
+    refreshTokenId: string
     profile?: UserProfileCreateNestedOneWithoutUserInput
     Wishlist?: WishlistCreateNestedManyWithoutUserInput
     followers?: FollowCreateNestedManyWithoutFolloweeInput
@@ -13429,6 +13475,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     givenName: string
     familyName: string
+    refreshTokenId: string
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     Wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
     followers?: FollowUncheckedCreateNestedManyWithoutFolloweeInput
@@ -13544,6 +13591,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     givenName?: StringFieldUpdateOperationsInput | string
     familyName?: StringFieldUpdateOperationsInput | string
+    refreshTokenId?: StringFieldUpdateOperationsInput | string
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     Wishlist?: WishlistUpdateManyWithoutUserNestedInput
     followers?: FollowUpdateManyWithoutFolloweeNestedInput
@@ -13560,6 +13608,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     givenName?: StringFieldUpdateOperationsInput | string
     familyName?: StringFieldUpdateOperationsInput | string
+    refreshTokenId?: StringFieldUpdateOperationsInput | string
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     Wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFolloweeNestedInput
