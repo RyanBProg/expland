@@ -1,10 +1,16 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-import { generateAccessToken, generateRefreshToken, setTokenCookie } from "./auth.helpers";
+import {
+  cookieDefaults,
+  generateAccessToken,
+  generateRefreshToken,
+  setTokenCookie,
+} from "./auth.helpers";
 import { loginSchema, registerSchema } from "../../utils/zod/authSchema";
 import prisma from "../../database/prismaClient";
 import { v4 as uuidv4 } from "uuid";
 import { handleControllerError } from "../../utils/handleControllerError";
+import { TUserTokenRequest } from "../../utils/types/types";
 
 async function register(req: Request, res: Response) {
   try {
@@ -122,43 +128,68 @@ async function login(req: Request, res: Response) {
   }
 }
 
-async function logout(req: Request, res: Response) {
+async function logout(_: Request, res: Response) {
   try {
-    res.status(200).json({ message: "testing" });
-  } catch (err) {
-    console.error(`Error while getting programming languages`, err);
-  }
-}
+    // Clear cookies
+    res.clearCookie("accessToken", cookieDefaults);
+    res.clearCookie("refreshToken", cookieDefaults);
 
-async function refreshToken(req: Request, res: Response) {
-  try {
-    res.status(200).json({ message: "testing" });
-  } catch (err) {
-    console.error(`Error while getting programming languages`, err);
+    res.status(200).json({
+      message: "Logged out successfully",
+    });
+  } catch (error) {
+    handleControllerError(error, res, "logout");
   }
 }
 
 async function forgotPassword(req: Request, res: Response) {
   try {
-    res.status(200).json({ message: "testing" });
-  } catch (err) {
-    console.error(`Error while getting programming languages`, err);
+    // TODO
+    res.status(200).json({ message: "Not implemented yet" });
+  } catch (error) {
+    handleControllerError(error, res, "forgotPassword");
   }
 }
 
 async function resetPassword(req: Request, res: Response) {
   try {
-    res.status(200).json({ message: "testing" });
-  } catch (err) {
-    console.error(`Error while getting programming languages`, err);
+    // TODO
+    res.status(200).json({ message: "Not implemented yet" });
+  } catch (error) {
+    handleControllerError(error, res, "resetPassword");
   }
 }
+
+const logoutOnAll = async (req: TUserTokenRequest, res: Response) => {
+  try {
+    const userId = req.user?.userId;
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
+
+    // Find and update user's refreshTokenId
+    await prisma.userAccount.update({
+      where: { id: userId },
+      data: { refreshTokenId: uuidv4() },
+      select: { id: true },
+    });
+
+    // Clear cookies
+    res.clearCookie("accessToken", cookieDefaults);
+    res.clearCookie("refreshToken", cookieDefaults);
+
+    res.status(200).json({ message: "Logged out successfully" });
+  } catch (error) {
+    handleControllerError(error, res, "logoutOnAll");
+  }
+};
 
 export default {
   register,
   login,
   logout,
-  refreshToken,
   forgotPassword,
   resetPassword,
+  logoutOnAll,
 };

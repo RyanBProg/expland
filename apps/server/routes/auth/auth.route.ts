@@ -1,5 +1,6 @@
 import express from "express";
 import authControllers from "./auth.controller";
+import { authenticateTokens } from "../../middleware/auth.middleware";
 
 const router = express.Router();
 
@@ -12,13 +13,13 @@ router.post("/login", authControllers.login);
 // Logout a user
 router.post("/logout", authControllers.logout);
 
-// Refresh JWT token
-router.post("/refresh", authControllers.refreshToken);
-
 // User has forgotten their password
-router.post("/forgot-password", authControllers.forgotPassword);
+router.post("/forgot-password", authenticateTokens, authControllers.forgotPassword);
 
 // Reset a users password
-router.post("/reset-password", authControllers.resetPassword);
+router.post("/reset-password", authenticateTokens, authControllers.resetPassword);
+
+// Logout and rotate refresh token id
+router.post("/logout-on-all", authenticateTokens, authControllers.logoutOnAll);
 
 export default router;

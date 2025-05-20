@@ -1,8 +1,7 @@
 import jwt from "jsonwebtoken";
 import { env } from "../../utils/zod/envSchema";
 import { Response } from "express";
-
-type TokenName = "accessToken" | "refreshToken";
+import { CookieDefaults, TokenName } from "../../utils/types/types";
 
 // Generate Access Token
 export function generateAccessToken(userId: number) {
@@ -35,6 +34,13 @@ export function verifyRefreshToken(token: string) {
   }
 }
 
+export const cookieDefaults: CookieDefaults = {
+  httpOnly: true,
+  sameSite: env.NODE_ENV === "production" ? "none" : "lax",
+  secure: env.NODE_ENV === "production" ? true : false,
+  path: "/",
+};
+
 // Set JWT Token Cookie
 export function setTokenCookie(res: Response, tokenName: TokenName, token: string) {
   const maxAgeAccessToken = 15 * 60 * 1000; // 15 minutes (in milliseconds)
@@ -42,9 +48,6 @@ export function setTokenCookie(res: Response, tokenName: TokenName, token: strin
 
   res.cookie(tokenName, token, {
     maxAge: tokenName === "accessToken" ? maxAgeAccessToken : maxAgeRefreshToken,
-    httpOnly: true,
-    sameSite: env.NODE_ENV === "production" ? "none" : "lax",
-    secure: env.NODE_ENV === "production" ? true : false,
-    path: "/",
+    ...cookieDefaults,
   });
 }
