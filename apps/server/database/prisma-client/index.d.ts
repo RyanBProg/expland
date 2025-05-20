@@ -1567,22 +1567,12 @@ export namespace Prisma {
 
   export type AggregateUserAccount = {
     _count: UserAccountCountAggregateOutputType | null
-    _avg: UserAccountAvgAggregateOutputType | null
-    _sum: UserAccountSumAggregateOutputType | null
     _min: UserAccountMinAggregateOutputType | null
     _max: UserAccountMaxAggregateOutputType | null
   }
 
-  export type UserAccountAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type UserAccountSumAggregateOutputType = {
-    id: number | null
-  }
-
   export type UserAccountMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     username: string | null
     email: string | null
     emailVerified: boolean | null
@@ -1595,7 +1585,7 @@ export namespace Prisma {
   }
 
   export type UserAccountMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     username: string | null
     email: string | null
     emailVerified: boolean | null
@@ -1621,14 +1611,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type UserAccountAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type UserAccountSumAggregateInputType = {
-    id?: true
-  }
 
   export type UserAccountMinAggregateInputType = {
     id?: true
@@ -1708,18 +1690,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: UserAccountAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UserAccountSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserAccountMinAggregateInputType
@@ -1750,14 +1720,12 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserAccountCountAggregateInputType | true
-    _avg?: UserAccountAvgAggregateInputType
-    _sum?: UserAccountSumAggregateInputType
     _min?: UserAccountMinAggregateInputType
     _max?: UserAccountMaxAggregateInputType
   }
 
   export type UserAccountGroupByOutputType = {
-    id: number
+    id: string
     username: string
     email: string
     emailVerified: boolean
@@ -1768,8 +1736,6 @@ export namespace Prisma {
     familyName: string
     refreshTokenId: string
     _count: UserAccountCountAggregateOutputType | null
-    _avg: UserAccountAvgAggregateOutputType | null
-    _sum: UserAccountSumAggregateOutputType | null
     _min: UserAccountMinAggregateOutputType | null
     _max: UserAccountMaxAggregateOutputType | null
   }
@@ -1868,7 +1834,7 @@ export namespace Prisma {
       following: Prisma.$FollowPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       username: string
       email: string
       emailVerified: boolean
@@ -2306,7 +2272,7 @@ export namespace Prisma {
    * Fields of the UserAccount model
    */
   interface UserAccountFieldRefs {
-    readonly id: FieldRef<"UserAccount", 'Int'>
+    readonly id: FieldRef<"UserAccount", 'String'>
     readonly username: FieldRef<"UserAccount", 'String'>
     readonly email: FieldRef<"UserAccount", 'String'>
     readonly emailVerified: FieldRef<"UserAccount", 'Boolean'>
@@ -2843,33 +2809,21 @@ export namespace Prisma {
 
   export type AggregateUserProfile = {
     _count: UserProfileCountAggregateOutputType | null
-    _avg: UserProfileAvgAggregateOutputType | null
-    _sum: UserProfileSumAggregateOutputType | null
     _min: UserProfileMinAggregateOutputType | null
     _max: UserProfileMaxAggregateOutputType | null
   }
 
-  export type UserProfileAvgAggregateOutputType = {
-    id: number | null
-    userId: number | null
-  }
-
-  export type UserProfileSumAggregateOutputType = {
-    id: number | null
-    userId: number | null
-  }
-
   export type UserProfileMinAggregateOutputType = {
-    id: number | null
-    userId: number | null
+    id: string | null
+    userId: string | null
     profilePictureUrl: string | null
     bio: string | null
     location: string | null
   }
 
   export type UserProfileMaxAggregateOutputType = {
-    id: number | null
-    userId: number | null
+    id: string | null
+    userId: string | null
     profilePictureUrl: string | null
     bio: string | null
     location: string | null
@@ -2884,16 +2838,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type UserProfileAvgAggregateInputType = {
-    id?: true
-    userId?: true
-  }
-
-  export type UserProfileSumAggregateInputType = {
-    id?: true
-    userId?: true
-  }
 
   export type UserProfileMinAggregateInputType = {
     id?: true
@@ -2958,18 +2902,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: UserProfileAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UserProfileSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserProfileMinAggregateInputType
@@ -3000,21 +2932,17 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserProfileCountAggregateInputType | true
-    _avg?: UserProfileAvgAggregateInputType
-    _sum?: UserProfileSumAggregateInputType
     _min?: UserProfileMinAggregateInputType
     _max?: UserProfileMaxAggregateInputType
   }
 
   export type UserProfileGroupByOutputType = {
-    id: number
-    userId: number
+    id: string
+    userId: string
     profilePictureUrl: string | null
     bio: string | null
     location: string | null
     _count: UserProfileCountAggregateOutputType | null
-    _avg: UserProfileAvgAggregateOutputType | null
-    _sum: UserProfileSumAggregateOutputType | null
     _min: UserProfileMinAggregateOutputType | null
     _max: UserProfileMaxAggregateOutputType | null
   }
@@ -3085,8 +3013,8 @@ export namespace Prisma {
       user: Prisma.$UserAccountPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      userId: number
+      id: string
+      userId: string
       profilePictureUrl: string | null
       bio: string | null
       location: string | null
@@ -3514,8 +3442,8 @@ export namespace Prisma {
    * Fields of the UserProfile model
    */
   interface UserProfileFieldRefs {
-    readonly id: FieldRef<"UserProfile", 'Int'>
-    readonly userId: FieldRef<"UserProfile", 'Int'>
+    readonly id: FieldRef<"UserProfile", 'String'>
+    readonly userId: FieldRef<"UserProfile", 'String'>
     readonly profilePictureUrl: FieldRef<"UserProfile", 'String'>
     readonly bio: FieldRef<"UserProfile", 'String'>
     readonly location: FieldRef<"UserProfile", 'String'>
@@ -3947,27 +3875,23 @@ export namespace Prisma {
 
   export type FollowAvgAggregateOutputType = {
     id: number | null
-    followerId: number | null
-    followeeId: number | null
   }
 
   export type FollowSumAggregateOutputType = {
     id: number | null
-    followerId: number | null
-    followeeId: number | null
   }
 
   export type FollowMinAggregateOutputType = {
     id: number | null
-    followerId: number | null
-    followeeId: number | null
+    followerId: string | null
+    followeeId: string | null
     createdAt: Date | null
   }
 
   export type FollowMaxAggregateOutputType = {
     id: number | null
-    followerId: number | null
-    followeeId: number | null
+    followerId: string | null
+    followeeId: string | null
     createdAt: Date | null
   }
 
@@ -3982,14 +3906,10 @@ export namespace Prisma {
 
   export type FollowAvgAggregateInputType = {
     id?: true
-    followerId?: true
-    followeeId?: true
   }
 
   export type FollowSumAggregateInputType = {
     id?: true
-    followerId?: true
-    followeeId?: true
   }
 
   export type FollowMinAggregateInputType = {
@@ -4102,8 +4022,8 @@ export namespace Prisma {
 
   export type FollowGroupByOutputType = {
     id: number
-    followerId: number
-    followeeId: number
+    followerId: string
+    followeeId: string
     createdAt: Date
     _count: FollowCountAggregateOutputType | null
     _avg: FollowAvgAggregateOutputType | null
@@ -4182,8 +4102,8 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      followerId: number
-      followeeId: number
+      followerId: string
+      followeeId: string
       createdAt: Date
     }, ExtArgs["result"]["follow"]>
     composites: {}
@@ -4611,8 +4531,8 @@ export namespace Prisma {
    */
   interface FollowFieldRefs {
     readonly id: FieldRef<"Follow", 'Int'>
-    readonly followerId: FieldRef<"Follow", 'Int'>
-    readonly followeeId: FieldRef<"Follow", 'Int'>
+    readonly followerId: FieldRef<"Follow", 'String'>
+    readonly followeeId: FieldRef<"Follow", 'String'>
     readonly createdAt: FieldRef<"Follow", 'DateTime'>
   }
     
@@ -5042,21 +4962,19 @@ export namespace Prisma {
 
   export type WishlistAvgAggregateOutputType = {
     id: number | null
-    userId: number | null
     countryId: number | null
     cityId: number | null
   }
 
   export type WishlistSumAggregateOutputType = {
     id: number | null
-    userId: number | null
     countryId: number | null
     cityId: number | null
   }
 
   export type WishlistMinAggregateOutputType = {
     id: number | null
-    userId: number | null
+    userId: string | null
     countryId: number | null
     createdAt: Date | null
     cityId: number | null
@@ -5064,7 +4982,7 @@ export namespace Prisma {
 
   export type WishlistMaxAggregateOutputType = {
     id: number | null
-    userId: number | null
+    userId: string | null
     countryId: number | null
     createdAt: Date | null
     cityId: number | null
@@ -5082,14 +5000,12 @@ export namespace Prisma {
 
   export type WishlistAvgAggregateInputType = {
     id?: true
-    userId?: true
     countryId?: true
     cityId?: true
   }
 
   export type WishlistSumAggregateInputType = {
     id?: true
-    userId?: true
     countryId?: true
     cityId?: true
   }
@@ -5207,7 +5123,7 @@ export namespace Prisma {
 
   export type WishlistGroupByOutputType = {
     id: number
-    userId: number
+    userId: string
     countryId: number
     createdAt: Date
     cityId: number | null
@@ -5299,7 +5215,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      userId: number
+      userId: string
       countryId: number
       createdAt: Date
       cityId: number | null
@@ -5730,7 +5646,7 @@ export namespace Prisma {
    */
   interface WishlistFieldRefs {
     readonly id: FieldRef<"Wishlist", 'Int'>
-    readonly userId: FieldRef<"Wishlist", 'Int'>
+    readonly userId: FieldRef<"Wishlist", 'String'>
     readonly countryId: FieldRef<"Wishlist", 'Int'>
     readonly createdAt: FieldRef<"Wishlist", 'DateTime'>
     readonly cityId: FieldRef<"Wishlist", 'Int'>
@@ -6181,7 +6097,6 @@ export namespace Prisma {
 
   export type TravelAvgAggregateOutputType = {
     id: number | null
-    userId: number | null
     countryId: number | null
     cityId: number | null
     duration: number | null
@@ -6189,7 +6104,6 @@ export namespace Prisma {
 
   export type TravelSumAggregateOutputType = {
     id: number | null
-    userId: number | null
     countryId: number | null
     cityId: number | null
     duration: number | null
@@ -6197,7 +6111,7 @@ export namespace Prisma {
 
   export type TravelMinAggregateOutputType = {
     id: number | null
-    userId: number | null
+    userId: string | null
     countryId: number | null
     cityId: number | null
     title: string | null
@@ -6210,7 +6124,7 @@ export namespace Prisma {
 
   export type TravelMaxAggregateOutputType = {
     id: number | null
-    userId: number | null
+    userId: string | null
     countryId: number | null
     cityId: number | null
     title: string | null
@@ -6238,7 +6152,6 @@ export namespace Prisma {
 
   export type TravelAvgAggregateInputType = {
     id?: true
-    userId?: true
     countryId?: true
     cityId?: true
     duration?: true
@@ -6246,7 +6159,6 @@ export namespace Prisma {
 
   export type TravelSumAggregateInputType = {
     id?: true
-    userId?: true
     countryId?: true
     cityId?: true
     duration?: true
@@ -6380,7 +6292,7 @@ export namespace Prisma {
 
   export type TravelGroupByOutputType = {
     id: number
-    userId: number
+    userId: string
     countryId: number
     cityId: number | null
     title: string
@@ -6497,7 +6409,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      userId: number
+      userId: string
       countryId: number
       cityId: number | null
       title: string
@@ -6933,7 +6845,7 @@ export namespace Prisma {
    */
   interface TravelFieldRefs {
     readonly id: FieldRef<"Travel", 'Int'>
-    readonly userId: FieldRef<"Travel", 'Int'>
+    readonly userId: FieldRef<"Travel", 'String'>
     readonly countryId: FieldRef<"Travel", 'Int'>
     readonly cityId: FieldRef<"Travel", 'Int'>
     readonly title: FieldRef<"Travel", 'String'>
@@ -10051,20 +9963,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
@@ -10100,6 +9998,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -10120,7 +10032,7 @@ export namespace Prisma {
     AND?: UserAccountWhereInput | UserAccountWhereInput[]
     OR?: UserAccountWhereInput[]
     NOT?: UserAccountWhereInput | UserAccountWhereInput[]
-    id?: IntFilter<"UserAccount"> | number
+    id?: StringFilter<"UserAccount"> | string
     username?: StringFilter<"UserAccount"> | string
     email?: StringFilter<"UserAccount"> | string
     emailVerified?: BoolFilter<"UserAccount"> | boolean
@@ -10156,7 +10068,7 @@ export namespace Prisma {
   }
 
   export type UserAccountWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     username?: string
     email?: string
     AND?: UserAccountWhereInput | UserAccountWhereInput[]
@@ -10188,17 +10100,15 @@ export namespace Prisma {
     familyName?: SortOrder
     refreshTokenId?: SortOrder
     _count?: UserAccountCountOrderByAggregateInput
-    _avg?: UserAccountAvgOrderByAggregateInput
     _max?: UserAccountMaxOrderByAggregateInput
     _min?: UserAccountMinOrderByAggregateInput
-    _sum?: UserAccountSumOrderByAggregateInput
   }
 
   export type UserAccountScalarWhereWithAggregatesInput = {
     AND?: UserAccountScalarWhereWithAggregatesInput | UserAccountScalarWhereWithAggregatesInput[]
     OR?: UserAccountScalarWhereWithAggregatesInput[]
     NOT?: UserAccountScalarWhereWithAggregatesInput | UserAccountScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"UserAccount"> | number
+    id?: StringWithAggregatesFilter<"UserAccount"> | string
     username?: StringWithAggregatesFilter<"UserAccount"> | string
     email?: StringWithAggregatesFilter<"UserAccount"> | string
     emailVerified?: BoolWithAggregatesFilter<"UserAccount"> | boolean
@@ -10214,8 +10124,8 @@ export namespace Prisma {
     AND?: UserProfileWhereInput | UserProfileWhereInput[]
     OR?: UserProfileWhereInput[]
     NOT?: UserProfileWhereInput | UserProfileWhereInput[]
-    id?: IntFilter<"UserProfile"> | number
-    userId?: IntFilter<"UserProfile"> | number
+    id?: StringFilter<"UserProfile"> | string
+    userId?: StringFilter<"UserProfile"> | string
     profilePictureUrl?: StringNullableFilter<"UserProfile"> | string | null
     bio?: StringNullableFilter<"UserProfile"> | string | null
     location?: StringNullableFilter<"UserProfile"> | string | null
@@ -10232,8 +10142,8 @@ export namespace Prisma {
   }
 
   export type UserProfileWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    userId?: number
+    id?: string
+    userId?: string
     AND?: UserProfileWhereInput | UserProfileWhereInput[]
     OR?: UserProfileWhereInput[]
     NOT?: UserProfileWhereInput | UserProfileWhereInput[]
@@ -10250,18 +10160,16 @@ export namespace Prisma {
     bio?: SortOrderInput | SortOrder
     location?: SortOrderInput | SortOrder
     _count?: UserProfileCountOrderByAggregateInput
-    _avg?: UserProfileAvgOrderByAggregateInput
     _max?: UserProfileMaxOrderByAggregateInput
     _min?: UserProfileMinOrderByAggregateInput
-    _sum?: UserProfileSumOrderByAggregateInput
   }
 
   export type UserProfileScalarWhereWithAggregatesInput = {
     AND?: UserProfileScalarWhereWithAggregatesInput | UserProfileScalarWhereWithAggregatesInput[]
     OR?: UserProfileScalarWhereWithAggregatesInput[]
     NOT?: UserProfileScalarWhereWithAggregatesInput | UserProfileScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"UserProfile"> | number
-    userId?: IntWithAggregatesFilter<"UserProfile"> | number
+    id?: StringWithAggregatesFilter<"UserProfile"> | string
+    userId?: StringWithAggregatesFilter<"UserProfile"> | string
     profilePictureUrl?: StringNullableWithAggregatesFilter<"UserProfile"> | string | null
     bio?: StringNullableWithAggregatesFilter<"UserProfile"> | string | null
     location?: StringNullableWithAggregatesFilter<"UserProfile"> | string | null
@@ -10272,8 +10180,8 @@ export namespace Prisma {
     OR?: FollowWhereInput[]
     NOT?: FollowWhereInput | FollowWhereInput[]
     id?: IntFilter<"Follow"> | number
-    followerId?: IntFilter<"Follow"> | number
-    followeeId?: IntFilter<"Follow"> | number
+    followerId?: StringFilter<"Follow"> | string
+    followeeId?: StringFilter<"Follow"> | string
     createdAt?: DateTimeFilter<"Follow"> | Date | string
     follower?: XOR<UserAccountScalarRelationFilter, UserAccountWhereInput>
     followee?: XOR<UserAccountScalarRelationFilter, UserAccountWhereInput>
@@ -10294,8 +10202,8 @@ export namespace Prisma {
     AND?: FollowWhereInput | FollowWhereInput[]
     OR?: FollowWhereInput[]
     NOT?: FollowWhereInput | FollowWhereInput[]
-    followerId?: IntFilter<"Follow"> | number
-    followeeId?: IntFilter<"Follow"> | number
+    followerId?: StringFilter<"Follow"> | string
+    followeeId?: StringFilter<"Follow"> | string
     createdAt?: DateTimeFilter<"Follow"> | Date | string
     follower?: XOR<UserAccountScalarRelationFilter, UserAccountWhereInput>
     followee?: XOR<UserAccountScalarRelationFilter, UserAccountWhereInput>
@@ -10318,8 +10226,8 @@ export namespace Prisma {
     OR?: FollowScalarWhereWithAggregatesInput[]
     NOT?: FollowScalarWhereWithAggregatesInput | FollowScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Follow"> | number
-    followerId?: IntWithAggregatesFilter<"Follow"> | number
-    followeeId?: IntWithAggregatesFilter<"Follow"> | number
+    followerId?: StringWithAggregatesFilter<"Follow"> | string
+    followeeId?: StringWithAggregatesFilter<"Follow"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Follow"> | Date | string
   }
 
@@ -10328,7 +10236,7 @@ export namespace Prisma {
     OR?: WishlistWhereInput[]
     NOT?: WishlistWhereInput | WishlistWhereInput[]
     id?: IntFilter<"Wishlist"> | number
-    userId?: IntFilter<"Wishlist"> | number
+    userId?: StringFilter<"Wishlist"> | string
     countryId?: IntFilter<"Wishlist"> | number
     createdAt?: DateTimeFilter<"Wishlist"> | Date | string
     cityId?: IntNullableFilter<"Wishlist"> | number | null
@@ -10354,7 +10262,7 @@ export namespace Prisma {
     AND?: WishlistWhereInput | WishlistWhereInput[]
     OR?: WishlistWhereInput[]
     NOT?: WishlistWhereInput | WishlistWhereInput[]
-    userId?: IntFilter<"Wishlist"> | number
+    userId?: StringFilter<"Wishlist"> | string
     countryId?: IntFilter<"Wishlist"> | number
     createdAt?: DateTimeFilter<"Wishlist"> | Date | string
     cityId?: IntNullableFilter<"Wishlist"> | number | null
@@ -10381,7 +10289,7 @@ export namespace Prisma {
     OR?: WishlistScalarWhereWithAggregatesInput[]
     NOT?: WishlistScalarWhereWithAggregatesInput | WishlistScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Wishlist"> | number
-    userId?: IntWithAggregatesFilter<"Wishlist"> | number
+    userId?: StringWithAggregatesFilter<"Wishlist"> | string
     countryId?: IntWithAggregatesFilter<"Wishlist"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Wishlist"> | Date | string
     cityId?: IntNullableWithAggregatesFilter<"Wishlist"> | number | null
@@ -10392,7 +10300,7 @@ export namespace Prisma {
     OR?: TravelWhereInput[]
     NOT?: TravelWhereInput | TravelWhereInput[]
     id?: IntFilter<"Travel"> | number
-    userId?: IntFilter<"Travel"> | number
+    userId?: StringFilter<"Travel"> | string
     countryId?: IntFilter<"Travel"> | number
     cityId?: IntNullableFilter<"Travel"> | number | null
     title?: StringFilter<"Travel"> | string
@@ -10427,7 +10335,7 @@ export namespace Prisma {
     AND?: TravelWhereInput | TravelWhereInput[]
     OR?: TravelWhereInput[]
     NOT?: TravelWhereInput | TravelWhereInput[]
-    userId?: IntFilter<"Travel"> | number
+    userId?: StringFilter<"Travel"> | string
     countryId?: IntFilter<"Travel"> | number
     cityId?: IntNullableFilter<"Travel"> | number | null
     title?: StringFilter<"Travel"> | string
@@ -10464,7 +10372,7 @@ export namespace Prisma {
     OR?: TravelScalarWhereWithAggregatesInput[]
     NOT?: TravelScalarWhereWithAggregatesInput | TravelScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Travel"> | number
-    userId?: IntWithAggregatesFilter<"Travel"> | number
+    userId?: StringWithAggregatesFilter<"Travel"> | string
     countryId?: IntWithAggregatesFilter<"Travel"> | number
     cityId?: IntNullableWithAggregatesFilter<"Travel"> | number | null
     title?: StringWithAggregatesFilter<"Travel"> | string
@@ -10682,6 +10590,7 @@ export namespace Prisma {
   }
 
   export type UserAccountCreateInput = {
+    id?: string
     username: string
     email: string
     emailVerified?: boolean
@@ -10699,7 +10608,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUncheckedCreateInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     emailVerified?: boolean
@@ -10717,6 +10626,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -10734,7 +10644,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -10752,7 +10662,7 @@ export namespace Prisma {
   }
 
   export type UserAccountCreateManyInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     emailVerified?: boolean
@@ -10765,6 +10675,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -10777,7 +10688,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -10790,6 +10701,7 @@ export namespace Prisma {
   }
 
   export type UserProfileCreateInput = {
+    id?: string
     profilePictureUrl?: string | null
     bio?: string | null
     location?: string | null
@@ -10797,14 +10709,15 @@ export namespace Prisma {
   }
 
   export type UserProfileUncheckedCreateInput = {
-    id?: number
-    userId: number
+    id?: string
+    userId: string
     profilePictureUrl?: string | null
     bio?: string | null
     location?: string | null
   }
 
   export type UserProfileUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     profilePictureUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10812,30 +10725,31 @@ export namespace Prisma {
   }
 
   export type UserProfileUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     profilePictureUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserProfileCreateManyInput = {
-    id?: number
-    userId: number
+    id?: string
+    userId: string
     profilePictureUrl?: string | null
     bio?: string | null
     location?: string | null
   }
 
   export type UserProfileUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     profilePictureUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserProfileUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     profilePictureUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10849,8 +10763,8 @@ export namespace Prisma {
 
   export type FollowUncheckedCreateInput = {
     id?: number
-    followerId: number
-    followeeId: number
+    followerId: string
+    followeeId: string
     createdAt?: Date | string
   }
 
@@ -10862,15 +10776,15 @@ export namespace Prisma {
 
   export type FollowUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    followerId?: IntFieldUpdateOperationsInput | number
-    followeeId?: IntFieldUpdateOperationsInput | number
+    followerId?: StringFieldUpdateOperationsInput | string
+    followeeId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FollowCreateManyInput = {
     id?: number
-    followerId: number
-    followeeId: number
+    followerId: string
+    followeeId: string
     createdAt?: Date | string
   }
 
@@ -10880,8 +10794,8 @@ export namespace Prisma {
 
   export type FollowUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    followerId?: IntFieldUpdateOperationsInput | number
-    followeeId?: IntFieldUpdateOperationsInput | number
+    followerId?: StringFieldUpdateOperationsInput | string
+    followeeId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -10894,7 +10808,7 @@ export namespace Prisma {
 
   export type WishlistUncheckedCreateInput = {
     id?: number
-    userId: number
+    userId: string
     countryId: number
     createdAt?: Date | string
     cityId?: number | null
@@ -10909,7 +10823,7 @@ export namespace Prisma {
 
   export type WishlistUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     countryId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -10917,7 +10831,7 @@ export namespace Prisma {
 
   export type WishlistCreateManyInput = {
     id?: number
-    userId: number
+    userId: string
     countryId: number
     createdAt?: Date | string
     cityId?: number | null
@@ -10929,7 +10843,7 @@ export namespace Prisma {
 
   export type WishlistUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     countryId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -10949,7 +10863,7 @@ export namespace Prisma {
 
   export type TravelUncheckedCreateInput = {
     id?: number
-    userId: number
+    userId: string
     countryId: number
     cityId?: number | null
     title: string
@@ -10974,7 +10888,7 @@ export namespace Prisma {
 
   export type TravelUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     countryId?: IntFieldUpdateOperationsInput | number
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
@@ -10987,7 +10901,7 @@ export namespace Prisma {
 
   export type TravelCreateManyInput = {
     id?: number
-    userId: number
+    userId: string
     countryId: number
     cityId?: number | null
     title: string
@@ -11009,7 +10923,7 @@ export namespace Prisma {
 
   export type TravelUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     countryId?: IntFieldUpdateOperationsInput | number
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
@@ -11257,17 +11171,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -11347,10 +11250,6 @@ export namespace Prisma {
     refreshTokenId?: SortOrder
   }
 
-  export type UserAccountAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
   export type UserAccountMaxOrderByAggregateInput = {
     id?: SortOrder
     username?: SortOrder
@@ -11375,26 +11274,6 @@ export namespace Prisma {
     givenName?: SortOrder
     familyName?: SortOrder
     refreshTokenId?: SortOrder
-  }
-
-  export type UserAccountSumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -11470,11 +11349,6 @@ export namespace Prisma {
     location?: SortOrder
   }
 
-  export type UserProfileAvgOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-  }
-
   export type UserProfileMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -11489,11 +11363,6 @@ export namespace Prisma {
     profilePictureUrl?: SortOrder
     bio?: SortOrder
     location?: SortOrder
-  }
-
-  export type UserProfileSumOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -11514,9 +11383,20 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type FollowFollowerIdFolloweeIdCompoundUniqueInput = {
-    followerId: number
-    followeeId: number
+    followerId: string
+    followeeId: string
   }
 
   export type FollowCountOrderByAggregateInput = {
@@ -11528,8 +11408,6 @@ export namespace Prisma {
 
   export type FollowAvgOrderByAggregateInput = {
     id?: SortOrder
-    followerId?: SortOrder
-    followeeId?: SortOrder
   }
 
   export type FollowMaxOrderByAggregateInput = {
@@ -11548,8 +11426,22 @@ export namespace Prisma {
 
   export type FollowSumOrderByAggregateInput = {
     id?: SortOrder
-    followerId?: SortOrder
-    followeeId?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -11574,7 +11466,7 @@ export namespace Prisma {
   }
 
   export type WishlistUserIdCountryIdCompoundUniqueInput = {
-    userId: number
+    userId: string
     countryId: number
   }
 
@@ -11588,7 +11480,6 @@ export namespace Prisma {
 
   export type WishlistAvgOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
     countryId?: SortOrder
     cityId?: SortOrder
   }
@@ -11611,7 +11502,6 @@ export namespace Prisma {
 
   export type WishlistSumOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
     countryId?: SortOrder
     cityId?: SortOrder
   }
@@ -11647,7 +11537,6 @@ export namespace Prisma {
 
   export type TravelAvgOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
     countryId?: SortOrder
     cityId?: SortOrder
     duration?: SortOrder
@@ -11681,7 +11570,6 @@ export namespace Prisma {
 
   export type TravelSumOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
     countryId?: SortOrder
     cityId?: SortOrder
     duration?: SortOrder
@@ -11996,14 +11884,6 @@ export namespace Prisma {
     deleteMany?: FollowScalarWhereInput | FollowScalarWhereInput[]
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type UserProfileUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
@@ -12114,6 +11994,14 @@ export namespace Prisma {
     upsert?: UserAccountUpsertWithoutFollowersInput
     connect?: UserAccountWhereUniqueInput
     update?: XOR<XOR<UserAccountUpdateToOneWithWhereWithoutFollowersInput, UserAccountUpdateWithoutFollowersInput>, UserAccountUncheckedUpdateWithoutFollowersInput>
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type UserAccountCreateNestedOneWithoutWishlistInput = {
@@ -12480,17 +12368,6 @@ export namespace Prisma {
     deleteMany?: WishlistScalarWhereInput | WishlistScalarWhereInput[]
   }
 
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -12521,33 +12398,6 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -12563,6 +12413,17 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -12629,6 +12490,33 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -12673,13 +12561,14 @@ export namespace Prisma {
   }
 
   export type UserProfileCreateWithoutUserInput = {
+    id?: string
     profilePictureUrl?: string | null
     bio?: string | null
     location?: string | null
   }
 
   export type UserProfileUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     profilePictureUrl?: string | null
     bio?: string | null
     location?: string | null
@@ -12753,7 +12642,7 @@ export namespace Prisma {
 
   export type FollowUncheckedCreateWithoutFolloweeInput = {
     id?: number
-    followerId: number
+    followerId: string
     createdAt?: Date | string
   }
 
@@ -12774,7 +12663,7 @@ export namespace Prisma {
 
   export type FollowUncheckedCreateWithoutFollowerInput = {
     id?: number
-    followeeId: number
+    followeeId: string
     createdAt?: Date | string
   }
 
@@ -12800,13 +12689,14 @@ export namespace Prisma {
   }
 
   export type UserProfileUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     profilePictureUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserProfileUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     profilePictureUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12833,7 +12723,7 @@ export namespace Prisma {
     OR?: TravelScalarWhereInput[]
     NOT?: TravelScalarWhereInput | TravelScalarWhereInput[]
     id?: IntFilter<"Travel"> | number
-    userId?: IntFilter<"Travel"> | number
+    userId?: StringFilter<"Travel"> | string
     countryId?: IntFilter<"Travel"> | number
     cityId?: IntNullableFilter<"Travel"> | number | null
     title?: StringFilter<"Travel"> | string
@@ -12865,7 +12755,7 @@ export namespace Prisma {
     OR?: WishlistScalarWhereInput[]
     NOT?: WishlistScalarWhereInput | WishlistScalarWhereInput[]
     id?: IntFilter<"Wishlist"> | number
-    userId?: IntFilter<"Wishlist"> | number
+    userId?: StringFilter<"Wishlist"> | string
     countryId?: IntFilter<"Wishlist"> | number
     createdAt?: DateTimeFilter<"Wishlist"> | Date | string
     cityId?: IntNullableFilter<"Wishlist"> | number | null
@@ -12892,8 +12782,8 @@ export namespace Prisma {
     OR?: FollowScalarWhereInput[]
     NOT?: FollowScalarWhereInput | FollowScalarWhereInput[]
     id?: IntFilter<"Follow"> | number
-    followerId?: IntFilter<"Follow"> | number
-    followeeId?: IntFilter<"Follow"> | number
+    followerId?: StringFilter<"Follow"> | string
+    followeeId?: StringFilter<"Follow"> | string
     createdAt?: DateTimeFilter<"Follow"> | Date | string
   }
 
@@ -12914,6 +12804,7 @@ export namespace Prisma {
   }
 
   export type UserAccountCreateWithoutProfileInput = {
+    id?: string
     username: string
     email: string
     emailVerified?: boolean
@@ -12930,7 +12821,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUncheckedCreateWithoutProfileInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     emailVerified?: boolean
@@ -12963,6 +12854,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUpdateWithoutProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -12979,7 +12871,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUncheckedUpdateWithoutProfileInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -12996,6 +12888,7 @@ export namespace Prisma {
   }
 
   export type UserAccountCreateWithoutFollowingInput = {
+    id?: string
     username: string
     email: string
     emailVerified?: boolean
@@ -13012,7 +12905,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUncheckedCreateWithoutFollowingInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     emailVerified?: boolean
@@ -13034,6 +12927,7 @@ export namespace Prisma {
   }
 
   export type UserAccountCreateWithoutFollowersInput = {
+    id?: string
     username: string
     email: string
     emailVerified?: boolean
@@ -13050,7 +12944,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUncheckedCreateWithoutFollowersInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     emailVerified?: boolean
@@ -13083,6 +12977,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUpdateWithoutFollowingInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -13099,7 +12994,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUncheckedUpdateWithoutFollowingInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -13127,6 +13022,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUpdateWithoutFollowersInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -13143,7 +13039,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUncheckedUpdateWithoutFollowersInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -13160,6 +13056,7 @@ export namespace Prisma {
   }
 
   export type UserAccountCreateWithoutWishlistInput = {
+    id?: string
     username: string
     email: string
     emailVerified?: boolean
@@ -13176,7 +13073,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUncheckedCreateWithoutWishlistInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     emailVerified?: boolean
@@ -13287,6 +13184,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUpdateWithoutWishlistInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -13303,7 +13201,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUncheckedUpdateWithoutWishlistInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -13450,6 +13348,7 @@ export namespace Prisma {
   }
 
   export type UserAccountCreateWithoutTravelInput = {
+    id?: string
     username: string
     email: string
     emailVerified?: boolean
@@ -13466,7 +13365,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUncheckedCreateWithoutTravelInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     emailVerified?: boolean
@@ -13583,6 +13482,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUpdateWithoutTravelInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -13599,7 +13499,7 @@ export namespace Prisma {
   }
 
   export type UserAccountUncheckedUpdateWithoutTravelInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -13672,7 +13572,7 @@ export namespace Prisma {
 
   export type TravelUncheckedCreateWithoutCountryInput = {
     id?: number
-    userId: number
+    userId: string
     cityId?: number | null
     title: string
     description?: string | null
@@ -13700,7 +13600,7 @@ export namespace Prisma {
 
   export type WishlistUncheckedCreateWithoutCountryInput = {
     id?: number
-    userId: number
+    userId: string
     createdAt?: Date | string
     cityId?: number | null
   }
@@ -13838,7 +13738,7 @@ export namespace Prisma {
 
   export type TravelUncheckedCreateWithoutCityInput = {
     id?: number
-    userId: number
+    userId: string
     countryId: number
     title: string
     description?: string | null
@@ -13866,7 +13766,7 @@ export namespace Prisma {
 
   export type WishlistUncheckedCreateWithoutCityInput = {
     id?: number
-    userId: number
+    userId: string
     countryId: number
     createdAt?: Date | string
   }
@@ -14020,13 +13920,13 @@ export namespace Prisma {
 
   export type FollowCreateManyFolloweeInput = {
     id?: number
-    followerId: number
+    followerId: string
     createdAt?: Date | string
   }
 
   export type FollowCreateManyFollowerInput = {
     id?: number
-    followeeId: number
+    followeeId: string
     createdAt?: Date | string
   }
 
@@ -14092,13 +13992,13 @@ export namespace Prisma {
 
   export type FollowUncheckedUpdateWithoutFolloweeInput = {
     id?: IntFieldUpdateOperationsInput | number
-    followerId?: IntFieldUpdateOperationsInput | number
+    followerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FollowUncheckedUpdateManyWithoutFolloweeInput = {
     id?: IntFieldUpdateOperationsInput | number
-    followerId?: IntFieldUpdateOperationsInput | number
+    followerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14109,19 +14009,19 @@ export namespace Prisma {
 
   export type FollowUncheckedUpdateWithoutFollowerInput = {
     id?: IntFieldUpdateOperationsInput | number
-    followeeId?: IntFieldUpdateOperationsInput | number
+    followeeId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FollowUncheckedUpdateManyWithoutFollowerInput = {
     id?: IntFieldUpdateOperationsInput | number
-    followeeId?: IntFieldUpdateOperationsInput | number
+    followeeId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TravelCreateManyCountryInput = {
     id?: number
-    userId: number
+    userId: string
     cityId?: number | null
     title: string
     description?: string | null
@@ -14133,7 +14033,7 @@ export namespace Prisma {
 
   export type WishlistCreateManyCountryInput = {
     id?: number
-    userId: number
+    userId: string
     createdAt?: Date | string
     cityId?: number | null
   }
@@ -14166,7 +14066,7 @@ export namespace Prisma {
 
   export type TravelUncheckedUpdateWithoutCountryInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14178,7 +14078,7 @@ export namespace Prisma {
 
   export type TravelUncheckedUpdateManyWithoutCountryInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14196,14 +14096,14 @@ export namespace Prisma {
 
   export type WishlistUncheckedUpdateWithoutCountryInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type WishlistUncheckedUpdateManyWithoutCountryInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
   }
@@ -14258,7 +14158,7 @@ export namespace Prisma {
 
   export type TravelCreateManyCityInput = {
     id?: number
-    userId: number
+    userId: string
     countryId: number
     title: string
     description?: string | null
@@ -14270,7 +14170,7 @@ export namespace Prisma {
 
   export type WishlistCreateManyCityInput = {
     id?: number
-    userId: number
+    userId: string
     countryId: number
     createdAt?: Date | string
   }
@@ -14288,7 +14188,7 @@ export namespace Prisma {
 
   export type TravelUncheckedUpdateWithoutCityInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     countryId?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14300,7 +14200,7 @@ export namespace Prisma {
 
   export type TravelUncheckedUpdateManyWithoutCityInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     countryId?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14318,14 +14218,14 @@ export namespace Prisma {
 
   export type WishlistUncheckedUpdateWithoutCityInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     countryId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type WishlistUncheckedUpdateManyWithoutCityInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     countryId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

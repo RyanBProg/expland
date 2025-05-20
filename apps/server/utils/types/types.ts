@@ -7,7 +7,7 @@ export interface TUserTokenRequest extends Request {
     accessToken?: string;
     refreshToken?: string;
   };
-  user?: { userId: number };
+  user?: { userId: string };
 }
 
 export type TokenName = "accessToken" | "refreshToken";

@@ -4,19 +4,19 @@ import { Response } from "express";
 import { CookieDefaults, TokenName } from "../../utils/types/types";
 
 // Generate Access Token
-export function generateAccessToken(userId: number) {
+export function generateAccessToken(userId: string) {
   return jwt.sign({ userId }, env.ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
 }
 
 // Generate Refresh Token
-export function generateRefreshToken(userId: number, refreshTokenId: string) {
+export function generateRefreshToken(userId: string, refreshTokenId: string) {
   return jwt.sign({ userId, refreshTokenId }, env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
 }
 
 // Verify Access Token
 export function verifyAccessToken(token: string) {
   try {
-    return jwt.verify(token, env.ACCESS_TOKEN_SECRET) as { userId: number };
+    return jwt.verify(token, env.ACCESS_TOKEN_SECRET) as { userId: string };
   } catch {
     return null;
   }
@@ -26,7 +26,7 @@ export function verifyAccessToken(token: string) {
 export function verifyRefreshToken(token: string) {
   try {
     return jwt.verify(token, env.REFRESH_TOKEN_SECRET) as {
-      userId: number;
+      userId: string;
       refreshTokenId: string;
     };
   } catch {

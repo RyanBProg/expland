@@ -15,6 +15,7 @@ async function getAccount(req: TUserTokenRequest, res: Response) {
     const user = await prisma.userAccount.findUnique({
       where: { id: userId },
       select: {
+        id: true,
         givenName: true,
         familyName: true,
         email: true,
@@ -41,8 +42,10 @@ async function getProfile(req: TUserTokenRequest, res: Response) {
     }
 
     const user = await prisma.userProfile.findUnique({
-      where: { id: userId },
+      where: { userId },
       select: {
+        id: true,
+        userId: true,
         bio: true,
         location: true,
         profilePictureUrl: true,

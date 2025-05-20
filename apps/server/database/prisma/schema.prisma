@@ -9,7 +9,7 @@ datasource db {
 }
 
 model UserAccount {
-  id             Int      @id @default(autoincrement())
+  id             String   @id @default(uuid())
   username       String   @unique
   email          String   @unique
   emailVerified  Boolean  @default(false)
@@ -29,8 +29,8 @@ model UserAccount {
 }
 
 model UserProfile {
-  id                Int     @id @default(autoincrement())
-  userId            Int     @unique
+  id                String  @id @default(uuid())
+  userId            String  @unique
   profilePictureUrl String?
   bio               String?
   location          String?
@@ -41,8 +41,8 @@ model UserProfile {
 
 model Follow {
   id         Int      @id @default(autoincrement())
-  followerId Int
-  followeeId Int
+  followerId String
+  followeeId String
   createdAt  DateTime @default(now())
 
   // relations
@@ -55,7 +55,7 @@ model Follow {
 
 model Wishlist {
   id        Int      @id @default(autoincrement())
-  userId    Int
+  userId    String
   countryId Int
   createdAt DateTime @default(now())
 
@@ -71,7 +71,7 @@ model Wishlist {
 
 model Travel {
   id          Int      @id @default(autoincrement())
-  userId      Int
+  userId      String
   countryId   Int
   cityId      Int?
   title       String
