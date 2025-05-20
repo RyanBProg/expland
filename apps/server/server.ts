@@ -3,7 +3,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import { env } from "./utils/zod/envSchema";
 import authRouter from "./routes/auth/auth.route";
-import accountRouter from "./routes/account.route";
+import accountRouter from "./routes/account/account.route";
 import usersRouter from "./routes/users.route";
 import countriesRouter from "./routes/countries.route";
 
