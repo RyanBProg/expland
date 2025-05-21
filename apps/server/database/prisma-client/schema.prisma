@@ -22,8 +22,8 @@ model UserAccount {
 
   // relations
   profile   UserProfile?
-  Travel    Travel[]
-  Wishlist  Wishlist[]
+  travel    Travel[]
+  wishlist  Wishlist[]
   followers Follow[]     @relation("Followee")
   following Follow[]     @relation("Follower")
 }
@@ -62,7 +62,7 @@ model Wishlist {
   // relations
   user    UserAccount @relation(fields: [userId], references: [id])
   country Country     @relation(fields: [countryId], references: [id])
-  City    City?       @relation(fields: [cityId], references: [id])
+  city    City?       @relation(fields: [cityId], references: [id])
   cityId  Int?
 
   // ensures each pair of userId and countryId can only exist once
@@ -84,7 +84,7 @@ model Travel {
   // relations
   country Country     @relation(fields: [countryId], references: [id])
   user    UserAccount @relation(fields: [userId], references: [id])
-  City    City?       @relation(fields: [cityId], references: [id])
+  city    City?       @relation(fields: [cityId], references: [id])
 }
 
 model Country {
@@ -104,7 +104,7 @@ model Country {
 
   // relations
   travels  Travel[]
-  Wishlist Wishlist[]
+  wishlist Wishlist[]
   cities   City[]
 }
 
@@ -125,6 +125,6 @@ model City {
 
   // relations
   travels  Travel[]
-  Wishlist Wishlist[]
+  wishlist Wishlist[]
   country  Country    @relation(fields: [countryId], references: [id])
 }

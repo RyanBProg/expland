@@ -35,18 +35,18 @@ router.put("profile/profile-picture", accountControllers.updateProfilePicture);
 // - Travel Management -
 
 // List/search all users travels (paginated)
-router.get("profile/travels", accountControllers.updateProfilePicture);
+router.get("profile/travels", accountControllers.getAllTravels);
 
 // Get a specific travel
-router.get("profile/travels/:travelId", accountControllers.updateProfilePicture);
+router.get("profile/travels/:travelId", accountControllers.getTravel);
 
 // Add a new travel
-router.post("profile/travels", accountControllers.updateProfilePicture);
+router.post("profile/travels", accountControllers.addTravel);
 
 // Edit a travel
-router.put("profile/travels/:travelId", accountControllers.updateProfilePicture);
+router.put("profile/travels/:travelId", accountControllers.editTravel);
 
 // Delete a travel
-router.delete("profile/travels/:travelId", accountControllers.updateProfilePicture);
+router.delete("profile/travels/:travelId", accountControllers.deleteTravel);
 
 export default router;
