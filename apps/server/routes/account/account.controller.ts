@@ -292,19 +292,74 @@ async function addTravel(req: TUserTokenRequest, res: Response) {
   }
 }
 
-async function editTravel(req: Request, res: Response) {
+async function editTravel(req: TUserTokenRequest, res: Response) {
   try {
-    // TODO
-    res.status(200).json({ message: "Not implemented yet" });
+    const userId = req.user?.userId;
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
+
+    const travelId = req.params.travelId;
+    if (!travelId) {
+      res.status(400).json({ message: "Travel ID is required" });
+      return;
+    }
+
+    // Validate req body
+    const parsedResult = addTravelSchema.safeParse({
+      ...req.body,
+      userId,
+    });
+    if (!parsedResult.success) {
+      if (parsedResult.error.errors[0]?.code === "invalid_type") {
+        res.status(422).json({
+          message: `${parsedResult.error.errors[0].path[0]} ${parsedResult.error.errors[0].message}`,
+        });
+        return;
+      } else {
+        res.status(422).json({
+          message: parsedResult.error.errors[0].message,
+        });
+        return;
+      }
+    }
+
+    const travelData = {
+      userId,
+      title: parsedResult.data.title,
+      description: parsedResult.data.description,
+      dateTravel: parsedResult.data.dateTravel,
+      duration: parsedResult.data.duration,
+      countryId: parsedResult.data.countryId,
+      cityId: parsedResult.data.cityId,
+    };
+
+    await prisma.travel.update({ where: { userId, id: parseInt(travelId) }, data: travelData });
+
+    res.status(200).json({ message: "Travel updated successfully" });
   } catch (error) {
     handleControllerError(error, res, "editTravel");
   }
 }
 
-async function deleteTravel(req: Request, res: Response) {
+async function deleteTravel(req: TUserTokenRequest, res: Response) {
   try {
-    // TODO
-    res.status(200).json({ message: "Not implemented yet" });
+    const userId = req.user?.userId;
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
+
+    const travelId = req.params.travelId;
+    if (!travelId) {
+      res.status(400).json({ message: "Travel ID is required" });
+      return;
+    }
+
+    await prisma.travel.delete({ where: { userId, id: parseInt(travelId) } });
+
+    res.status(200).json({ message: "Travel deleted successfully" });
   } catch (error) {
     handleControllerError(error, res, "deleteTravel");
   }
