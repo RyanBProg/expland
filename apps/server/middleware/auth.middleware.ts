@@ -34,7 +34,7 @@ export async function authenticateTokens(
       }
 
       // Does the refresh token match the version in the db
-      const user = await prisma.userAccount.findUnique({ where: { id: refreshDecoded.userId } });
+      const user = await prisma.userAccount.findFirst({ where: { id: refreshDecoded.userId } });
       if (!user) {
         console.log("[server] User could not be found in the database");
         res.status(401).json({ message: "Unauthorized - Invalid Token" });

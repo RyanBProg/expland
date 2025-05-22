@@ -4,8 +4,8 @@ import cors from "cors";
 import { env } from "./utils/zod/envSchema";
 import authRouter from "./routes/auth/auth.route";
 import accountRouter from "./routes/account/account.route";
-import usersRouter from "./routes/users.route";
-import countriesRouter from "./routes/countries.route";
+import userRouter from "./routes/user/user.route";
+import countryRouter from "./routes/country/country.route";
 
 const app: Express = express();
 
@@ -24,8 +24,8 @@ app.use(cookieParser());
 // Route handlers
 app.use("/api/auth", authRouter);
 app.use("/api/account", accountRouter);
-app.use("/api/users", usersRouter);
-app.use("/api/countries", countriesRouter);
+app.use("/api/users", userRouter);
+app.use("/api/countries", countryRouter);
 
 // Welcome route
 app.get("/", (_: Request, res: Response) => {

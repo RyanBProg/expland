@@ -33,7 +33,7 @@ async function register(req: Request, res: Response) {
     const { givenName, familyName, username, email, password } = parsedResult.data;
 
     // Check email doesn't exist
-    const emailMatch = await prisma.userAccount.findUnique({
+    const emailMatch = await prisma.userAccount.findFirst({
       where: { email },
       select: { id: true },
     });
@@ -43,7 +43,7 @@ async function register(req: Request, res: Response) {
     }
 
     // Check username doesn't exist
-    const usernameMatch = await prisma.userAccount.findUnique({
+    const usernameMatch = await prisma.userAccount.findFirst({
       where: { username },
       select: { id: true },
     });
@@ -99,7 +99,7 @@ async function login(req: Request, res: Response) {
     const { email, password } = parsedResult.data;
 
     // Check email doesn't exist
-    const userMatch = await prisma.userAccount.findUnique({
+    const userMatch = await prisma.userAccount.findFirst({
       where: { email },
       select: { id: true, passwordHash: true, refreshTokenId: true },
     });

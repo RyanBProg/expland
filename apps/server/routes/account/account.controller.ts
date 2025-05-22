@@ -12,7 +12,7 @@ async function getAccount(req: TUserTokenRequest, res: Response) {
       return;
     }
 
-    const user = await prisma.userAccount.findUnique({
+    const user = await prisma.userAccount.findFirst({
       where: { id: userId },
       select: {
         id: true,
@@ -41,7 +41,7 @@ async function getProfile(req: TUserTokenRequest, res: Response) {
       return;
     }
 
-    const user = await prisma.userProfile.findUnique({
+    const user = await prisma.userProfile.findFirst({
       where: { userId },
       select: {
         id: true,
@@ -71,7 +71,7 @@ async function createProfile(req: TUserTokenRequest, res: Response) {
     }
 
     // Check if profile already exists
-    const existingProfile = await prisma.userProfile.findUnique({
+    const existingProfile = await prisma.userProfile.findFirst({
       where: { userId },
     });
     if (existingProfile) {
