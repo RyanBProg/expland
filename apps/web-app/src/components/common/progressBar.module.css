@@ -1,0 +1,35 @@
+.label {
+  margin-bottom: 8px;
+  margin-left: 8px;
+}
+
+.progress {
+  position: relative;
+  border: 5px solid black;
+  background-color: #3e3e3e;
+  border-radius: 20px;
+  height: 65px;
+
+  & .bar {
+    background-color: var(--success-color);
+    height: 55px;
+    border-radius: 15px;
+  }
+
+  & .value {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    margin-top: 3px;
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+
+    & span {
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+  }
+}
