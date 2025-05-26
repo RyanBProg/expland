@@ -1,37 +1,54 @@
-import styles from "./navbar.module.css";
-import "../../../styles/globals.css";
-import { Binoculars, House, Luggage, Search } from "lucide-react";
+import {
+  Avatar,
+  Box,
+  Circle,
+  defineStyle,
+  Float,
+  Flex,
+  ButtonGroup,
+  Button,
+  Text,
+  IconButton,
+} from "@chakra-ui/react";
+import { AirplaneInFlight, AirplaneTakeoff, Compass, House } from "phosphor-react";
+
+const ringCss = defineStyle({
+  outlineWidth: "2px",
+  outlineColor: "colorPalette.500",
+  outlineOffset: "2px",
+  outlineStyle: "solid",
+});
 
 export default function Navbar() {
   return (
-    <nav className={styles.navbar}>
-      <div className={styles.navbarLeft}>
-        <button className={`${styles.button} ${styles.navButton}`}>
-          <div>
-            <House size={26} strokeWidth={1.75} />
-          </div>
-          <span>Home</span>
-        </button>
-        <button className={`${styles.button} ${styles.navButton}`}>
-          <div>
-            <Binoculars size={25} strokeWidth={1.75} />
-          </div>
-          <span>Explore</span>
-        </button>
-      </div>
-      <div className={styles.navbarRight}>
-        <form className={styles.searchbar}>
-          <input type="text" />
-          <button className={`${styles.button} ${styles.searchButton}`} type="submit">
-            <Search size={24} strokeWidth={3} />
-          </button>
-        </form>
-        <button className={`${styles.button} ${styles.accountButton}`}>
-          <div>
-            <Luggage size={44} strokeWidth={2} />
-          </div>
-        </button>
-      </div>
-    </nav>
+    <Flex as="nav" justify="space-between" p="4">
+      <ButtonGroup as="ul" variant="subtle">
+        <Button rounded="2xl">
+          <House />
+          <Text hideBelow="md">Home</Text>
+        </Button>
+        <Button rounded="2xl">
+          <AirplaneInFlight />
+          <Text hideBelow="md">Travels</Text>
+        </Button>
+        <Button rounded="2xl">
+          <Compass />
+          <Text hideBelow="md">Explore</Text>
+        </Button>
+      </ButtonGroup>
+
+      <Box pos="relative">
+        <IconButton variant="plain" rounded="full" size="lg">
+          <Avatar.Root size="md" shape="full" css={ringCss} colorPalette="cyan">
+            <Avatar.Fallback />
+          </Avatar.Root>
+        </IconButton>
+        <Float placement="bottom-start">
+          <Circle bg="cyan.500" size="18px" outline="0.2em solid" outlineColor="bg">
+            <AirplaneTakeoff size={12} />
+          </Circle>
+        </Float>
+      </Box>
+    </Flex>
   );
 }
