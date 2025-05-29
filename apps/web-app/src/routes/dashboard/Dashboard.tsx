@@ -1,9 +1,9 @@
 import { Button, Card, Grid, GridItem, Image, Text, Flex, Box, Badge } from "@chakra-ui/react";
-import TimelineComp from "./components/dashboard/timeline/Timeline";
-import StatsPreview from "./components/dashboard/statsBox/StatsPreview";
-import Feed from "./components/dashboard/feed/Feed";
+import TimelineComp from "../../components/dashboard/timeline/Timeline";
+import StatsPreview from "../../components/dashboard/statsBox/StatsPreview";
+import Feed from "../../components/dashboard/feed/Feed";
 
-function App() {
+export default function Dashboard() {
   return (
     <>
       <Grid
@@ -102,5 +102,3 @@ function App() {
     </>
   );
 }
-
-export default App;

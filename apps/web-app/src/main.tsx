@@ -1,11 +1,11 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
 import { Provider } from "./components/ui/provider";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import NotFound from "./routes/error/NotFound";
 import DashboardLayout from "./layouts/DashboardLayout";
 import SiteLayout from "./layouts/SiteLayout";
+import Dashboard from "./routes/dashboard/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
     Component: DashboardLayout,
     errorElement: <NotFound />,
     children: [
-      { index: true, Component: App },
+      { index: true, Component: Dashboard },
       // { path: "settings", Component: SomeOtherComponent },
     ],
   },
