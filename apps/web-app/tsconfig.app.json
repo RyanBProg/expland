@@ -24,7 +24,10 @@
     "noUncheckedSideEffectImports": true,
 
     /* Chakra UI */
-    "paths": { "@/*": ["./src/*"] }
+    "paths": { "@/*": ["./src/*"] },
+
+    "jsxImportSource": "@emotion/react",
+    "types": ["@emotion/react/types/css-prop"]
   },
   "include": ["src"]
 }
