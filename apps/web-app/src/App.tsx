@@ -1,5 +1,4 @@
 import { Button, Card, Grid, GridItem, Image, Text, Flex, Box, Badge } from "@chakra-ui/react";
-import Navbar from "./components/common/navbar/Navbar";
 import TimelineComp from "./components/dashboard/timeline/Timeline";
 import StatsPreview from "./components/dashboard/statsBox/StatsPreview";
 import Feed from "./components/dashboard/feed/Feed";
@@ -7,7 +6,6 @@ import Feed from "./components/dashboard/feed/Feed";
 function App() {
   return (
     <>
-      <Navbar />
       <Grid
         as="main"
         templateColumns="repeat(1, 1fr)"
@@ -22,7 +20,7 @@ function App() {
           as="section"
           rounded="2xl"
           width="full"
-          height="vh"
+          minHeight="vh"
           lg={{ gridColumnStart: "4", gridColumnEnd: "6", gridRowStart: "1" }}
         >
           <Card.Root rounded="2xl">
@@ -32,7 +30,7 @@ function App() {
         <GridItem
           as="section"
           width="full"
-          height="vh"
+          minHeight="vh"
           lg={{ gridColumnStart: "1", gridColumnEnd: "4", gridRowStart: "1" }}
         >
           <Button

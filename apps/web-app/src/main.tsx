@@ -2,11 +2,37 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import { Provider } from "./components/ui/provider";
+import { createBrowserRouter, RouterProvider } from "react-router";
+import NotFound from "./routes/error/NotFound";
+import DashboardLayout from "./layouts/DashboardLayout";
+import SiteLayout from "./layouts/SiteLayout";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    Component: SiteLayout,
+    errorElement: <NotFound />,
+    children: [
+      { index: true, Component: () => <>Home</> },
+      // { path: "settings", Component: SomeOtherComponent },
+    ],
+  },
+
+  {
+    path: "dashboard",
+    Component: DashboardLayout,
+    errorElement: <NotFound />,
+    children: [
+      { index: true, Component: App },
+      // { path: "settings", Component: SomeOtherComponent },
+    ],
+  },
+]);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider>
-      <App />
+      <RouterProvider router={router} />
     </Provider>
   </StrictMode>,
 );

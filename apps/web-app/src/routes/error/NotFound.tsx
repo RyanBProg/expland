@@ -1,7 +1,7 @@
 import { useRouteError, Link } from "react-router";
 import { Box, Heading, Text, Button } from "@chakra-ui/react";
 
-export default function ErrorPage() {
+export default function NotFound() {
   const error = useRouteError() as { statusText?: string; message?: string };
 
   return (
