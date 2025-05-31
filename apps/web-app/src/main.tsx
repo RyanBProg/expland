@@ -6,6 +6,10 @@ import NotFound from "./routes/error/NotFound";
 import DashboardLayout from "./layouts/DashboardLayout";
 import SiteLayout from "./layouts/SiteLayout";
 import Dashboard from "./routes/dashboard/Dashboard";
+import ManageAccountPage from "./routes/dashboard/account/ManageAccountPage";
+import ProfilePage from "./routes/dashboard/account/ProfilePage";
+import LoginPage from "./routes/login/LoginPage";
+import RegisterPage from "./routes/register/RegisterPage";
 
 const router = createBrowserRouter([
   {
@@ -14,7 +18,8 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, Component: () => <>Home</> },
-      // { path: "settings", Component: SomeOtherComponent },
+      { path: "login", Component: LoginPage },
+      { path: "register", Component: RegisterPage },
     ],
   },
 
@@ -24,7 +29,8 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, Component: Dashboard },
-      // { path: "settings", Component: SomeOtherComponent },
+      { path: "account", Component: ManageAccountPage },
+      { path: "account/profile", Component: ProfilePage },
     ],
   },
 ]);
