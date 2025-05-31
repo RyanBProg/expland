@@ -26,7 +26,11 @@ import {
 } from "phosphor-react";
 import ReactCountryFlag from "react-country-flag";
 
-export default function StatsPreview() {
+type Props = {
+  mode?: "default" | "profile";
+};
+
+export default function StatsPreview({ mode = "default" }: Props) {
   return (
     <Flex direction="column" gap="10" pt="10" pb="5">
       <Flex px="10" justifyContent="center" gap="4" alignItems="center">
@@ -47,28 +51,30 @@ export default function StatsPreview() {
         <ProgressBar label="Total Countries" val={38} maxVal={195} size="xl" />
       </Box>
 
-      <Grid templateColumns="repeat(4, 1fr)" gap="6" px="10">
-        <Tooltip openDelay={300} content="Add a new trip">
-          <Button rounded="2xl" size="lg" variant="surface">
-            <PlusCircle />
-          </Button>
-        </Tooltip>
-        <Tooltip openDelay={300} content="View my trips">
-          <Button rounded="2xl" size="lg" variant="surface">
-            <AirplaneTilt />
-          </Button>
-        </Tooltip>
-        <Tooltip openDelay={300} content="View travel stats">
-          <Button rounded="2xl" size="lg" variant="surface">
-            <ChartLine />
-          </Button>
-        </Tooltip>
-        <Tooltip openDelay={300} content="View saved trips">
-          <Button rounded="2xl" size="lg" variant="surface">
-            <BookmarkSimple />
-          </Button>
-        </Tooltip>
-      </Grid>
+      {mode === "default" && (
+        <Grid templateColumns="repeat(4, 1fr)" gap="6" px="10">
+          <Tooltip openDelay={300} content="Add a new trip">
+            <Button rounded="2xl" size="lg" variant="surface">
+              <PlusCircle />
+            </Button>
+          </Tooltip>
+          <Tooltip openDelay={300} content="View my trips">
+            <Button rounded="2xl" size="lg" variant="surface">
+              <AirplaneTilt />
+            </Button>
+          </Tooltip>
+          <Tooltip openDelay={300} content="View travel stats">
+            <Button rounded="2xl" size="lg" variant="surface">
+              <ChartLine />
+            </Button>
+          </Tooltip>
+          <Tooltip openDelay={300} content="View saved trips">
+            <Button rounded="2xl" size="lg" variant="surface">
+              <BookmarkSimple />
+            </Button>
+          </Tooltip>
+        </Grid>
+      )}
 
       <Separator />
 
@@ -184,62 +190,63 @@ export default function StatsPreview() {
             </Flex>
           </Card.Root>
         </Grid>
-
-        <Button
-          minHeight="250px"
-          overflow="hidden"
-          p="0"
-          variant="ghost"
-          border="0"
-          position="relative"
-          rounded="2xl"
-          className="group"
-        >
-          <Image
-            src="/images/explore-preview.jpg"
-            objectFit="cover"
-            position="absolute"
-            width="full"
-            height="full"
-            transition="transform 800ms ease-in-out"
-            _groupHover={{
-              transform: "scale(1.04)",
-            }}
-          />
-          <Box
-            position="absolute"
-            top="0"
-            left="0"
-            right="0"
-            bottom="0"
-            bg="blackAlpha.400"
-            transition="background 800ms ease-in-out"
-            _groupHover={{
-              bg: "blackAlpha.500",
-            }}
-          />
-          <Flex
-            position="absolute"
-            gap="2"
-            p="8"
-            width="full"
-            height="full"
-            justify="center"
-            align="center"
+        {mode === "default" && (
+          <Button
+            minHeight="250px"
+            overflow="hidden"
+            p="0"
+            variant="ghost"
+            border="0"
+            position="relative"
+            rounded="2xl"
+            className="group"
           >
-            <Text
-              fontSize="5xl"
-              fontWeight="black"
-              color="white"
-              textAlign="center"
-              letterSpacing="tight"
-              lineHeight="1"
-              textShadow="lg"
+            <Image
+              src="/images/explore-preview.jpg"
+              objectFit="cover"
+              position="absolute"
+              width="full"
+              height="full"
+              transition="transform 800ms ease-in-out"
+              _groupHover={{
+                transform: "scale(1.04)",
+              }}
+            />
+            <Box
+              position="absolute"
+              top="0"
+              left="0"
+              right="0"
+              bottom="0"
+              bg="blackAlpha.400"
+              transition="background 800ms ease-in-out"
+              _groupHover={{
+                bg: "blackAlpha.500",
+              }}
+            />
+            <Flex
+              position="absolute"
+              gap="2"
+              p="8"
+              width="full"
+              height="full"
+              justify="center"
+              align="center"
             >
-              Explore New <br /> Destinations
-            </Text>
-          </Flex>
-        </Button>
+              <Text
+                fontSize="5xl"
+                fontWeight="black"
+                color="white"
+                textAlign="center"
+                letterSpacing="tight"
+                lineHeight="1"
+                textShadow="lg"
+              >
+                Explore New <br /> Destinations
+              </Text>
+            </Flex>
+          </Button>
+        )}
       </Flex>
     </Flex>
   );
