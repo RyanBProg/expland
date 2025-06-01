@@ -8,15 +8,14 @@ export default function SiteFooter() {
     <Flex
       as="footer"
       p={4}
-      gap={5}
-      backgroundColor="cyan.700"
+      gap="6"
       py="8"
       direction={{ base: "column-reverse", md: "row" }}
       justifyContent={{ md: "space-between" }}
       align={{ base: "center", md: "end" }}
     >
       <Text>© {date.getFullYear()} Worldly. All rights reserved</Text>
-      <Flex gap={6} alignItems="center">
+      <Flex gap={{ base: "3", sm: "6" }} alignItems="center">
         <Link
           to="/"
           css={{

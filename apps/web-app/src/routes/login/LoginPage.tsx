@@ -1,13 +1,54 @@
-import { Box, Button, Card, Flex, Heading, Input, Text, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Card,
+  Flex,
+  Heading,
+  Input,
+  Text,
+  Stack,
+  Image,
+  Span,
+} from "@chakra-ui/react";
 import { Link } from "react-router";
 
 export default function LoginPage() {
   return (
-    <Flex minHeight="100vh" width="full" align="center" justifyContent="center" bg="gray.900">
+    <Flex
+      minHeight="100vh"
+      width="full"
+      align="center"
+      justifyContent="center"
+      position="relative"
+      overflow="hidden"
+    >
+      {/* Background Image */}
+      <Image
+        src="/images/login-background.jpg"
+        objectFit="cover"
+        width="full"
+        height="full"
+        position="absolute"
+        transition="transform 800ms ease-in-out"
+        _groupHover={{
+          transform: "scale(1.04)",
+        }}
+      />
+
+      {/* Background Mask */}
+      <Box
+        position="absolute"
+        inset="0"
+        bg="blackAlpha.600"
+        transition="background 800ms ease-in-out"
+        _groupHover={{
+          bg: "blackAlpha.700",
+        }}
+      />
       <Card.Root size="lg" rounded="2xl" maxW="md" w="full" mx="4">
         <Card.Header pb="0">
           <Heading size="lg" textAlign="center">
-            Welcome Back
+            Welcome to <Span fontWeight="900">Worldly</Span>
           </Heading>
         </Card.Header>
 
@@ -34,6 +75,7 @@ export default function LoginPage() {
                   to="/register"
                   css={{
                     color: "cyan",
+                    marginLeft: "2px",
                   }}
                 >
                   Sign Up

@@ -60,32 +60,49 @@ const HomeBanner = () => {
         display="flex"
         flexDirection="column"
         justifyContent="center"
-        px="10"
+        px={{ base: "10px", sm: "40px" }}
       >
-        <Heading as="h1" fontWeight="500" fontSize="3rem" lineHeight="3.2rem">
-          <Span color="cyan.500" fontWeight="900" fontSize="5rem">
+        <Heading
+          as="h1"
+          fontWeight="500"
+          lineHeight={{ base: "2rem", sm: "2.4rem", md: "3.2rem" }}
+          fontSize={{ base: "1.5rem", sm: "2rem", md: "3rem" }}
+        >
+          <Span
+            color="cyan.400"
+            fontWeight="900"
+            fontSize={{ base: "3.5rem", sm: "4rem", md: "5rem" }}
+          >
             Track
           </Span>{" "}
           your travels.
           <br />
-          <Span color="cyan.600" fontWeight="900" fontSize="5rem">
+          <Span
+            color="cyan.500"
+            fontWeight="900"
+            fontSize={{ base: "3.5rem", sm: "4rem", md: "5rem" }}
+          >
             Plan
           </Span>{" "}
           your escape.
           <br />
-          <Span color="cyan.700" fontWeight="900" fontSize="5rem">
+          <Span
+            color="cyan.600"
+            fontWeight="900"
+            fontSize={{ base: "3.5rem", sm: "4rem", md: "5rem" }}
+          >
             Share
           </Span>{" "}
           your journey.
         </Heading>
 
         <List.Root
-          mt="10"
+          mt={{ base: "20px", md: "40px" }}
           gap="2"
           variant="plain"
           align="center"
           fontWeight="500"
-          fontSize="1.2rem"
+          fontSize={{ base: "0.9rem", sm: "1rem", md: "1.2rem" }}
         >
           <List.Item>
             <List.Indicator color="green.500">🌍</List.Indicator>
@@ -121,7 +138,7 @@ const HomeBanner = () => {
           </Avatar.Root>
         </AvatarGroup>
 
-        <Button asChild maxWidth="300px" mt="5">
+        <Button asChild width="fit-content" mt="5" px="5">
           <Link to="/register">Join Other Travellers</Link>
         </Button>
       </Box>

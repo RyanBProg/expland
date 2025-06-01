@@ -4,7 +4,7 @@ import { Link } from "react-router";
 export default function SiteNavbar() {
   return (
     <header>
-      <Flex as="nav" justify="space-between" p="4">
+      <Flex as="nav" justify="space-between" alignItems="center" p="4">
         <Link
           to="/"
           css={{
@@ -14,7 +14,7 @@ export default function SiteNavbar() {
             },
           }}
         >
-          <Text fontWeight="900" fontSize="1.7rem">
+          <Text fontWeight="900" fontSize={{ base: "1.4rem", sm: "1.7rem" }}>
             🌎 Worldly
           </Text>
         </Link>
