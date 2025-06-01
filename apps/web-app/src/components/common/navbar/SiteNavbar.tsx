@@ -1,25 +1,13 @@
-import { Flex, ButtonGroup, Button } from "@chakra-ui/react";
-import { House, Star } from "phosphor-react";
+import { Flex, ButtonGroup, Button, Text } from "@chakra-ui/react";
 import { Link } from "react-router";
 
 export default function SiteNavbar() {
   return (
     <header>
       <Flex as="nav" justify="space-between" p="4">
-        <ButtonGroup as="ul" variant="subtle">
-          <Button asChild rounded="2xl">
-            <Link to="/">
-              <House />
-              Home
-            </Link>
-          </Button>
-          <Button asChild rounded="2xl">
-            <Link to="/features">
-              <Star />
-              Features
-            </Link>
-          </Button>
-        </ButtonGroup>
+        <Text fontWeight="900" fontSize="1.7rem">
+          🌎 Worldly
+        </Text>
 
         <ButtonGroup as="ul">
           <Button asChild rounded="2xl" colorPalette="cyan">

@@ -10,6 +10,7 @@ import ManageAccountPage from "./routes/dashboard/account/ManageAccountPage";
 import ProfilePage from "./routes/dashboard/account/ProfilePage";
 import LoginPage from "./routes/login/LoginPage";
 import RegisterPage from "./routes/register/RegisterPage";
+import Home from "./routes/Home";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
     Component: SiteLayout,
     errorElement: <NotFound />,
     children: [
-      { index: true, Component: () => <>Home</> },
+      { index: true, Component: Home },
       { path: "login", Component: LoginPage },
       { path: "register", Component: RegisterPage },
     ],
