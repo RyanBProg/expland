@@ -5,9 +5,19 @@ export default function SiteNavbar() {
   return (
     <header>
       <Flex as="nav" justify="space-between" p="4">
-        <Text fontWeight="900" fontSize="1.7rem">
-          🌎 Worldly
-        </Text>
+        <Link
+          to="/"
+          css={{
+            transition: "opacity 300ms ease-in-out",
+            ":hover": {
+              opacity: "0.7",
+            },
+          }}
+        >
+          <Text fontWeight="900" fontSize="1.7rem">
+            🌎 Worldly
+          </Text>
+        </Link>
 
         <ButtonGroup as="ul">
           <Button asChild rounded="2xl" colorPalette="cyan">

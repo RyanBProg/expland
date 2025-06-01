@@ -9,6 +9,7 @@ import {
   List,
   Span,
 } from "@chakra-ui/react";
+import { Link } from "react-router";
 
 export default function Home() {
   return (
@@ -120,8 +121,8 @@ const HomeBanner = () => {
           </Avatar.Root>
         </AvatarGroup>
 
-        <Button maxWidth="300px" mt="5">
-          Join Other Travellers
+        <Button asChild maxWidth="300px" mt="5">
+          <Link to="/register">Join Other Travellers</Link>
         </Button>
       </Box>
     </Flex>
