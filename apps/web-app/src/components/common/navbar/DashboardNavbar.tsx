@@ -1,50 +1,47 @@
-import { Avatar, Flex, ButtonGroup, Button, IconButton, Menu, Portal } from "@chakra-ui/react";
-import { AirplaneInFlight, Compass, House } from "phosphor-react";
+import { Flex, ButtonGroup, Button, Menu, Portal } from "@chakra-ui/react";
+import { AirplaneInFlight, Compass, House, User } from "phosphor-react";
 import { Link } from "react-router";
-
-const ringCss = {
-  outlineWidth: "2px",
-  outlineColor: "colorPalette.500",
-  outlineOffset: "2px",
-  outlineStyle: "solid",
-};
 
 export default function DashboardNavbar() {
   return (
     <header>
-      <Flex as="nav" justify="space-between" p="4" alignItems="center">
+      <Flex as="nav" aria-label="main navigation" justify="space-between" p="4" alignItems="center">
         <ButtonGroup as="ul" variant="subtle">
-          <Button asChild rounded="2xl">
-            <Link to="/dashboard">
-              <House />
-              Dashboard
-            </Link>
-          </Button>
-          <Button asChild rounded="2xl">
-            <Link to="/dashboard">
-              <AirplaneInFlight />
-              Trips
-            </Link>
-          </Button>
-          <Button asChild rounded="2xl">
-            <Link to="/dashboard">
-              <Compass />
-              Explore
-            </Link>
-          </Button>
+          <li>
+            <Button asChild rounded="2xl">
+              <Link to="/dashboard" aria-label="Dashboard Home">
+                <House aria-hidden="true" />
+                Dashboard
+              </Link>
+            </Button>
+          </li>
+          <li>
+            <Button asChild rounded="2xl">
+              <Link to="/dashboard" aria-label="My Trips">
+                <AirplaneInFlight aria-hidden="true" />
+                Trips
+              </Link>
+            </Button>
+          </li>
+          <li>
+            <Button asChild rounded="2xl">
+              <Link to="/dashboard" aria-label="Explore Destinations">
+                <Compass aria-hidden="true" />
+                Explore
+              </Link>
+            </Button>
+          </li>
         </ButtonGroup>
 
         <Menu.Root>
           <Menu.Trigger asChild>
-            <IconButton variant="plain" rounded="full" size="xs">
-              <Avatar.Root size="md" shape="full" css={ringCss} colorPalette="cyan">
-                <Avatar.Fallback />
-              </Avatar.Root>
-            </IconButton>
+            <Button rounded="2xl" size="md" colorPalette="cyan" aria-label="Open user menu">
+              <User />
+            </Button>
           </Menu.Trigger>
           <Portal>
             <Menu.Positioner mt="1">
-              <Menu.Content>
+              <Menu.Content aria-label="user menu">
                 <Menu.Item asChild value="profile">
                   <Link to="/account/profile">My Profile</Link>
                 </Menu.Item>

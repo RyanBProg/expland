@@ -15,9 +15,15 @@ export default function SiteFooter() {
       align={{ base: "center", md: "end" }}
     >
       <Text>© {date.getFullYear()} Worldly. All rights reserved</Text>
-      <Flex gap={{ base: "3", sm: "6" }} alignItems="center">
+      <Flex
+        as="nav"
+        aria-label="footer navigation"
+        gap={{ base: "3", sm: "6" }}
+        alignItems="center"
+      >
         <Link
           to="/"
+          aria-label="Worldly Home"
           css={{
             transition: "opacity 300ms ease-in-out",
             ":hover": {
@@ -25,11 +31,14 @@ export default function SiteFooter() {
             },
           }}
         >
-          <Text fontWeight="500">🌎 Worldly</Text>
+          <Text fontWeight="500">
+            <span aria-hidden="true">🌎</span> Worldly
+          </Text>
         </Link>
-        <Separator orientation="vertical" height="4" color="bg" />
+        <Separator orientation="vertical" height="4" color="bg" aria-hidden="true" />
         <Link
           to="/contact"
+          aria-label="Contact us"
           css={{
             transition: "opacity 300ms ease-in-out",
             ":hover": {
@@ -37,11 +46,14 @@ export default function SiteFooter() {
             },
           }}
         >
-          <Text fontWeight="500">📬 Contact</Text>
+          <Text fontWeight="500">
+            <span aria-hidden="true">📬</span> Contact
+          </Text>
         </Link>
-        <Separator orientation="vertical" height="4" color="bg" />
+        <Separator orientation="vertical" height="4" color="bg" aria-hidden="true" />
         <Link
           to="/policies"
+          aria-label="Our policies"
           css={{
             transition: "opacity 300ms ease-in-out",
             ":hover": {
@@ -49,7 +61,9 @@ export default function SiteFooter() {
             },
           }}
         >
-          <Text fontWeight="500">👮 Policies</Text>
+          <Text fontWeight="500">
+            <span aria-hidden="true">👮</span> Policies
+          </Text>
         </Link>
       </Flex>
     </Flex>
