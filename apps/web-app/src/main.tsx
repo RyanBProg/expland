@@ -11,6 +11,8 @@ import ProfilePage from "./routes/dashboard/account/ProfilePage";
 import LoginPage from "./routes/login/LoginPage";
 import RegisterPage from "./routes/register/RegisterPage";
 import Home from "./routes/Home";
+import ContactPage from "./routes/contact/ContactPage";
+import PoliciesPage from "./routes/policies/Policies";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,8 @@ const router = createBrowserRouter([
       { index: true, Component: Home },
       { path: "login", Component: LoginPage },
       { path: "register", Component: RegisterPage },
+      { path: "contact", Component: ContactPage },
+      { path: "policies", Component: PoliciesPage },
     ],
   },
 
