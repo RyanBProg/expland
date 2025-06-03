@@ -6,7 +6,7 @@ import {
   generateRefreshToken,
   setTokenCookie,
 } from "./auth.helpers";
-import { loginSchema, registerSchema } from "../../utils/zod/authSchema";
+import { loginSchema, registerSchema, usernameSchema } from "../../utils/zod/authSchema";
 import prisma from "../../database/prismaClient";
 import { v4 as uuidv4 } from "uuid";
 import { handleControllerError } from "../../utils/handleControllerError";
@@ -185,6 +185,37 @@ const logoutOnAll = async (req: TUserTokenRequest, res: Response) => {
   }
 };
 
+async function checkUsername(req: Request, res: Response) {
+  try {
+    const { username } = req.query;
+    if (!username) {
+      res.status(400).json({ message: "No username provided" });
+      return;
+    }
+
+    const parsedResult = usernameSchema.safeParse(username);
+    if (!parsedResult.success) {
+      res.status(422).json({
+        message: parsedResult.error.errors[0].message,
+        available: false,
+      });
+      return;
+    }
+
+    const user = await prisma.userAccount.findUnique({
+      where: { username: parsedResult.data },
+      select: { id: true },
+    });
+
+    res.status(200).json({
+      available: !user,
+      message: user ? "Username is taken" : "Username is available",
+    });
+  } catch (error) {
+    handleControllerError(error, res, "checkUsername");
+  }
+}
+
 export default {
   register,
   login,
@@ -192,4 +223,5 @@ export default {
   forgotPassword,
   resetPassword,
   logoutOnAll,
+  checkUsername,
 };

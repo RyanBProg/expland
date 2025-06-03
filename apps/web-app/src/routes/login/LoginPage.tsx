@@ -9,12 +9,60 @@ import {
   Stack,
   Image,
   Span,
+  Field,
+  Fieldset,
 } from "@chakra-ui/react";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import { Link } from "react-router";
 
+interface LoginResponse {
+  message: string;
+}
+
 export default function LoginPage() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setIsError(false);
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data: LoginResponse = await response.json();
+
+      if (!response.ok) {
+        setIsError(true);
+        setError(data.message);
+        return;
+      }
+
+      navigate("/dashboard");
+    } catch (err) {
+      setIsError(true);
+      setError("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Flex
+      className="group"
       minHeight="100vh"
       width="full"
       align="center"
@@ -25,13 +73,14 @@ export default function LoginPage() {
       {/* Background Image */}
       <Image
         src="/images/login-background.jpg"
+        alt="login page background"
         objectFit="cover"
         width="full"
         height="full"
         position="absolute"
         transition="transform 800ms ease-in-out"
         _groupHover={{
-          transform: "scale(1.04)",
+          transform: "scale(1.03)",
         }}
       />
 
@@ -52,37 +101,69 @@ export default function LoginPage() {
           </Heading>
         </Card.Header>
 
-        <Card.Body as="form" pt="8">
-          <Stack gap="6">
-            <Box>
-              <Text mb="2">Email</Text>
-              <Input type="email" placeholder="Enter your email" size="lg" rounded="xl" />
-            </Box>
+        <Card.Body as="form" onSubmit={handleSubmit} pt="8">
+          <Fieldset.Root size="lg" disabled={isLoading} invalid={isError}>
+            <Stack>
+              <Fieldset.Legend>Login details</Fieldset.Legend>
+              <Fieldset.HelperText>Please provide your login details below.</Fieldset.HelperText>
+            </Stack>
 
-            <Box>
-              <Text mb="2">Password</Text>
-              <Input type="password" placeholder="Enter your password" size="lg" rounded="xl" />
-            </Box>
+            <Fieldset.Content>
+              <Field.Root invalid={isError}>
+                <Field.Label>Email</Field.Label>
+                <Input
+                  placeholder="me@example.com"
+                  size="lg"
+                  rounded="xl"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                />
+              </Field.Root>
 
-            <Button size="lg" colorScheme="cyan" rounded="xl">
-              Log In
-            </Button>
+              <Field.Root invalid={isError}>
+                <Field.Label>Password</Field.Label>
+                <Input
+                  placeholder="Enter your password"
+                  size="lg"
+                  rounded="xl"
+                  type="password"
+                  required
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                />
+              </Field.Root>
+            </Fieldset.Content>
+            <Fieldset.ErrorText>{error}</Fieldset.ErrorText>
+          </Fieldset.Root>
 
-            <Box textAlign="center">
-              <Text color="gray.500">
-                Don't have an account?{" "}
-                <Link
-                  to="/register"
-                  css={{
-                    color: "cyan",
-                    marginLeft: "2px",
-                  }}
-                >
-                  Sign Up
-                </Link>
-              </Text>
-            </Box>
-          </Stack>
+          <Button
+            type="submit"
+            size="lg"
+            colorPalette="cyan"
+            rounded="xl"
+            mt="6"
+            loading={isLoading}
+            loadingText="Logging In..."
+          >
+            Log In
+          </Button>
+
+          <Box textAlign="center" mt="6">
+            <Text color="gray.500">
+              Don't have an account?{" "}
+              <Link
+                to="/register"
+                css={{
+                  color: "cyan",
+                  marginLeft: "2px",
+                }}
+              >
+                Sign Up
+              </Link>
+            </Text>
+          </Box>
         </Card.Body>
       </Card.Root>
     </Flex>

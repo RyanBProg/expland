@@ -22,4 +22,7 @@ router.post("/reset-password", authenticateTokens, authControllers.resetPassword
 // Logout and rotate refresh token id
 router.post("/logout-on-all", authenticateTokens, authControllers.logoutOnAll);
 
+// Checks if a username if available or not
+router.get("/check-username", authControllers.checkUsername);
+
 export default router;

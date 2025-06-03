@@ -46,6 +46,3 @@ export const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
   password: z.string(),
 });
-
-export type TSignupRequestBody = z.infer<typeof registerSchema>;
-export type TLoginRequestBody = z.infer<typeof loginSchema>;
