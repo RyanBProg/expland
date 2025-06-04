@@ -43,10 +43,10 @@ export default function DashboardNavbar() {
             <Menu.Positioner mt="1">
               <Menu.Content aria-label="user menu">
                 <Menu.Item asChild value="profile">
-                  <Link to="/account/profile">My Profile</Link>
+                  <Link to="/dashboard/account/profile">My Profile</Link>
                 </Menu.Item>
                 <Menu.Item asChild value="account">
-                  <Link to="/account">Manage Account</Link>
+                  <Link to="/dashboard/account">Manage Account</Link>
                 </Menu.Item>
               </Menu.Content>
             </Menu.Positioner>
