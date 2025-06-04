@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const userProfileSchema = z.object({
   userId: z.string(),
-  profilePictureUrl: z.string(),
+  profilePictureUrl: z.string().optional(),
   bio: z.string(),
   location: z.string(),
 });

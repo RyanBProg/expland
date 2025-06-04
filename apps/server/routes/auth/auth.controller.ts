@@ -64,6 +64,16 @@ async function register(req: Request, res: Response) {
       data: { email, username, passwordHash, givenName, familyName, refreshTokenId },
     });
 
+    // Create an empty profile
+    await prisma.userProfile.create({
+      data: {
+        userId: user.id,
+        bio: "",
+        location: "",
+        profilePictureUrl: null,
+      },
+    });
+
     // Generate and set tokens in cookies
     const accessToken = generateAccessToken(user.id);
     const refreshToken = generateRefreshToken(user.id, user.refreshTokenId);
