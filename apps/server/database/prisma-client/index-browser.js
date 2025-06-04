@@ -152,8 +152,8 @@ exports.Prisma.WishlistScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   countryId: 'countryId',
-  createdAt: 'createdAt',
-  cityId: 'cityId'
+  cityId: 'cityId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.TravelScalarFieldEnum = {

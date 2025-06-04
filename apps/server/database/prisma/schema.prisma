@@ -36,7 +36,7 @@ model UserProfile {
   location          String?
 
   // relations
-  user UserAccount @relation(fields: [userId], references: [id])
+  user UserAccount @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Follow {
@@ -46,8 +46,8 @@ model Follow {
   createdAt  DateTime @default(now())
 
   // relations
-  follower UserAccount @relation("Follower", fields: [followerId], references: [id])
-  followee UserAccount @relation("Followee", fields: [followeeId], references: [id])
+  follower UserAccount @relation("Follower", fields: [followerId], references: [id], onDelete: Cascade)
+  followee UserAccount @relation("Followee", fields: [followeeId], references: [id], onDelete: Cascade)
 
   // ensures each pair of follower and followee can only exist once
   @@unique([followerId, followeeId])
@@ -57,13 +57,13 @@ model Wishlist {
   id        Int      @id @default(autoincrement())
   userId    String
   countryId Int
+  cityId    Int?
   createdAt DateTime @default(now())
 
   // relations
-  user    UserAccount @relation(fields: [userId], references: [id])
-  country Country     @relation(fields: [countryId], references: [id])
-  city    City?       @relation(fields: [cityId], references: [id])
-  cityId  Int?
+  user    UserAccount @relation(fields: [userId], references: [id], onDelete: Cascade)
+  country Country     @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  city    City?       @relation(fields: [cityId], references: [id], onDelete: Cascade)
 
   // ensures each pair of userId and countryId can only exist once
   @@unique([userId, countryId])
@@ -72,7 +72,7 @@ model Wishlist {
 model Travel {
   id          Int      @id @default(autoincrement())
   userId      String
-  countryId   Int
+  countryId   Int?
   cityId      Int?
   title       String
   description String?
@@ -82,9 +82,9 @@ model Travel {
   updatedAt   DateTime @updatedAt
 
   // relations
-  country Country     @relation(fields: [countryId], references: [id])
-  user    UserAccount @relation(fields: [userId], references: [id])
-  city    City?       @relation(fields: [cityId], references: [id])
+  user    UserAccount @relation(fields: [userId], references: [id], onDelete: Cascade)
+  country Country?    @relation(fields: [countryId], references: [id], onDelete: SetNull)
+  city    City?       @relation(fields: [cityId], references: [id], onDelete: SetNull)
 }
 
 model Country {
@@ -126,5 +126,5 @@ model City {
   // relations
   travels  Travel[]
   wishlist Wishlist[]
-  country  Country    @relation(fields: [countryId], references: [id])
+  country  Country    @relation(fields: [countryId], references: [id], onDelete: Cascade)
 }

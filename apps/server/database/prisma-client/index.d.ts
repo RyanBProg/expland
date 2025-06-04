@@ -4976,24 +4976,24 @@ export namespace Prisma {
     id: number | null
     userId: string | null
     countryId: number | null
-    createdAt: Date | null
     cityId: number | null
+    createdAt: Date | null
   }
 
   export type WishlistMaxAggregateOutputType = {
     id: number | null
     userId: string | null
     countryId: number | null
-    createdAt: Date | null
     cityId: number | null
+    createdAt: Date | null
   }
 
   export type WishlistCountAggregateOutputType = {
     id: number
     userId: number
     countryId: number
-    createdAt: number
     cityId: number
+    createdAt: number
     _all: number
   }
 
@@ -5014,24 +5014,24 @@ export namespace Prisma {
     id?: true
     userId?: true
     countryId?: true
-    createdAt?: true
     cityId?: true
+    createdAt?: true
   }
 
   export type WishlistMaxAggregateInputType = {
     id?: true
     userId?: true
     countryId?: true
-    createdAt?: true
     cityId?: true
+    createdAt?: true
   }
 
   export type WishlistCountAggregateInputType = {
     id?: true
     userId?: true
     countryId?: true
-    createdAt?: true
     cityId?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -5125,8 +5125,8 @@ export namespace Prisma {
     id: number
     userId: string
     countryId: number
-    createdAt: Date
     cityId: number | null
+    createdAt: Date
     _count: WishlistCountAggregateOutputType | null
     _avg: WishlistAvgAggregateOutputType | null
     _sum: WishlistSumAggregateOutputType | null
@@ -5152,8 +5152,8 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     countryId?: boolean
-    createdAt?: boolean
     cityId?: boolean
+    createdAt?: boolean
     user?: boolean | UserAccountDefaultArgs<ExtArgs>
     country?: boolean | CountryDefaultArgs<ExtArgs>
     city?: boolean | Wishlist$cityArgs<ExtArgs>
@@ -5163,8 +5163,8 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     countryId?: boolean
-    createdAt?: boolean
     cityId?: boolean
+    createdAt?: boolean
     user?: boolean | UserAccountDefaultArgs<ExtArgs>
     country?: boolean | CountryDefaultArgs<ExtArgs>
     city?: boolean | Wishlist$cityArgs<ExtArgs>
@@ -5174,8 +5174,8 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     countryId?: boolean
-    createdAt?: boolean
     cityId?: boolean
+    createdAt?: boolean
     user?: boolean | UserAccountDefaultArgs<ExtArgs>
     country?: boolean | CountryDefaultArgs<ExtArgs>
     city?: boolean | Wishlist$cityArgs<ExtArgs>
@@ -5185,11 +5185,11 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     countryId?: boolean
-    createdAt?: boolean
     cityId?: boolean
+    createdAt?: boolean
   }
 
-  export type WishlistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "countryId" | "createdAt" | "cityId", ExtArgs["result"]["wishlist"]>
+  export type WishlistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "countryId" | "cityId" | "createdAt", ExtArgs["result"]["wishlist"]>
   export type WishlistInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserAccountDefaultArgs<ExtArgs>
     country?: boolean | CountryDefaultArgs<ExtArgs>
@@ -5217,8 +5217,8 @@ export namespace Prisma {
       id: number
       userId: string
       countryId: number
-      createdAt: Date
       cityId: number | null
+      createdAt: Date
     }, ExtArgs["result"]["wishlist"]>
     composites: {}
   }
@@ -5648,8 +5648,8 @@ export namespace Prisma {
     readonly id: FieldRef<"Wishlist", 'Int'>
     readonly userId: FieldRef<"Wishlist", 'String'>
     readonly countryId: FieldRef<"Wishlist", 'Int'>
-    readonly createdAt: FieldRef<"Wishlist", 'DateTime'>
     readonly cityId: FieldRef<"Wishlist", 'Int'>
+    readonly createdAt: FieldRef<"Wishlist", 'DateTime'>
   }
     
 
@@ -6293,7 +6293,7 @@ export namespace Prisma {
   export type TravelGroupByOutputType = {
     id: number
     userId: string
-    countryId: number
+    countryId: number | null
     cityId: number | null
     title: string
     description: string | null
@@ -6333,8 +6333,8 @@ export namespace Prisma {
     duration?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    country?: boolean | CountryDefaultArgs<ExtArgs>
     user?: boolean | UserAccountDefaultArgs<ExtArgs>
+    country?: boolean | Travel$countryArgs<ExtArgs>
     city?: boolean | Travel$cityArgs<ExtArgs>
   }, ExtArgs["result"]["travel"]>
 
@@ -6349,8 +6349,8 @@ export namespace Prisma {
     duration?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    country?: boolean | CountryDefaultArgs<ExtArgs>
     user?: boolean | UserAccountDefaultArgs<ExtArgs>
+    country?: boolean | Travel$countryArgs<ExtArgs>
     city?: boolean | Travel$cityArgs<ExtArgs>
   }, ExtArgs["result"]["travel"]>
 
@@ -6365,8 +6365,8 @@ export namespace Prisma {
     duration?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    country?: boolean | CountryDefaultArgs<ExtArgs>
     user?: boolean | UserAccountDefaultArgs<ExtArgs>
+    country?: boolean | Travel$countryArgs<ExtArgs>
     city?: boolean | Travel$cityArgs<ExtArgs>
   }, ExtArgs["result"]["travel"]>
 
@@ -6385,32 +6385,32 @@ export namespace Prisma {
 
   export type TravelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "countryId" | "cityId" | "title" | "description" | "dateTravel" | "duration" | "createdAt" | "updatedAt", ExtArgs["result"]["travel"]>
   export type TravelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    country?: boolean | CountryDefaultArgs<ExtArgs>
     user?: boolean | UserAccountDefaultArgs<ExtArgs>
+    country?: boolean | Travel$countryArgs<ExtArgs>
     city?: boolean | Travel$cityArgs<ExtArgs>
   }
   export type TravelIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    country?: boolean | CountryDefaultArgs<ExtArgs>
     user?: boolean | UserAccountDefaultArgs<ExtArgs>
+    country?: boolean | Travel$countryArgs<ExtArgs>
     city?: boolean | Travel$cityArgs<ExtArgs>
   }
   export type TravelIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    country?: boolean | CountryDefaultArgs<ExtArgs>
     user?: boolean | UserAccountDefaultArgs<ExtArgs>
+    country?: boolean | Travel$countryArgs<ExtArgs>
     city?: boolean | Travel$cityArgs<ExtArgs>
   }
 
   export type $TravelPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Travel"
     objects: {
-      country: Prisma.$CountryPayload<ExtArgs>
       user: Prisma.$UserAccountPayload<ExtArgs>
+      country: Prisma.$CountryPayload<ExtArgs> | null
       city: Prisma.$CityPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       userId: string
-      countryId: number
+      countryId: number | null
       cityId: number | null
       title: string
       description: string | null
@@ -6812,8 +6812,8 @@ export namespace Prisma {
    */
   export interface Prisma__TravelClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    country<T extends CountryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CountryDefaultArgs<ExtArgs>>): Prisma__CountryClient<$Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends UserAccountDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserAccountDefaultArgs<ExtArgs>>): Prisma__UserAccountClient<$Result.GetResult<Prisma.$UserAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    country<T extends Travel$countryArgs<ExtArgs> = {}>(args?: Subset<T, Travel$countryArgs<ExtArgs>>): Prisma__CountryClient<$Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     city<T extends Travel$cityArgs<ExtArgs> = {}>(args?: Subset<T, Travel$cityArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -7247,6 +7247,25 @@ export namespace Prisma {
      * Limit how many Travels to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Travel.country
+   */
+  export type Travel$countryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Country
+     */
+    select?: CountrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Country
+     */
+    omit?: CountryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CountryInclude<ExtArgs> | null
+    where?: CountryWhereInput
   }
 
   /**
@@ -9872,8 +9891,8 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     countryId: 'countryId',
-    createdAt: 'createdAt',
-    cityId: 'cityId'
+    cityId: 'cityId',
+    createdAt: 'createdAt'
   };
 
   export type WishlistScalarFieldEnum = (typeof WishlistScalarFieldEnum)[keyof typeof WishlistScalarFieldEnum]
@@ -10238,8 +10257,8 @@ export namespace Prisma {
     id?: IntFilter<"Wishlist"> | number
     userId?: StringFilter<"Wishlist"> | string
     countryId?: IntFilter<"Wishlist"> | number
-    createdAt?: DateTimeFilter<"Wishlist"> | Date | string
     cityId?: IntNullableFilter<"Wishlist"> | number | null
+    createdAt?: DateTimeFilter<"Wishlist"> | Date | string
     user?: XOR<UserAccountScalarRelationFilter, UserAccountWhereInput>
     country?: XOR<CountryScalarRelationFilter, CountryWhereInput>
     city?: XOR<CityNullableScalarRelationFilter, CityWhereInput> | null
@@ -10249,8 +10268,8 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     countryId?: SortOrder
-    createdAt?: SortOrder
     cityId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
     user?: UserAccountOrderByWithRelationInput
     country?: CountryOrderByWithRelationInput
     city?: CityOrderByWithRelationInput
@@ -10264,8 +10283,8 @@ export namespace Prisma {
     NOT?: WishlistWhereInput | WishlistWhereInput[]
     userId?: StringFilter<"Wishlist"> | string
     countryId?: IntFilter<"Wishlist"> | number
-    createdAt?: DateTimeFilter<"Wishlist"> | Date | string
     cityId?: IntNullableFilter<"Wishlist"> | number | null
+    createdAt?: DateTimeFilter<"Wishlist"> | Date | string
     user?: XOR<UserAccountScalarRelationFilter, UserAccountWhereInput>
     country?: XOR<CountryScalarRelationFilter, CountryWhereInput>
     city?: XOR<CityNullableScalarRelationFilter, CityWhereInput> | null
@@ -10275,8 +10294,8 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     countryId?: SortOrder
-    createdAt?: SortOrder
     cityId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
     _count?: WishlistCountOrderByAggregateInput
     _avg?: WishlistAvgOrderByAggregateInput
     _max?: WishlistMaxOrderByAggregateInput
@@ -10291,8 +10310,8 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Wishlist"> | number
     userId?: StringWithAggregatesFilter<"Wishlist"> | string
     countryId?: IntWithAggregatesFilter<"Wishlist"> | number
-    createdAt?: DateTimeWithAggregatesFilter<"Wishlist"> | Date | string
     cityId?: IntNullableWithAggregatesFilter<"Wishlist"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"Wishlist"> | Date | string
   }
 
   export type TravelWhereInput = {
@@ -10301,7 +10320,7 @@ export namespace Prisma {
     NOT?: TravelWhereInput | TravelWhereInput[]
     id?: IntFilter<"Travel"> | number
     userId?: StringFilter<"Travel"> | string
-    countryId?: IntFilter<"Travel"> | number
+    countryId?: IntNullableFilter<"Travel"> | number | null
     cityId?: IntNullableFilter<"Travel"> | number | null
     title?: StringFilter<"Travel"> | string
     description?: StringNullableFilter<"Travel"> | string | null
@@ -10309,15 +10328,15 @@ export namespace Prisma {
     duration?: IntNullableFilter<"Travel"> | number | null
     createdAt?: DateTimeFilter<"Travel"> | Date | string
     updatedAt?: DateTimeFilter<"Travel"> | Date | string
-    country?: XOR<CountryScalarRelationFilter, CountryWhereInput>
     user?: XOR<UserAccountScalarRelationFilter, UserAccountWhereInput>
+    country?: XOR<CountryNullableScalarRelationFilter, CountryWhereInput> | null
     city?: XOR<CityNullableScalarRelationFilter, CityWhereInput> | null
   }
 
   export type TravelOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    countryId?: SortOrder
+    countryId?: SortOrderInput | SortOrder
     cityId?: SortOrderInput | SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
@@ -10325,8 +10344,8 @@ export namespace Prisma {
     duration?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    country?: CountryOrderByWithRelationInput
     user?: UserAccountOrderByWithRelationInput
+    country?: CountryOrderByWithRelationInput
     city?: CityOrderByWithRelationInput
   }
 
@@ -10336,7 +10355,7 @@ export namespace Prisma {
     OR?: TravelWhereInput[]
     NOT?: TravelWhereInput | TravelWhereInput[]
     userId?: StringFilter<"Travel"> | string
-    countryId?: IntFilter<"Travel"> | number
+    countryId?: IntNullableFilter<"Travel"> | number | null
     cityId?: IntNullableFilter<"Travel"> | number | null
     title?: StringFilter<"Travel"> | string
     description?: StringNullableFilter<"Travel"> | string | null
@@ -10344,15 +10363,15 @@ export namespace Prisma {
     duration?: IntNullableFilter<"Travel"> | number | null
     createdAt?: DateTimeFilter<"Travel"> | Date | string
     updatedAt?: DateTimeFilter<"Travel"> | Date | string
-    country?: XOR<CountryScalarRelationFilter, CountryWhereInput>
     user?: XOR<UserAccountScalarRelationFilter, UserAccountWhereInput>
+    country?: XOR<CountryNullableScalarRelationFilter, CountryWhereInput> | null
     city?: XOR<CityNullableScalarRelationFilter, CityWhereInput> | null
   }, "id">
 
   export type TravelOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    countryId?: SortOrder
+    countryId?: SortOrderInput | SortOrder
     cityId?: SortOrderInput | SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
@@ -10373,7 +10392,7 @@ export namespace Prisma {
     NOT?: TravelScalarWhereWithAggregatesInput | TravelScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Travel"> | number
     userId?: StringWithAggregatesFilter<"Travel"> | string
-    countryId?: IntWithAggregatesFilter<"Travel"> | number
+    countryId?: IntNullableWithAggregatesFilter<"Travel"> | number | null
     cityId?: IntNullableWithAggregatesFilter<"Travel"> | number | null
     title?: StringWithAggregatesFilter<"Travel"> | string
     description?: StringNullableWithAggregatesFilter<"Travel"> | string | null
@@ -10810,8 +10829,8 @@ export namespace Prisma {
     id?: number
     userId: string
     countryId: number
-    createdAt?: Date | string
     cityId?: number | null
+    createdAt?: Date | string
   }
 
   export type WishlistUpdateInput = {
@@ -10825,16 +10844,16 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
     countryId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type WishlistCreateManyInput = {
     id?: number
     userId: string
     countryId: number
-    createdAt?: Date | string
     cityId?: number | null
+    createdAt?: Date | string
   }
 
   export type WishlistUpdateManyMutationInput = {
@@ -10845,8 +10864,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
     countryId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TravelCreateInput = {
@@ -10856,15 +10875,15 @@ export namespace Prisma {
     duration?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    country: CountryCreateNestedOneWithoutTravelsInput
     user: UserAccountCreateNestedOneWithoutTravelInput
+    country?: CountryCreateNestedOneWithoutTravelsInput
     city?: CityCreateNestedOneWithoutTravelsInput
   }
 
   export type TravelUncheckedCreateInput = {
     id?: number
     userId: string
-    countryId: number
+    countryId?: number | null
     cityId?: number | null
     title: string
     description?: string | null
@@ -10881,15 +10900,15 @@ export namespace Prisma {
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    country?: CountryUpdateOneRequiredWithoutTravelsNestedInput
     user?: UserAccountUpdateOneRequiredWithoutTravelNestedInput
+    country?: CountryUpdateOneWithoutTravelsNestedInput
     city?: CityUpdateOneWithoutTravelsNestedInput
   }
 
   export type TravelUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
-    countryId?: IntFieldUpdateOperationsInput | number
+    countryId?: NullableIntFieldUpdateOperationsInput | number | null
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10902,7 +10921,7 @@ export namespace Prisma {
   export type TravelCreateManyInput = {
     id?: number
     userId: string
-    countryId: number
+    countryId?: number | null
     cityId?: number | null
     title: string
     description?: string | null
@@ -10924,7 +10943,7 @@ export namespace Prisma {
   export type TravelUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
-    countryId?: IntFieldUpdateOperationsInput | number
+    countryId?: NullableIntFieldUpdateOperationsInput | number | null
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11474,8 +11493,8 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     countryId?: SortOrder
-    createdAt?: SortOrder
     cityId?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type WishlistAvgOrderByAggregateInput = {
@@ -11488,16 +11507,16 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     countryId?: SortOrder
-    createdAt?: SortOrder
     cityId?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type WishlistMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     countryId?: SortOrder
-    createdAt?: SortOrder
     cityId?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type WishlistSumOrderByAggregateInput = {
@@ -11520,6 +11539,11 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type CountryNullableScalarRelationFilter = {
+    is?: CountryWhereInput | null
+    isNot?: CountryWhereInput | null
   }
 
   export type TravelCountOrderByAggregateInput = {
@@ -12056,16 +12080,16 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type CountryCreateNestedOneWithoutTravelsInput = {
-    create?: XOR<CountryCreateWithoutTravelsInput, CountryUncheckedCreateWithoutTravelsInput>
-    connectOrCreate?: CountryCreateOrConnectWithoutTravelsInput
-    connect?: CountryWhereUniqueInput
-  }
-
   export type UserAccountCreateNestedOneWithoutTravelInput = {
     create?: XOR<UserAccountCreateWithoutTravelInput, UserAccountUncheckedCreateWithoutTravelInput>
     connectOrCreate?: UserAccountCreateOrConnectWithoutTravelInput
     connect?: UserAccountWhereUniqueInput
+  }
+
+  export type CountryCreateNestedOneWithoutTravelsInput = {
+    create?: XOR<CountryCreateWithoutTravelsInput, CountryUncheckedCreateWithoutTravelsInput>
+    connectOrCreate?: CountryCreateOrConnectWithoutTravelsInput
+    connect?: CountryWhereUniqueInput
   }
 
   export type CityCreateNestedOneWithoutTravelsInput = {
@@ -12074,20 +12098,22 @@ export namespace Prisma {
     connect?: CityWhereUniqueInput
   }
 
-  export type CountryUpdateOneRequiredWithoutTravelsNestedInput = {
-    create?: XOR<CountryCreateWithoutTravelsInput, CountryUncheckedCreateWithoutTravelsInput>
-    connectOrCreate?: CountryCreateOrConnectWithoutTravelsInput
-    upsert?: CountryUpsertWithoutTravelsInput
-    connect?: CountryWhereUniqueInput
-    update?: XOR<XOR<CountryUpdateToOneWithWhereWithoutTravelsInput, CountryUpdateWithoutTravelsInput>, CountryUncheckedUpdateWithoutTravelsInput>
-  }
-
   export type UserAccountUpdateOneRequiredWithoutTravelNestedInput = {
     create?: XOR<UserAccountCreateWithoutTravelInput, UserAccountUncheckedCreateWithoutTravelInput>
     connectOrCreate?: UserAccountCreateOrConnectWithoutTravelInput
     upsert?: UserAccountUpsertWithoutTravelInput
     connect?: UserAccountWhereUniqueInput
     update?: XOR<XOR<UserAccountUpdateToOneWithWhereWithoutTravelInput, UserAccountUpdateWithoutTravelInput>, UserAccountUncheckedUpdateWithoutTravelInput>
+  }
+
+  export type CountryUpdateOneWithoutTravelsNestedInput = {
+    create?: XOR<CountryCreateWithoutTravelsInput, CountryUncheckedCreateWithoutTravelsInput>
+    connectOrCreate?: CountryCreateOrConnectWithoutTravelsInput
+    upsert?: CountryUpsertWithoutTravelsInput
+    disconnect?: CountryWhereInput | boolean
+    delete?: CountryWhereInput | boolean
+    connect?: CountryWhereUniqueInput
+    update?: XOR<XOR<CountryUpdateToOneWithWhereWithoutTravelsInput, CountryUpdateWithoutTravelsInput>, CountryUncheckedUpdateWithoutTravelsInput>
   }
 
   export type CityUpdateOneWithoutTravelsNestedInput = {
@@ -12586,13 +12612,13 @@ export namespace Prisma {
     duration?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    country: CountryCreateNestedOneWithoutTravelsInput
+    country?: CountryCreateNestedOneWithoutTravelsInput
     city?: CityCreateNestedOneWithoutTravelsInput
   }
 
   export type TravelUncheckedCreateWithoutUserInput = {
     id?: number
-    countryId: number
+    countryId?: number | null
     cityId?: number | null
     title: string
     description?: string | null
@@ -12621,8 +12647,8 @@ export namespace Prisma {
   export type WishlistUncheckedCreateWithoutUserInput = {
     id?: number
     countryId: number
-    createdAt?: Date | string
     cityId?: number | null
+    createdAt?: Date | string
   }
 
   export type WishlistCreateOrConnectWithoutUserInput = {
@@ -12724,7 +12750,7 @@ export namespace Prisma {
     NOT?: TravelScalarWhereInput | TravelScalarWhereInput[]
     id?: IntFilter<"Travel"> | number
     userId?: StringFilter<"Travel"> | string
-    countryId?: IntFilter<"Travel"> | number
+    countryId?: IntNullableFilter<"Travel"> | number | null
     cityId?: IntNullableFilter<"Travel"> | number | null
     title?: StringFilter<"Travel"> | string
     description?: StringNullableFilter<"Travel"> | string | null
@@ -12757,8 +12783,8 @@ export namespace Prisma {
     id?: IntFilter<"Wishlist"> | number
     userId?: StringFilter<"Wishlist"> | string
     countryId?: IntFilter<"Wishlist"> | number
-    createdAt?: DateTimeFilter<"Wishlist"> | Date | string
     cityId?: IntNullableFilter<"Wishlist"> | number | null
+    createdAt?: DateTimeFilter<"Wishlist"> | Date | string
   }
 
   export type FollowUpsertWithWhereUniqueWithoutFolloweeInput = {
@@ -13307,6 +13333,45 @@ export namespace Prisma {
     travels?: TravelUncheckedUpdateManyWithoutCityNestedInput
   }
 
+  export type UserAccountCreateWithoutTravelInput = {
+    id?: string
+    username: string
+    email: string
+    emailVerified?: boolean
+    passwordHash: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    givenName: string
+    familyName: string
+    refreshTokenId: string
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    wishlist?: WishlistCreateNestedManyWithoutUserInput
+    followers?: FollowCreateNestedManyWithoutFolloweeInput
+    following?: FollowCreateNestedManyWithoutFollowerInput
+  }
+
+  export type UserAccountUncheckedCreateWithoutTravelInput = {
+    id?: string
+    username: string
+    email: string
+    emailVerified?: boolean
+    passwordHash: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    givenName: string
+    familyName: string
+    refreshTokenId: string
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFolloweeInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+  }
+
+  export type UserAccountCreateOrConnectWithoutTravelInput = {
+    where: UserAccountWhereUniqueInput
+    create: XOR<UserAccountCreateWithoutTravelInput, UserAccountUncheckedCreateWithoutTravelInput>
+  }
+
   export type CountryCreateWithoutTravelsInput = {
     code: string
     name: string
@@ -13347,45 +13412,6 @@ export namespace Prisma {
     create: XOR<CountryCreateWithoutTravelsInput, CountryUncheckedCreateWithoutTravelsInput>
   }
 
-  export type UserAccountCreateWithoutTravelInput = {
-    id?: string
-    username: string
-    email: string
-    emailVerified?: boolean
-    passwordHash: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    givenName: string
-    familyName: string
-    refreshTokenId: string
-    profile?: UserProfileCreateNestedOneWithoutUserInput
-    wishlist?: WishlistCreateNestedManyWithoutUserInput
-    followers?: FollowCreateNestedManyWithoutFolloweeInput
-    following?: FollowCreateNestedManyWithoutFollowerInput
-  }
-
-  export type UserAccountUncheckedCreateWithoutTravelInput = {
-    id?: string
-    username: string
-    email: string
-    emailVerified?: boolean
-    passwordHash: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    givenName: string
-    familyName: string
-    refreshTokenId: string
-    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
-    wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
-    followers?: FollowUncheckedCreateNestedManyWithoutFolloweeInput
-    following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
-  }
-
-  export type UserAccountCreateOrConnectWithoutTravelInput = {
-    where: UserAccountWhereUniqueInput
-    create: XOR<UserAccountCreateWithoutTravelInput, UserAccountUncheckedCreateWithoutTravelInput>
-  }
-
   export type CityCreateWithoutTravelsInput = {
     code: string
     name: string
@@ -13422,6 +13448,51 @@ export namespace Prisma {
   export type CityCreateOrConnectWithoutTravelsInput = {
     where: CityWhereUniqueInput
     create: XOR<CityCreateWithoutTravelsInput, CityUncheckedCreateWithoutTravelsInput>
+  }
+
+  export type UserAccountUpsertWithoutTravelInput = {
+    update: XOR<UserAccountUpdateWithoutTravelInput, UserAccountUncheckedUpdateWithoutTravelInput>
+    create: XOR<UserAccountCreateWithoutTravelInput, UserAccountUncheckedCreateWithoutTravelInput>
+    where?: UserAccountWhereInput
+  }
+
+  export type UserAccountUpdateToOneWithWhereWithoutTravelInput = {
+    where?: UserAccountWhereInput
+    data: XOR<UserAccountUpdateWithoutTravelInput, UserAccountUncheckedUpdateWithoutTravelInput>
+  }
+
+  export type UserAccountUpdateWithoutTravelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    givenName?: StringFieldUpdateOperationsInput | string
+    familyName?: StringFieldUpdateOperationsInput | string
+    refreshTokenId?: StringFieldUpdateOperationsInput | string
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    wishlist?: WishlistUpdateManyWithoutUserNestedInput
+    followers?: FollowUpdateManyWithoutFolloweeNestedInput
+    following?: FollowUpdateManyWithoutFollowerNestedInput
+  }
+
+  export type UserAccountUncheckedUpdateWithoutTravelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    givenName?: StringFieldUpdateOperationsInput | string
+    familyName?: StringFieldUpdateOperationsInput | string
+    refreshTokenId?: StringFieldUpdateOperationsInput | string
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFolloweeNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
   }
 
   export type CountryUpsertWithoutTravelsInput = {
@@ -13468,51 +13539,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wishlist?: WishlistUncheckedUpdateManyWithoutCountryNestedInput
     cities?: CityUncheckedUpdateManyWithoutCountryNestedInput
-  }
-
-  export type UserAccountUpsertWithoutTravelInput = {
-    update: XOR<UserAccountUpdateWithoutTravelInput, UserAccountUncheckedUpdateWithoutTravelInput>
-    create: XOR<UserAccountCreateWithoutTravelInput, UserAccountUncheckedCreateWithoutTravelInput>
-    where?: UserAccountWhereInput
-  }
-
-  export type UserAccountUpdateToOneWithWhereWithoutTravelInput = {
-    where?: UserAccountWhereInput
-    data: XOR<UserAccountUpdateWithoutTravelInput, UserAccountUncheckedUpdateWithoutTravelInput>
-  }
-
-  export type UserAccountUpdateWithoutTravelInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    givenName?: StringFieldUpdateOperationsInput | string
-    familyName?: StringFieldUpdateOperationsInput | string
-    refreshTokenId?: StringFieldUpdateOperationsInput | string
-    profile?: UserProfileUpdateOneWithoutUserNestedInput
-    wishlist?: WishlistUpdateManyWithoutUserNestedInput
-    followers?: FollowUpdateManyWithoutFolloweeNestedInput
-    following?: FollowUpdateManyWithoutFollowerNestedInput
-  }
-
-  export type UserAccountUncheckedUpdateWithoutTravelInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    givenName?: StringFieldUpdateOperationsInput | string
-    familyName?: StringFieldUpdateOperationsInput | string
-    refreshTokenId?: StringFieldUpdateOperationsInput | string
-    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
-    wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
-    followers?: FollowUncheckedUpdateManyWithoutFolloweeNestedInput
-    following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
   }
 
   export type CityUpsertWithoutTravelsInput = {
@@ -13601,8 +13627,8 @@ export namespace Prisma {
   export type WishlistUncheckedCreateWithoutCountryInput = {
     id?: number
     userId: string
-    createdAt?: Date | string
     cityId?: number | null
+    createdAt?: Date | string
   }
 
   export type WishlistCreateOrConnectWithoutCountryInput = {
@@ -13732,14 +13758,14 @@ export namespace Prisma {
     duration?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    country: CountryCreateNestedOneWithoutTravelsInput
     user: UserAccountCreateNestedOneWithoutTravelInput
+    country?: CountryCreateNestedOneWithoutTravelsInput
   }
 
   export type TravelUncheckedCreateWithoutCityInput = {
     id?: number
     userId: string
-    countryId: number
+    countryId?: number | null
     title: string
     description?: string | null
     dateTravel: Date | string
@@ -13901,7 +13927,7 @@ export namespace Prisma {
 
   export type TravelCreateManyUserInput = {
     id?: number
-    countryId: number
+    countryId?: number | null
     cityId?: number | null
     title: string
     description?: string | null
@@ -13914,8 +13940,8 @@ export namespace Prisma {
   export type WishlistCreateManyUserInput = {
     id?: number
     countryId: number
-    createdAt?: Date | string
     cityId?: number | null
+    createdAt?: Date | string
   }
 
   export type FollowCreateManyFolloweeInput = {
@@ -13937,13 +13963,13 @@ export namespace Prisma {
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    country?: CountryUpdateOneRequiredWithoutTravelsNestedInput
+    country?: CountryUpdateOneWithoutTravelsNestedInput
     city?: CityUpdateOneWithoutTravelsNestedInput
   }
 
   export type TravelUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    countryId?: IntFieldUpdateOperationsInput | number
+    countryId?: NullableIntFieldUpdateOperationsInput | number | null
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13955,7 +13981,7 @@ export namespace Prisma {
 
   export type TravelUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    countryId?: IntFieldUpdateOperationsInput | number
+    countryId?: NullableIntFieldUpdateOperationsInput | number | null
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13974,15 +14000,15 @@ export namespace Prisma {
   export type WishlistUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     countryId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type WishlistUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     countryId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FollowUpdateWithoutFolloweeInput = {
@@ -14034,8 +14060,8 @@ export namespace Prisma {
   export type WishlistCreateManyCountryInput = {
     id?: number
     userId: string
-    createdAt?: Date | string
     cityId?: number | null
+    createdAt?: Date | string
   }
 
   export type CityCreateManyCountryInput = {
@@ -14097,15 +14123,15 @@ export namespace Prisma {
   export type WishlistUncheckedUpdateWithoutCountryInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type WishlistUncheckedUpdateManyWithoutCountryInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CityUpdateWithoutCountryInput = {
@@ -14159,7 +14185,7 @@ export namespace Prisma {
   export type TravelCreateManyCityInput = {
     id?: number
     userId: string
-    countryId: number
+    countryId?: number | null
     title: string
     description?: string | null
     dateTravel: Date | string
@@ -14182,14 +14208,14 @@ export namespace Prisma {
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    country?: CountryUpdateOneRequiredWithoutTravelsNestedInput
     user?: UserAccountUpdateOneRequiredWithoutTravelNestedInput
+    country?: CountryUpdateOneWithoutTravelsNestedInput
   }
 
   export type TravelUncheckedUpdateWithoutCityInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
-    countryId?: IntFieldUpdateOperationsInput | number
+    countryId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dateTravel?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14201,7 +14227,7 @@ export namespace Prisma {
   export type TravelUncheckedUpdateManyWithoutCityInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
-    countryId?: IntFieldUpdateOperationsInput | number
+    countryId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dateTravel?: DateTimeFieldUpdateOperationsInput | Date | string
