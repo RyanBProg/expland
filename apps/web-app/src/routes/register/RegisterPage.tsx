@@ -18,8 +18,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { registerSchema, usernameSchema } from "@/utils/zod/authSchema";
 
-interface LoginResponse {
+interface RegisterResponse {
   message: string;
+  id: string;
 }
 
 type FieldErrors = {
@@ -120,7 +121,7 @@ export default function RegisterPage() {
         body: JSON.stringify(form),
       });
 
-      const data: LoginResponse = await response.json();
+      const data: RegisterResponse = await response.json();
 
       if (!response.ok) {
         setResError(data.message);
@@ -169,7 +170,7 @@ export default function RegisterPage() {
           bg: "blackAlpha.700",
         }}
       />
-      <Card.Root size="lg" rounded="2xl" maxW="md" w="full" mx="4">
+      <Card.Root size="lg" rounded="2xl" maxW="md" w="full" mx="4" my="10">
         <Card.Header pb="0">
           <Heading size="lg" textAlign="center">
             Create an Account
@@ -177,6 +178,7 @@ export default function RegisterPage() {
         </Card.Header>
 
         <Card.Body as="form" onSubmit={handleSubmit} pt="8">
+          <form></form>
           <Fieldset.Root size="lg" disabled={isLoading}>
             <Stack>
               <Fieldset.Legend>Account details</Fieldset.Legend>
@@ -188,7 +190,7 @@ export default function RegisterPage() {
                 <Field.Root invalid={!!zodErrors.givenName}>
                   <Field.Label>Given Name</Field.Label>
                   <Input
-                    placeholder="Enter given name"
+                    placeholder="Jane"
                     size="lg"
                     rounded="xl"
                     type="text"
@@ -202,7 +204,7 @@ export default function RegisterPage() {
                 <Field.Root invalid={!!zodErrors.familyName}>
                   <Field.Label>Family Name</Field.Label>
                   <Input
-                    placeholder="Enter family name"
+                    placeholder="Doe"
                     size="lg"
                     rounded="xl"
                     type="text"
@@ -219,7 +221,7 @@ export default function RegisterPage() {
               <Field.Root invalid={!!zodErrors.email}>
                 <Field.Label>Email</Field.Label>
                 <Input
-                  placeholder="Enter your email"
+                  placeholder="me@example.com"
                   size="lg"
                   rounded="xl"
                   type="email"
@@ -315,6 +317,7 @@ export default function RegisterPage() {
             colorPalette="cyan"
             rounded="xl"
             mt="6"
+            disabled={Object.keys(zodErrors).length !== 0}
             loading={isLoading}
             loadingText="Signing Up..."
           >

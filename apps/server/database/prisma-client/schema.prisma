@@ -26,17 +26,21 @@ model UserAccount {
   wishlist  Wishlist[]
   followers Follow[]     @relation("Followee")
   following Follow[]     @relation("Follower")
+
+  @@index([email, username])
 }
 
 model UserProfile {
   id                String  @id @default(uuid())
   userId            String  @unique
   profilePictureUrl String?
-  bio               String?
+  bio               String? @db.Text
   location          String?
 
   // relations
   user UserAccount @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model Follow {
@@ -51,6 +55,8 @@ model Follow {
 
   // ensures each pair of follower and followee can only exist once
   @@unique([followerId, followeeId])
+  @@index([followerId])
+  @@index([followeeId])
 }
 
 model Wishlist {
@@ -67,6 +73,7 @@ model Wishlist {
 
   // ensures each pair of userId and countryId can only exist once
   @@unique([userId, countryId])
+  @@index([userId])
 }
 
 model Travel {
@@ -75,7 +82,7 @@ model Travel {
   countryId   Int?
   cityId      Int?
   title       String
-  description String?
+  description String?  @db.Text
   dateTravel  DateTime
   duration    Int?
   createdAt   DateTime @default(now())
@@ -85,6 +92,8 @@ model Travel {
   user    UserAccount @relation(fields: [userId], references: [id], onDelete: Cascade)
   country Country?    @relation(fields: [countryId], references: [id], onDelete: SetNull)
   city    City?       @relation(fields: [cityId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
 }
 
 model Country {
@@ -106,6 +115,9 @@ model Country {
   travels  Travel[]
   wishlist Wishlist[]
   cities   City[]
+
+  @@index([name])
+  @@index([code])
 }
 
 model City {
@@ -127,4 +139,8 @@ model City {
   travels  Travel[]
   wishlist Wishlist[]
   country  Country    @relation(fields: [countryId], references: [id], onDelete: Cascade)
+
+  @@index([countryId])
+  @@index([name])
+  @@index([code])
 }

@@ -122,6 +122,7 @@ async function login(req: Request, res: Response) {
     const isPasswordCorrect = await bcrypt.compare(password, userMatch.passwordHash);
     if (!isPasswordCorrect) {
       res.status(401).json({ message: "Email or password is incorrect" });
+      return;
     }
 
     // Generate and set tokens in cookies

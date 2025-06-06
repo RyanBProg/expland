@@ -38,6 +38,7 @@ export const cookieDefaults: CookieDefaults = {
   httpOnly: true,
   sameSite: env.NODE_ENV === "production" ? "none" : "lax",
   secure: env.NODE_ENV === "production" ? true : false,
+  // domain: env.NODE_ENV === "production" ? "CHANGE ME" : undefined,
   path: "/",
 };
 

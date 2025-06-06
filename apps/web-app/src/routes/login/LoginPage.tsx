@@ -25,13 +25,12 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setIsError(false);
+    setError(null);
 
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
@@ -46,14 +45,12 @@ export default function LoginPage() {
       const data: LoginResponse = await response.json();
 
       if (!response.ok) {
-        setIsError(true);
         setError(data.message);
         return;
       }
 
       navigate("/dashboard");
     } catch (err) {
-      setIsError(true);
       setError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
@@ -94,7 +91,7 @@ export default function LoginPage() {
           bg: "blackAlpha.700",
         }}
       />
-      <Card.Root size="lg" rounded="2xl" maxW="md" w="full" mx="4">
+      <Card.Root size="lg" rounded="2xl" maxW="md" w="full" mx="4" my="10">
         <Card.Header pb="0">
           <Heading size="lg" textAlign="center">
             Welcome to <Span fontWeight="900">Worldly</Span>
@@ -102,14 +99,14 @@ export default function LoginPage() {
         </Card.Header>
 
         <Card.Body as="form" onSubmit={handleSubmit} pt="8">
-          <Fieldset.Root size="lg" disabled={isLoading} invalid={isError}>
+          <Fieldset.Root size="lg" disabled={isLoading} invalid={error !== null}>
             <Stack>
               <Fieldset.Legend>Login details</Fieldset.Legend>
               <Fieldset.HelperText>Please provide your login details below.</Fieldset.HelperText>
             </Stack>
 
             <Fieldset.Content>
-              <Field.Root invalid={isError}>
+              <Field.Root invalid={error !== null}>
                 <Field.Label>Email</Field.Label>
                 <Input
                   placeholder="me@example.com"
@@ -122,10 +119,10 @@ export default function LoginPage() {
                 />
               </Field.Root>
 
-              <Field.Root invalid={isError}>
+              <Field.Root invalid={error !== null}>
                 <Field.Label>Password</Field.Label>
                 <Input
-                  placeholder="Enter your password"
+                  placeholder="password123"
                   size="lg"
                   rounded="xl"
                   type="password"
