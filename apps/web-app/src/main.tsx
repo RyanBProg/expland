@@ -13,6 +13,8 @@ import RegisterPage from "./routes/register/RegisterPage";
 import Home from "./routes/Home";
 import ContactPage from "./routes/contact/ContactPage";
 import PoliciesPage from "./routes/policies/Policies";
+import ViewTripsPage from "./routes/dashboard/trips/ViewTripsPage";
+import CreateTripPage from "./routes/dashboard/trips/CreateTripPage";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +38,8 @@ const router = createBrowserRouter([
       { index: true, Component: Dashboard },
       { path: "account", Component: ManageAccountPage },
       { path: "account/profile", Component: ProfilePage },
+      { path: "trips", Component: ViewTripsPage },
+      { path: "trips/new-trip", Component: CreateTripPage },
     ],
   },
 ]);

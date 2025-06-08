@@ -17,7 +17,7 @@ export default function DashboardNavbar() {
           </li>
           <li>
             <Button asChild rounded="2xl">
-              <Link to="/dashboard" aria-label="My Trips">
+              <Link to="/dashboard/trips" aria-label="My Trips">
                 <AirplaneInFlight aria-hidden="true" />
                 Trips
               </Link>
