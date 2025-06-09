@@ -18,3 +18,13 @@ export interface CookieDefaults extends CookieOptions {
   secure: boolean;
   path: string;
 }
+
+// Query Types
+
+export type WhereClause = {
+  userId: string;
+  dateTravel?: {
+    gte: Date;
+    lt: Date;
+  };
+};

@@ -160,13 +160,18 @@ exports.Prisma.TravelScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   countryId: 'countryId',
-  cityId: 'cityId',
-  title: 'title',
   description: 'description',
   dateTravel: 'dateTravel',
   duration: 'duration',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TravelCityScalarFieldEnum = {
+  id: 'id',
+  travelId: 'travelId',
+  cityId: 'cityId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.CountryScalarFieldEnum = {
@@ -223,6 +228,7 @@ exports.Prisma.ModelName = {
   Follow: 'Follow',
   Wishlist: 'Wishlist',
   Travel: 'Travel',
+  TravelCity: 'TravelCity',
   Country: 'Country',
   City: 'City'
 };

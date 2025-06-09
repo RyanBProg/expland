@@ -10,8 +10,7 @@ export const userProfileSchema = z.object({
 export const addTravelSchema = z.object({
   userId: z.string(),
   countryId: z.number(),
-  cityId: z.number().optional(),
-  title: z.string(),
+  cityIds: z.array(z.number()),
   description: z.string().optional(),
   dateTravel: z.date(),
   duration: z.number(),

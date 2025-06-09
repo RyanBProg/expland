@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { TUserTokenRequest } from "../../utils/types/types";
+import { TUserTokenRequest, WhereClause } from "../../utils/types/types";
 import prisma from "../../database/prismaClient";
 import { handleControllerError } from "../../utils/handleControllerError";
 import { addTravelSchema, userProfileSchema } from "../../utils/zod/accountSchema";
@@ -170,11 +170,39 @@ async function getAllTravels(req: TUserTokenRequest, res: Response) {
       return;
     }
 
+    // Get query parameters with defaults
+    const page = parseInt(req.query.page as string) || 1;
+    const sort = (req.query.sort as string) === "oldest" ? "asc" : "desc";
+    const year = parseInt(req.query.year as string);
+
+    // Validate page number
+    if (page < 1) {
+      res.status(400).json({ message: "Page must be greater than 0" });
+      return;
+    }
+
+    // Build where clause
+    const whereClause: WhereClause = { userId };
+    if (year) {
+      whereClause.dateTravel = {
+        gte: new Date(`${year}-01-01`),
+        lt: new Date(`${year + 1}-01-01`),
+      };
+    }
+
+    // Get total count for pagination
+    const totalTravels = await prisma.travel.count({
+      where: whereClause,
+    });
+
+    const limit = 10;
+    const totalPages = Math.ceil(totalTravels / limit);
+
+    // Get paginated results
     const travels = await prisma.travel.findMany({
-      where: { userId },
+      where: whereClause,
       select: {
         id: true,
-        title: true,
         description: true,
         dateTravel: true,
         duration: true,
@@ -185,19 +213,35 @@ async function getAllTravels(req: TUserTokenRequest, res: Response) {
             continent: true,
           },
         },
-        city: {
+        cities: {
           select: {
-            name: true,
+            city: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
           },
         },
         createdAt: true,
       },
       orderBy: {
-        dateTravel: "desc",
+        dateTravel: sort,
       },
+      skip: (page - 1) * limit,
+      take: limit,
     });
 
-    res.status(200).json({ data: travels });
+    res.status(200).json({
+      data: travels,
+      pagination: {
+        currentPage: page,
+        totalPages,
+        totalItems: totalTravels,
+        hasNextPage: page < totalPages,
+        hasPreviousPage: page > 1,
+      },
+    });
   } catch (error) {
     handleControllerError(error, res, "getAllTravels");
   }
@@ -211,37 +255,59 @@ async function getTravel(req: TUserTokenRequest, res: Response) {
       return;
     }
 
-    const travelId = req.params.travelId;
-    if (!travelId) {
-      res.status(400).json({ message: "Travel ID is required" });
+    const travelId = parseInt(req.params.travelId);
+    if (isNaN(travelId)) {
+      res.status(400).json({ message: "Invalid Travel ID" });
       return;
     }
 
     const travel = await prisma.travel.findFirst({
-      where: { userId, id: parseInt(travelId) },
+      where: {
+        id: travelId,
+        userId,
+      },
       select: {
         id: true,
-        title: true,
         description: true,
         dateTravel: true,
         duration: true,
         country: {
           select: {
+            id: true,
             name: true,
             flagImageUrl: true,
             continent: true,
           },
         },
-        city: {
+        cities: {
           select: {
-            name: true,
+            city: {
+              select: {
+                id: true,
+                name: true,
+                longitude: true,
+                latitude: true,
+              },
+            },
           },
         },
         createdAt: true,
+        updatedAt: true,
       },
     });
 
-    res.status(200).json({ data: travel });
+    if (!travel) {
+      res.status(404).json({ message: "Travel not found" });
+      return;
+    }
+
+    // Transform cities array to be cleaner
+    const transformedTravel = {
+      ...travel,
+      cities: travel.cities.map(tc => tc.city),
+    };
+
+    res.status(200).json({ data: transformedTravel });
   } catch (error) {
     handleControllerError(error, res, "getTravel");
   }
@@ -274,19 +340,33 @@ async function addTravel(req: TUserTokenRequest, res: Response) {
       }
     }
 
-    const travelData = {
-      userId,
-      title: parsedResult.data.title,
-      description: parsedResult.data.description,
-      dateTravel: parsedResult.data.dateTravel,
-      duration: parsedResult.data.duration,
-      countryId: parsedResult.data.countryId,
-      cityId: parsedResult.data.cityId,
-    };
+    // Create travel with cities in a transaction
+    const travel = await prisma.$transaction(async tx => {
+      // Create the travel entry
+      const newTravel = await tx.travel.create({
+        data: {
+          userId,
+          countryId: parsedResult.data.countryId,
+          description: parsedResult.data.description,
+          dateTravel: parsedResult.data.dateTravel,
+          duration: parsedResult.data.duration,
+        },
+      });
 
-    await prisma.travel.create({ data: travelData });
+      // If cities are provided, create the TravelCity relations
+      if (parsedResult.data.cityIds && parsedResult.data.cityIds.length > 0) {
+        await tx.travelCity.createMany({
+          data: parsedResult.data.cityIds.map(cityId => ({
+            travelId: newTravel.id,
+            cityId,
+          })),
+        });
+      }
 
-    res.status(200).json({ message: "Travel added successfully" });
+      return newTravel;
+    });
+
+    res.status(200).json({ message: "Travel added successfully", data: travel });
   } catch (error) {
     handleControllerError(error, res, "addTravel");
   }
@@ -300,9 +380,9 @@ async function editTravel(req: TUserTokenRequest, res: Response) {
       return;
     }
 
-    const travelId = req.params.travelId;
-    if (!travelId) {
-      res.status(400).json({ message: "Travel ID is required" });
+    const travelId = parseInt(req.params.travelId);
+    if (isNaN(travelId)) {
+      res.status(400).json({ message: "Invalid Travel ID" });
       return;
     }
 
@@ -325,19 +405,57 @@ async function editTravel(req: TUserTokenRequest, res: Response) {
       }
     }
 
-    const travelData = {
-      userId,
-      title: parsedResult.data.title,
-      description: parsedResult.data.description,
-      dateTravel: parsedResult.data.dateTravel,
-      duration: parsedResult.data.duration,
-      countryId: parsedResult.data.countryId,
-      cityId: parsedResult.data.cityId,
-    };
+    // Update travel and cities in a transaction
+    const updatedTravel = await prisma.$transaction(async tx => {
+      // First, verify the travel belongs to the user
+      const existingTravel = await tx.travel.findFirst({
+        where: {
+          id: travelId,
+          userId,
+        },
+      });
 
-    await prisma.travel.update({ where: { userId, id: parseInt(travelId) }, data: travelData });
+      if (!existingTravel) {
+        throw new Error("Travel not found or unauthorized");
+      }
 
-    res.status(200).json({ message: "Travel updated successfully" });
+      // Delete all existing TravelCity relations
+      await tx.travelCity.deleteMany({
+        where: { travelId },
+      });
+
+      // Create new TravelCity relations if cities provided
+      if (parsedResult.data.cityIds.length > 0) {
+        await tx.travelCity.createMany({
+          data: parsedResult.data.cityIds.map(cityId => ({
+            travelId,
+            cityId,
+          })),
+        });
+      }
+      // Update the travel entry
+      const travel = await tx.travel.update({
+        where: { id: travelId },
+        data: {
+          countryId: parsedResult.data.countryId,
+          description: parsedResult.data.description,
+          dateTravel: parsedResult.data.dateTravel,
+          duration: parsedResult.data.duration,
+        },
+        include: {
+          cities: {
+            include: {
+              city: true,
+            },
+          },
+          country: true,
+        },
+      });
+
+      return travel;
+    });
+
+    res.status(200).json({ message: "Travel updated successfully", data: updatedTravel });
   } catch (error) {
     handleControllerError(error, res, "editTravel");
   }
@@ -351,15 +469,36 @@ async function deleteTravel(req: TUserTokenRequest, res: Response) {
       return;
     }
 
-    const travelId = req.params.travelId;
-    if (!travelId) {
-      res.status(400).json({ message: "Travel ID is required" });
+    const travelId = parseInt(req.params.travelId);
+    if (isNaN(travelId)) {
+      res.status(400).json({ message: "Invalid Travel ID" });
       return;
     }
 
-    await prisma.travel.delete({ where: { userId, id: parseInt(travelId) } });
+    // Delete travel and travelcities in a transaction
+    await prisma.$transaction(async tx => {
+      // First, verify the travel belongs to the user
+      const existingTravel = await tx.travel.findFirst({
+        where: {
+          id: travelId,
+          userId,
+        },
+      });
 
-    res.status(200).json({ message: "Travel deleted successfully" });
+      if (!existingTravel) {
+        throw new Error("Travel not found or unauthorized");
+      }
+
+      // Delete all existing TravelCity relations
+      await tx.travelCity.deleteMany({
+        where: { travelId },
+      });
+
+      // delete travel entry
+      await tx.travel.delete({ where: { id: travelId } });
+    });
+
+    res.status(204).json({ message: "Travel deleted successfully" });
   } catch (error) {
     handleControllerError(error, res, "deleteTravel");
   }

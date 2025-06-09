@@ -39,6 +39,11 @@ export type Wishlist = $Result.DefaultSelection<Prisma.$WishlistPayload>
  */
 export type Travel = $Result.DefaultSelection<Prisma.$TravelPayload>
 /**
+ * Model TravelCity
+ * 
+ */
+export type TravelCity = $Result.DefaultSelection<Prisma.$TravelCityPayload>
+/**
  * Model Country
  * 
  */
@@ -223,6 +228,16 @@ export class PrismaClient<
     * ```
     */
   get travel(): Prisma.TravelDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.travelCity`: Exposes CRUD operations for the **TravelCity** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TravelCities
+    * const travelCities = await prisma.travelCity.findMany()
+    * ```
+    */
+  get travelCity(): Prisma.TravelCityDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.country`: Exposes CRUD operations for the **Country** model.
@@ -688,6 +703,7 @@ export namespace Prisma {
     Follow: 'Follow',
     Wishlist: 'Wishlist',
     Travel: 'Travel',
+    TravelCity: 'TravelCity',
     Country: 'Country',
     City: 'City'
   };
@@ -708,7 +724,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "userAccount" | "userProfile" | "follow" | "wishlist" | "travel" | "country" | "city"
+      modelProps: "userAccount" | "userProfile" | "follow" | "wishlist" | "travel" | "travelCity" | "country" | "city"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1082,6 +1098,80 @@ export namespace Prisma {
           }
         }
       }
+      TravelCity: {
+        payload: Prisma.$TravelCityPayload<ExtArgs>
+        fields: Prisma.TravelCityFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TravelCityFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelCityPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TravelCityFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelCityPayload>
+          }
+          findFirst: {
+            args: Prisma.TravelCityFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelCityPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TravelCityFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelCityPayload>
+          }
+          findMany: {
+            args: Prisma.TravelCityFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelCityPayload>[]
+          }
+          create: {
+            args: Prisma.TravelCityCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelCityPayload>
+          }
+          createMany: {
+            args: Prisma.TravelCityCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TravelCityCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelCityPayload>[]
+          }
+          delete: {
+            args: Prisma.TravelCityDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelCityPayload>
+          }
+          update: {
+            args: Prisma.TravelCityUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelCityPayload>
+          }
+          deleteMany: {
+            args: Prisma.TravelCityDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TravelCityUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TravelCityUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelCityPayload>[]
+          }
+          upsert: {
+            args: Prisma.TravelCityUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TravelCityPayload>
+          }
+          aggregate: {
+            args: Prisma.TravelCityAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTravelCity>
+          }
+          groupBy: {
+            args: Prisma.TravelCityGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TravelCityGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TravelCityCountArgs<ExtArgs>
+            result: $Utils.Optional<TravelCityCountAggregateOutputType> | number
+          }
+        }
+      }
       Country: {
         payload: Prisma.$CountryPayload<ExtArgs>
         fields: Prisma.CountryFieldRefs
@@ -1319,6 +1409,7 @@ export namespace Prisma {
     follow?: FollowOmit
     wishlist?: WishlistOmit
     travel?: TravelOmit
+    travelCity?: TravelCityOmit
     country?: CountryOmit
     city?: CityOmit
   }
@@ -1469,6 +1560,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type TravelCountOutputType
+   */
+
+  export type TravelCountOutputType = {
+    cities: number
+  }
+
+  export type TravelCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cities?: boolean | TravelCountOutputTypeCountCitiesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TravelCountOutputType without action
+   */
+  export type TravelCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TravelCountOutputType
+     */
+    select?: TravelCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TravelCountOutputType without action
+   */
+  export type TravelCountOutputTypeCountCitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TravelCityWhereInput
+  }
+
+
+  /**
    * Count Type CountryCountOutputType
    */
 
@@ -1546,7 +1668,7 @@ export namespace Prisma {
    * CityCountOutputType without action
    */
   export type CityCountOutputTypeCountTravelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TravelWhereInput
+    where?: TravelCityWhereInput
   }
 
   /**
@@ -6098,14 +6220,12 @@ export namespace Prisma {
   export type TravelAvgAggregateOutputType = {
     id: number | null
     countryId: number | null
-    cityId: number | null
     duration: number | null
   }
 
   export type TravelSumAggregateOutputType = {
     id: number | null
     countryId: number | null
-    cityId: number | null
     duration: number | null
   }
 
@@ -6113,8 +6233,6 @@ export namespace Prisma {
     id: number | null
     userId: string | null
     countryId: number | null
-    cityId: number | null
-    title: string | null
     description: string | null
     dateTravel: Date | null
     duration: number | null
@@ -6126,8 +6244,6 @@ export namespace Prisma {
     id: number | null
     userId: string | null
     countryId: number | null
-    cityId: number | null
-    title: string | null
     description: string | null
     dateTravel: Date | null
     duration: number | null
@@ -6139,8 +6255,6 @@ export namespace Prisma {
     id: number
     userId: number
     countryId: number
-    cityId: number
-    title: number
     description: number
     dateTravel: number
     duration: number
@@ -6153,14 +6267,12 @@ export namespace Prisma {
   export type TravelAvgAggregateInputType = {
     id?: true
     countryId?: true
-    cityId?: true
     duration?: true
   }
 
   export type TravelSumAggregateInputType = {
     id?: true
     countryId?: true
-    cityId?: true
     duration?: true
   }
 
@@ -6168,8 +6280,6 @@ export namespace Prisma {
     id?: true
     userId?: true
     countryId?: true
-    cityId?: true
-    title?: true
     description?: true
     dateTravel?: true
     duration?: true
@@ -6181,8 +6291,6 @@ export namespace Prisma {
     id?: true
     userId?: true
     countryId?: true
-    cityId?: true
-    title?: true
     description?: true
     dateTravel?: true
     duration?: true
@@ -6194,8 +6302,6 @@ export namespace Prisma {
     id?: true
     userId?: true
     countryId?: true
-    cityId?: true
-    title?: true
     description?: true
     dateTravel?: true
     duration?: true
@@ -6294,8 +6400,6 @@ export namespace Prisma {
     id: number
     userId: string
     countryId: number | null
-    cityId: number | null
-    title: string
     description: string | null
     dateTravel: Date
     duration: number | null
@@ -6326,8 +6430,6 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     countryId?: boolean
-    cityId?: boolean
-    title?: boolean
     description?: boolean
     dateTravel?: boolean
     duration?: boolean
@@ -6335,15 +6437,14 @@ export namespace Prisma {
     updatedAt?: boolean
     user?: boolean | UserAccountDefaultArgs<ExtArgs>
     country?: boolean | Travel$countryArgs<ExtArgs>
-    city?: boolean | Travel$cityArgs<ExtArgs>
+    cities?: boolean | Travel$citiesArgs<ExtArgs>
+    _count?: boolean | TravelCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["travel"]>
 
   export type TravelSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     countryId?: boolean
-    cityId?: boolean
-    title?: boolean
     description?: boolean
     dateTravel?: boolean
     duration?: boolean
@@ -6351,15 +6452,12 @@ export namespace Prisma {
     updatedAt?: boolean
     user?: boolean | UserAccountDefaultArgs<ExtArgs>
     country?: boolean | Travel$countryArgs<ExtArgs>
-    city?: boolean | Travel$cityArgs<ExtArgs>
   }, ExtArgs["result"]["travel"]>
 
   export type TravelSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     countryId?: boolean
-    cityId?: boolean
-    title?: boolean
     description?: boolean
     dateTravel?: boolean
     duration?: boolean
@@ -6367,15 +6465,12 @@ export namespace Prisma {
     updatedAt?: boolean
     user?: boolean | UserAccountDefaultArgs<ExtArgs>
     country?: boolean | Travel$countryArgs<ExtArgs>
-    city?: boolean | Travel$cityArgs<ExtArgs>
   }, ExtArgs["result"]["travel"]>
 
   export type TravelSelectScalar = {
     id?: boolean
     userId?: boolean
     countryId?: boolean
-    cityId?: boolean
-    title?: boolean
     description?: boolean
     dateTravel?: boolean
     duration?: boolean
@@ -6383,21 +6478,20 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type TravelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "countryId" | "cityId" | "title" | "description" | "dateTravel" | "duration" | "createdAt" | "updatedAt", ExtArgs["result"]["travel"]>
+  export type TravelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "countryId" | "description" | "dateTravel" | "duration" | "createdAt" | "updatedAt", ExtArgs["result"]["travel"]>
   export type TravelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserAccountDefaultArgs<ExtArgs>
     country?: boolean | Travel$countryArgs<ExtArgs>
-    city?: boolean | Travel$cityArgs<ExtArgs>
+    cities?: boolean | Travel$citiesArgs<ExtArgs>
+    _count?: boolean | TravelCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TravelIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserAccountDefaultArgs<ExtArgs>
     country?: boolean | Travel$countryArgs<ExtArgs>
-    city?: boolean | Travel$cityArgs<ExtArgs>
   }
   export type TravelIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserAccountDefaultArgs<ExtArgs>
     country?: boolean | Travel$countryArgs<ExtArgs>
-    city?: boolean | Travel$cityArgs<ExtArgs>
   }
 
   export type $TravelPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6405,14 +6499,12 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserAccountPayload<ExtArgs>
       country: Prisma.$CountryPayload<ExtArgs> | null
-      city: Prisma.$CityPayload<ExtArgs> | null
+      cities: Prisma.$TravelCityPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       userId: string
       countryId: number | null
-      cityId: number | null
-      title: string
       description: string | null
       dateTravel: Date
       duration: number | null
@@ -6814,7 +6906,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserAccountDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserAccountDefaultArgs<ExtArgs>>): Prisma__UserAccountClient<$Result.GetResult<Prisma.$UserAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     country<T extends Travel$countryArgs<ExtArgs> = {}>(args?: Subset<T, Travel$countryArgs<ExtArgs>>): Prisma__CountryClient<$Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    city<T extends Travel$cityArgs<ExtArgs> = {}>(args?: Subset<T, Travel$cityArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    cities<T extends Travel$citiesArgs<ExtArgs> = {}>(args?: Subset<T, Travel$citiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TravelCityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6847,8 +6939,6 @@ export namespace Prisma {
     readonly id: FieldRef<"Travel", 'Int'>
     readonly userId: FieldRef<"Travel", 'String'>
     readonly countryId: FieldRef<"Travel", 'Int'>
-    readonly cityId: FieldRef<"Travel", 'Int'>
-    readonly title: FieldRef<"Travel", 'String'>
     readonly description: FieldRef<"Travel", 'String'>
     readonly dateTravel: FieldRef<"Travel", 'DateTime'>
     readonly duration: FieldRef<"Travel", 'Int'>
@@ -7269,22 +7359,27 @@ export namespace Prisma {
   }
 
   /**
-   * Travel.city
+   * Travel.cities
    */
-  export type Travel$cityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Travel$citiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the City
+     * Select specific fields to fetch from the TravelCity
      */
-    select?: CitySelect<ExtArgs> | null
+    select?: TravelCitySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the City
+     * Omit specific fields from the TravelCity
      */
-    omit?: CityOmit<ExtArgs> | null
+    omit?: TravelCityOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CityInclude<ExtArgs> | null
-    where?: CityWhereInput
+    include?: TravelCityInclude<ExtArgs> | null
+    where?: TravelCityWhereInput
+    orderBy?: TravelCityOrderByWithRelationInput | TravelCityOrderByWithRelationInput[]
+    cursor?: TravelCityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TravelCityScalarFieldEnum | TravelCityScalarFieldEnum[]
   }
 
   /**
@@ -7303,6 +7398,1101 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: TravelInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TravelCity
+   */
+
+  export type AggregateTravelCity = {
+    _count: TravelCityCountAggregateOutputType | null
+    _avg: TravelCityAvgAggregateOutputType | null
+    _sum: TravelCitySumAggregateOutputType | null
+    _min: TravelCityMinAggregateOutputType | null
+    _max: TravelCityMaxAggregateOutputType | null
+  }
+
+  export type TravelCityAvgAggregateOutputType = {
+    id: number | null
+    travelId: number | null
+    cityId: number | null
+  }
+
+  export type TravelCitySumAggregateOutputType = {
+    id: number | null
+    travelId: number | null
+    cityId: number | null
+  }
+
+  export type TravelCityMinAggregateOutputType = {
+    id: number | null
+    travelId: number | null
+    cityId: number | null
+    createdAt: Date | null
+  }
+
+  export type TravelCityMaxAggregateOutputType = {
+    id: number | null
+    travelId: number | null
+    cityId: number | null
+    createdAt: Date | null
+  }
+
+  export type TravelCityCountAggregateOutputType = {
+    id: number
+    travelId: number
+    cityId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type TravelCityAvgAggregateInputType = {
+    id?: true
+    travelId?: true
+    cityId?: true
+  }
+
+  export type TravelCitySumAggregateInputType = {
+    id?: true
+    travelId?: true
+    cityId?: true
+  }
+
+  export type TravelCityMinAggregateInputType = {
+    id?: true
+    travelId?: true
+    cityId?: true
+    createdAt?: true
+  }
+
+  export type TravelCityMaxAggregateInputType = {
+    id?: true
+    travelId?: true
+    cityId?: true
+    createdAt?: true
+  }
+
+  export type TravelCityCountAggregateInputType = {
+    id?: true
+    travelId?: true
+    cityId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type TravelCityAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TravelCity to aggregate.
+     */
+    where?: TravelCityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TravelCities to fetch.
+     */
+    orderBy?: TravelCityOrderByWithRelationInput | TravelCityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TravelCityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TravelCities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TravelCities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TravelCities
+    **/
+    _count?: true | TravelCityCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TravelCityAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TravelCitySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TravelCityMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TravelCityMaxAggregateInputType
+  }
+
+  export type GetTravelCityAggregateType<T extends TravelCityAggregateArgs> = {
+        [P in keyof T & keyof AggregateTravelCity]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTravelCity[P]>
+      : GetScalarType<T[P], AggregateTravelCity[P]>
+  }
+
+
+
+
+  export type TravelCityGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TravelCityWhereInput
+    orderBy?: TravelCityOrderByWithAggregationInput | TravelCityOrderByWithAggregationInput[]
+    by: TravelCityScalarFieldEnum[] | TravelCityScalarFieldEnum
+    having?: TravelCityScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TravelCityCountAggregateInputType | true
+    _avg?: TravelCityAvgAggregateInputType
+    _sum?: TravelCitySumAggregateInputType
+    _min?: TravelCityMinAggregateInputType
+    _max?: TravelCityMaxAggregateInputType
+  }
+
+  export type TravelCityGroupByOutputType = {
+    id: number
+    travelId: number
+    cityId: number
+    createdAt: Date
+    _count: TravelCityCountAggregateOutputType | null
+    _avg: TravelCityAvgAggregateOutputType | null
+    _sum: TravelCitySumAggregateOutputType | null
+    _min: TravelCityMinAggregateOutputType | null
+    _max: TravelCityMaxAggregateOutputType | null
+  }
+
+  type GetTravelCityGroupByPayload<T extends TravelCityGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TravelCityGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TravelCityGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TravelCityGroupByOutputType[P]>
+            : GetScalarType<T[P], TravelCityGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TravelCitySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    travelId?: boolean
+    cityId?: boolean
+    createdAt?: boolean
+    travel?: boolean | TravelDefaultArgs<ExtArgs>
+    city?: boolean | CityDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["travelCity"]>
+
+  export type TravelCitySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    travelId?: boolean
+    cityId?: boolean
+    createdAt?: boolean
+    travel?: boolean | TravelDefaultArgs<ExtArgs>
+    city?: boolean | CityDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["travelCity"]>
+
+  export type TravelCitySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    travelId?: boolean
+    cityId?: boolean
+    createdAt?: boolean
+    travel?: boolean | TravelDefaultArgs<ExtArgs>
+    city?: boolean | CityDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["travelCity"]>
+
+  export type TravelCitySelectScalar = {
+    id?: boolean
+    travelId?: boolean
+    cityId?: boolean
+    createdAt?: boolean
+  }
+
+  export type TravelCityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "travelId" | "cityId" | "createdAt", ExtArgs["result"]["travelCity"]>
+  export type TravelCityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    travel?: boolean | TravelDefaultArgs<ExtArgs>
+    city?: boolean | CityDefaultArgs<ExtArgs>
+  }
+  export type TravelCityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    travel?: boolean | TravelDefaultArgs<ExtArgs>
+    city?: boolean | CityDefaultArgs<ExtArgs>
+  }
+  export type TravelCityIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    travel?: boolean | TravelDefaultArgs<ExtArgs>
+    city?: boolean | CityDefaultArgs<ExtArgs>
+  }
+
+  export type $TravelCityPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TravelCity"
+    objects: {
+      travel: Prisma.$TravelPayload<ExtArgs>
+      city: Prisma.$CityPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      travelId: number
+      cityId: number
+      createdAt: Date
+    }, ExtArgs["result"]["travelCity"]>
+    composites: {}
+  }
+
+  type TravelCityGetPayload<S extends boolean | null | undefined | TravelCityDefaultArgs> = $Result.GetResult<Prisma.$TravelCityPayload, S>
+
+  type TravelCityCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TravelCityFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TravelCityCountAggregateInputType | true
+    }
+
+  export interface TravelCityDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TravelCity'], meta: { name: 'TravelCity' } }
+    /**
+     * Find zero or one TravelCity that matches the filter.
+     * @param {TravelCityFindUniqueArgs} args - Arguments to find a TravelCity
+     * @example
+     * // Get one TravelCity
+     * const travelCity = await prisma.travelCity.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TravelCityFindUniqueArgs>(args: SelectSubset<T, TravelCityFindUniqueArgs<ExtArgs>>): Prisma__TravelCityClient<$Result.GetResult<Prisma.$TravelCityPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TravelCity that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TravelCityFindUniqueOrThrowArgs} args - Arguments to find a TravelCity
+     * @example
+     * // Get one TravelCity
+     * const travelCity = await prisma.travelCity.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TravelCityFindUniqueOrThrowArgs>(args: SelectSubset<T, TravelCityFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TravelCityClient<$Result.GetResult<Prisma.$TravelCityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TravelCity that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TravelCityFindFirstArgs} args - Arguments to find a TravelCity
+     * @example
+     * // Get one TravelCity
+     * const travelCity = await prisma.travelCity.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TravelCityFindFirstArgs>(args?: SelectSubset<T, TravelCityFindFirstArgs<ExtArgs>>): Prisma__TravelCityClient<$Result.GetResult<Prisma.$TravelCityPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TravelCity that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TravelCityFindFirstOrThrowArgs} args - Arguments to find a TravelCity
+     * @example
+     * // Get one TravelCity
+     * const travelCity = await prisma.travelCity.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TravelCityFindFirstOrThrowArgs>(args?: SelectSubset<T, TravelCityFindFirstOrThrowArgs<ExtArgs>>): Prisma__TravelCityClient<$Result.GetResult<Prisma.$TravelCityPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TravelCities that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TravelCityFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TravelCities
+     * const travelCities = await prisma.travelCity.findMany()
+     * 
+     * // Get first 10 TravelCities
+     * const travelCities = await prisma.travelCity.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const travelCityWithIdOnly = await prisma.travelCity.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TravelCityFindManyArgs>(args?: SelectSubset<T, TravelCityFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TravelCityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TravelCity.
+     * @param {TravelCityCreateArgs} args - Arguments to create a TravelCity.
+     * @example
+     * // Create one TravelCity
+     * const TravelCity = await prisma.travelCity.create({
+     *   data: {
+     *     // ... data to create a TravelCity
+     *   }
+     * })
+     * 
+     */
+    create<T extends TravelCityCreateArgs>(args: SelectSubset<T, TravelCityCreateArgs<ExtArgs>>): Prisma__TravelCityClient<$Result.GetResult<Prisma.$TravelCityPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TravelCities.
+     * @param {TravelCityCreateManyArgs} args - Arguments to create many TravelCities.
+     * @example
+     * // Create many TravelCities
+     * const travelCity = await prisma.travelCity.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TravelCityCreateManyArgs>(args?: SelectSubset<T, TravelCityCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TravelCities and returns the data saved in the database.
+     * @param {TravelCityCreateManyAndReturnArgs} args - Arguments to create many TravelCities.
+     * @example
+     * // Create many TravelCities
+     * const travelCity = await prisma.travelCity.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TravelCities and only return the `id`
+     * const travelCityWithIdOnly = await prisma.travelCity.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TravelCityCreateManyAndReturnArgs>(args?: SelectSubset<T, TravelCityCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TravelCityPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TravelCity.
+     * @param {TravelCityDeleteArgs} args - Arguments to delete one TravelCity.
+     * @example
+     * // Delete one TravelCity
+     * const TravelCity = await prisma.travelCity.delete({
+     *   where: {
+     *     // ... filter to delete one TravelCity
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TravelCityDeleteArgs>(args: SelectSubset<T, TravelCityDeleteArgs<ExtArgs>>): Prisma__TravelCityClient<$Result.GetResult<Prisma.$TravelCityPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TravelCity.
+     * @param {TravelCityUpdateArgs} args - Arguments to update one TravelCity.
+     * @example
+     * // Update one TravelCity
+     * const travelCity = await prisma.travelCity.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TravelCityUpdateArgs>(args: SelectSubset<T, TravelCityUpdateArgs<ExtArgs>>): Prisma__TravelCityClient<$Result.GetResult<Prisma.$TravelCityPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TravelCities.
+     * @param {TravelCityDeleteManyArgs} args - Arguments to filter TravelCities to delete.
+     * @example
+     * // Delete a few TravelCities
+     * const { count } = await prisma.travelCity.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TravelCityDeleteManyArgs>(args?: SelectSubset<T, TravelCityDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TravelCities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TravelCityUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TravelCities
+     * const travelCity = await prisma.travelCity.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TravelCityUpdateManyArgs>(args: SelectSubset<T, TravelCityUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TravelCities and returns the data updated in the database.
+     * @param {TravelCityUpdateManyAndReturnArgs} args - Arguments to update many TravelCities.
+     * @example
+     * // Update many TravelCities
+     * const travelCity = await prisma.travelCity.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TravelCities and only return the `id`
+     * const travelCityWithIdOnly = await prisma.travelCity.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TravelCityUpdateManyAndReturnArgs>(args: SelectSubset<T, TravelCityUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TravelCityPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TravelCity.
+     * @param {TravelCityUpsertArgs} args - Arguments to update or create a TravelCity.
+     * @example
+     * // Update or create a TravelCity
+     * const travelCity = await prisma.travelCity.upsert({
+     *   create: {
+     *     // ... data to create a TravelCity
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TravelCity we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TravelCityUpsertArgs>(args: SelectSubset<T, TravelCityUpsertArgs<ExtArgs>>): Prisma__TravelCityClient<$Result.GetResult<Prisma.$TravelCityPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TravelCities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TravelCityCountArgs} args - Arguments to filter TravelCities to count.
+     * @example
+     * // Count the number of TravelCities
+     * const count = await prisma.travelCity.count({
+     *   where: {
+     *     // ... the filter for the TravelCities we want to count
+     *   }
+     * })
+    **/
+    count<T extends TravelCityCountArgs>(
+      args?: Subset<T, TravelCityCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TravelCityCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TravelCity.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TravelCityAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TravelCityAggregateArgs>(args: Subset<T, TravelCityAggregateArgs>): Prisma.PrismaPromise<GetTravelCityAggregateType<T>>
+
+    /**
+     * Group by TravelCity.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TravelCityGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TravelCityGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TravelCityGroupByArgs['orderBy'] }
+        : { orderBy?: TravelCityGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TravelCityGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTravelCityGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TravelCity model
+   */
+  readonly fields: TravelCityFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TravelCity.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TravelCityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    travel<T extends TravelDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TravelDefaultArgs<ExtArgs>>): Prisma__TravelClient<$Result.GetResult<Prisma.$TravelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    city<T extends CityDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CityDefaultArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TravelCity model
+   */
+  interface TravelCityFieldRefs {
+    readonly id: FieldRef<"TravelCity", 'Int'>
+    readonly travelId: FieldRef<"TravelCity", 'Int'>
+    readonly cityId: FieldRef<"TravelCity", 'Int'>
+    readonly createdAt: FieldRef<"TravelCity", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TravelCity findUnique
+   */
+  export type TravelCityFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TravelCity
+     */
+    select?: TravelCitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TravelCity
+     */
+    omit?: TravelCityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelCityInclude<ExtArgs> | null
+    /**
+     * Filter, which TravelCity to fetch.
+     */
+    where: TravelCityWhereUniqueInput
+  }
+
+  /**
+   * TravelCity findUniqueOrThrow
+   */
+  export type TravelCityFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TravelCity
+     */
+    select?: TravelCitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TravelCity
+     */
+    omit?: TravelCityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelCityInclude<ExtArgs> | null
+    /**
+     * Filter, which TravelCity to fetch.
+     */
+    where: TravelCityWhereUniqueInput
+  }
+
+  /**
+   * TravelCity findFirst
+   */
+  export type TravelCityFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TravelCity
+     */
+    select?: TravelCitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TravelCity
+     */
+    omit?: TravelCityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelCityInclude<ExtArgs> | null
+    /**
+     * Filter, which TravelCity to fetch.
+     */
+    where?: TravelCityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TravelCities to fetch.
+     */
+    orderBy?: TravelCityOrderByWithRelationInput | TravelCityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TravelCities.
+     */
+    cursor?: TravelCityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TravelCities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TravelCities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TravelCities.
+     */
+    distinct?: TravelCityScalarFieldEnum | TravelCityScalarFieldEnum[]
+  }
+
+  /**
+   * TravelCity findFirstOrThrow
+   */
+  export type TravelCityFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TravelCity
+     */
+    select?: TravelCitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TravelCity
+     */
+    omit?: TravelCityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelCityInclude<ExtArgs> | null
+    /**
+     * Filter, which TravelCity to fetch.
+     */
+    where?: TravelCityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TravelCities to fetch.
+     */
+    orderBy?: TravelCityOrderByWithRelationInput | TravelCityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TravelCities.
+     */
+    cursor?: TravelCityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TravelCities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TravelCities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TravelCities.
+     */
+    distinct?: TravelCityScalarFieldEnum | TravelCityScalarFieldEnum[]
+  }
+
+  /**
+   * TravelCity findMany
+   */
+  export type TravelCityFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TravelCity
+     */
+    select?: TravelCitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TravelCity
+     */
+    omit?: TravelCityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelCityInclude<ExtArgs> | null
+    /**
+     * Filter, which TravelCities to fetch.
+     */
+    where?: TravelCityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TravelCities to fetch.
+     */
+    orderBy?: TravelCityOrderByWithRelationInput | TravelCityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TravelCities.
+     */
+    cursor?: TravelCityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TravelCities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TravelCities.
+     */
+    skip?: number
+    distinct?: TravelCityScalarFieldEnum | TravelCityScalarFieldEnum[]
+  }
+
+  /**
+   * TravelCity create
+   */
+  export type TravelCityCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TravelCity
+     */
+    select?: TravelCitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TravelCity
+     */
+    omit?: TravelCityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelCityInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TravelCity.
+     */
+    data: XOR<TravelCityCreateInput, TravelCityUncheckedCreateInput>
+  }
+
+  /**
+   * TravelCity createMany
+   */
+  export type TravelCityCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TravelCities.
+     */
+    data: TravelCityCreateManyInput | TravelCityCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TravelCity createManyAndReturn
+   */
+  export type TravelCityCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TravelCity
+     */
+    select?: TravelCitySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TravelCity
+     */
+    omit?: TravelCityOmit<ExtArgs> | null
+    /**
+     * The data used to create many TravelCities.
+     */
+    data: TravelCityCreateManyInput | TravelCityCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelCityIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TravelCity update
+   */
+  export type TravelCityUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TravelCity
+     */
+    select?: TravelCitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TravelCity
+     */
+    omit?: TravelCityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelCityInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TravelCity.
+     */
+    data: XOR<TravelCityUpdateInput, TravelCityUncheckedUpdateInput>
+    /**
+     * Choose, which TravelCity to update.
+     */
+    where: TravelCityWhereUniqueInput
+  }
+
+  /**
+   * TravelCity updateMany
+   */
+  export type TravelCityUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TravelCities.
+     */
+    data: XOR<TravelCityUpdateManyMutationInput, TravelCityUncheckedUpdateManyInput>
+    /**
+     * Filter which TravelCities to update
+     */
+    where?: TravelCityWhereInput
+    /**
+     * Limit how many TravelCities to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TravelCity updateManyAndReturn
+   */
+  export type TravelCityUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TravelCity
+     */
+    select?: TravelCitySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TravelCity
+     */
+    omit?: TravelCityOmit<ExtArgs> | null
+    /**
+     * The data used to update TravelCities.
+     */
+    data: XOR<TravelCityUpdateManyMutationInput, TravelCityUncheckedUpdateManyInput>
+    /**
+     * Filter which TravelCities to update
+     */
+    where?: TravelCityWhereInput
+    /**
+     * Limit how many TravelCities to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelCityIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TravelCity upsert
+   */
+  export type TravelCityUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TravelCity
+     */
+    select?: TravelCitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TravelCity
+     */
+    omit?: TravelCityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelCityInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TravelCity to update in case it exists.
+     */
+    where: TravelCityWhereUniqueInput
+    /**
+     * In case the TravelCity found by the `where` argument doesn't exist, create a new TravelCity with this data.
+     */
+    create: XOR<TravelCityCreateInput, TravelCityUncheckedCreateInput>
+    /**
+     * In case the TravelCity was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TravelCityUpdateInput, TravelCityUncheckedUpdateInput>
+  }
+
+  /**
+   * TravelCity delete
+   */
+  export type TravelCityDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TravelCity
+     */
+    select?: TravelCitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TravelCity
+     */
+    omit?: TravelCityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelCityInclude<ExtArgs> | null
+    /**
+     * Filter which TravelCity to delete.
+     */
+    where: TravelCityWhereUniqueInput
+  }
+
+  /**
+   * TravelCity deleteMany
+   */
+  export type TravelCityDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TravelCities to delete
+     */
+    where?: TravelCityWhereInput
+    /**
+     * Limit how many TravelCities to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TravelCity without action
+   */
+  export type TravelCityDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TravelCity
+     */
+    select?: TravelCitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TravelCity
+     */
+    omit?: TravelCityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TravelCityInclude<ExtArgs> | null
   }
 
 
@@ -8917,7 +10107,7 @@ export namespace Prisma {
   export type $CityPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "City"
     objects: {
-      travels: Prisma.$TravelPayload<ExtArgs>[]
+      travels: Prisma.$TravelCityPayload<ExtArgs>[]
       wishlist: Prisma.$WishlistPayload<ExtArgs>[]
       country: Prisma.$CountryPayload<ExtArgs>
     }
@@ -9329,7 +10519,7 @@ export namespace Prisma {
    */
   export interface Prisma__CityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    travels<T extends City$travelsArgs<ExtArgs> = {}>(args?: Subset<T, City$travelsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TravelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    travels<T extends City$travelsArgs<ExtArgs> = {}>(args?: Subset<T, City$travelsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TravelCityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     wishlist<T extends City$wishlistArgs<ExtArgs> = {}>(args?: Subset<T, City$wishlistArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WishlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     country<T extends CountryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CountryDefaultArgs<ExtArgs>>): Prisma__CountryClient<$Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -9774,23 +10964,23 @@ export namespace Prisma {
    */
   export type City$travelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Travel
+     * Select specific fields to fetch from the TravelCity
      */
-    select?: TravelSelect<ExtArgs> | null
+    select?: TravelCitySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Travel
+     * Omit specific fields from the TravelCity
      */
-    omit?: TravelOmit<ExtArgs> | null
+    omit?: TravelCityOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TravelInclude<ExtArgs> | null
-    where?: TravelWhereInput
-    orderBy?: TravelOrderByWithRelationInput | TravelOrderByWithRelationInput[]
-    cursor?: TravelWhereUniqueInput
+    include?: TravelCityInclude<ExtArgs> | null
+    where?: TravelCityWhereInput
+    orderBy?: TravelCityOrderByWithRelationInput | TravelCityOrderByWithRelationInput[]
+    cursor?: TravelCityWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: TravelScalarFieldEnum | TravelScalarFieldEnum[]
+    distinct?: TravelCityScalarFieldEnum | TravelCityScalarFieldEnum[]
   }
 
   /**
@@ -9902,8 +11092,6 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     countryId: 'countryId',
-    cityId: 'cityId',
-    title: 'title',
     description: 'description',
     dateTravel: 'dateTravel',
     duration: 'duration',
@@ -9912,6 +11100,16 @@ export namespace Prisma {
   };
 
   export type TravelScalarFieldEnum = (typeof TravelScalarFieldEnum)[keyof typeof TravelScalarFieldEnum]
+
+
+  export const TravelCityScalarFieldEnum: {
+    id: 'id',
+    travelId: 'travelId',
+    cityId: 'cityId',
+    createdAt: 'createdAt'
+  };
+
+  export type TravelCityScalarFieldEnum = (typeof TravelCityScalarFieldEnum)[keyof typeof TravelCityScalarFieldEnum]
 
 
   export const CountryScalarFieldEnum: {
@@ -10321,8 +11519,6 @@ export namespace Prisma {
     id?: IntFilter<"Travel"> | number
     userId?: StringFilter<"Travel"> | string
     countryId?: IntNullableFilter<"Travel"> | number | null
-    cityId?: IntNullableFilter<"Travel"> | number | null
-    title?: StringFilter<"Travel"> | string
     description?: StringNullableFilter<"Travel"> | string | null
     dateTravel?: DateTimeFilter<"Travel"> | Date | string
     duration?: IntNullableFilter<"Travel"> | number | null
@@ -10330,15 +11526,13 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Travel"> | Date | string
     user?: XOR<UserAccountScalarRelationFilter, UserAccountWhereInput>
     country?: XOR<CountryNullableScalarRelationFilter, CountryWhereInput> | null
-    city?: XOR<CityNullableScalarRelationFilter, CityWhereInput> | null
+    cities?: TravelCityListRelationFilter
   }
 
   export type TravelOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
     countryId?: SortOrderInput | SortOrder
-    cityId?: SortOrderInput | SortOrder
-    title?: SortOrder
     description?: SortOrderInput | SortOrder
     dateTravel?: SortOrder
     duration?: SortOrderInput | SortOrder
@@ -10346,7 +11540,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     user?: UserAccountOrderByWithRelationInput
     country?: CountryOrderByWithRelationInput
-    city?: CityOrderByWithRelationInput
+    cities?: TravelCityOrderByRelationAggregateInput
   }
 
   export type TravelWhereUniqueInput = Prisma.AtLeast<{
@@ -10356,8 +11550,6 @@ export namespace Prisma {
     NOT?: TravelWhereInput | TravelWhereInput[]
     userId?: StringFilter<"Travel"> | string
     countryId?: IntNullableFilter<"Travel"> | number | null
-    cityId?: IntNullableFilter<"Travel"> | number | null
-    title?: StringFilter<"Travel"> | string
     description?: StringNullableFilter<"Travel"> | string | null
     dateTravel?: DateTimeFilter<"Travel"> | Date | string
     duration?: IntNullableFilter<"Travel"> | number | null
@@ -10365,15 +11557,13 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Travel"> | Date | string
     user?: XOR<UserAccountScalarRelationFilter, UserAccountWhereInput>
     country?: XOR<CountryNullableScalarRelationFilter, CountryWhereInput> | null
-    city?: XOR<CityNullableScalarRelationFilter, CityWhereInput> | null
+    cities?: TravelCityListRelationFilter
   }, "id">
 
   export type TravelOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
     countryId?: SortOrderInput | SortOrder
-    cityId?: SortOrderInput | SortOrder
-    title?: SortOrder
     description?: SortOrderInput | SortOrder
     dateTravel?: SortOrder
     duration?: SortOrderInput | SortOrder
@@ -10393,13 +11583,67 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Travel"> | number
     userId?: StringWithAggregatesFilter<"Travel"> | string
     countryId?: IntNullableWithAggregatesFilter<"Travel"> | number | null
-    cityId?: IntNullableWithAggregatesFilter<"Travel"> | number | null
-    title?: StringWithAggregatesFilter<"Travel"> | string
     description?: StringNullableWithAggregatesFilter<"Travel"> | string | null
     dateTravel?: DateTimeWithAggregatesFilter<"Travel"> | Date | string
     duration?: IntNullableWithAggregatesFilter<"Travel"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Travel"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Travel"> | Date | string
+  }
+
+  export type TravelCityWhereInput = {
+    AND?: TravelCityWhereInput | TravelCityWhereInput[]
+    OR?: TravelCityWhereInput[]
+    NOT?: TravelCityWhereInput | TravelCityWhereInput[]
+    id?: IntFilter<"TravelCity"> | number
+    travelId?: IntFilter<"TravelCity"> | number
+    cityId?: IntFilter<"TravelCity"> | number
+    createdAt?: DateTimeFilter<"TravelCity"> | Date | string
+    travel?: XOR<TravelScalarRelationFilter, TravelWhereInput>
+    city?: XOR<CityScalarRelationFilter, CityWhereInput>
+  }
+
+  export type TravelCityOrderByWithRelationInput = {
+    id?: SortOrder
+    travelId?: SortOrder
+    cityId?: SortOrder
+    createdAt?: SortOrder
+    travel?: TravelOrderByWithRelationInput
+    city?: CityOrderByWithRelationInput
+  }
+
+  export type TravelCityWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    travelId_cityId?: TravelCityTravelIdCityIdCompoundUniqueInput
+    AND?: TravelCityWhereInput | TravelCityWhereInput[]
+    OR?: TravelCityWhereInput[]
+    NOT?: TravelCityWhereInput | TravelCityWhereInput[]
+    travelId?: IntFilter<"TravelCity"> | number
+    cityId?: IntFilter<"TravelCity"> | number
+    createdAt?: DateTimeFilter<"TravelCity"> | Date | string
+    travel?: XOR<TravelScalarRelationFilter, TravelWhereInput>
+    city?: XOR<CityScalarRelationFilter, CityWhereInput>
+  }, "id" | "travelId_cityId">
+
+  export type TravelCityOrderByWithAggregationInput = {
+    id?: SortOrder
+    travelId?: SortOrder
+    cityId?: SortOrder
+    createdAt?: SortOrder
+    _count?: TravelCityCountOrderByAggregateInput
+    _avg?: TravelCityAvgOrderByAggregateInput
+    _max?: TravelCityMaxOrderByAggregateInput
+    _min?: TravelCityMinOrderByAggregateInput
+    _sum?: TravelCitySumOrderByAggregateInput
+  }
+
+  export type TravelCityScalarWhereWithAggregatesInput = {
+    AND?: TravelCityScalarWhereWithAggregatesInput | TravelCityScalarWhereWithAggregatesInput[]
+    OR?: TravelCityScalarWhereWithAggregatesInput[]
+    NOT?: TravelCityScalarWhereWithAggregatesInput | TravelCityScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"TravelCity"> | number
+    travelId?: IntWithAggregatesFilter<"TravelCity"> | number
+    cityId?: IntWithAggregatesFilter<"TravelCity"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"TravelCity"> | Date | string
   }
 
   export type CountryWhereInput = {
@@ -10522,7 +11766,7 @@ export namespace Prisma {
     latitude?: FloatNullableFilter<"City"> | number | null
     createdAt?: DateTimeFilter<"City"> | Date | string
     updatedAt?: DateTimeFilter<"City"> | Date | string
-    travels?: TravelListRelationFilter
+    travels?: TravelCityListRelationFilter
     wishlist?: WishlistListRelationFilter
     country?: XOR<CountryScalarRelationFilter, CountryWhereInput>
   }
@@ -10541,7 +11785,7 @@ export namespace Prisma {
     latitude?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    travels?: TravelOrderByRelationAggregateInput
+    travels?: TravelCityOrderByRelationAggregateInput
     wishlist?: WishlistOrderByRelationAggregateInput
     country?: CountryOrderByWithRelationInput
   }
@@ -10563,7 +11807,7 @@ export namespace Prisma {
     latitude?: FloatNullableFilter<"City"> | number | null
     createdAt?: DateTimeFilter<"City"> | Date | string
     updatedAt?: DateTimeFilter<"City"> | Date | string
-    travels?: TravelListRelationFilter
+    travels?: TravelCityListRelationFilter
     wishlist?: WishlistListRelationFilter
     country?: XOR<CountryScalarRelationFilter, CountryWhereInput>
   }, "id" | "code">
@@ -10869,7 +12113,6 @@ export namespace Prisma {
   }
 
   export type TravelCreateInput = {
-    title: string
     description?: string | null
     dateTravel: Date | string
     duration?: number | null
@@ -10877,24 +12120,22 @@ export namespace Prisma {
     updatedAt?: Date | string
     user: UserAccountCreateNestedOneWithoutTravelInput
     country?: CountryCreateNestedOneWithoutTravelsInput
-    city?: CityCreateNestedOneWithoutTravelsInput
+    cities?: TravelCityCreateNestedManyWithoutTravelInput
   }
 
   export type TravelUncheckedCreateInput = {
     id?: number
     userId: string
     countryId?: number | null
-    cityId?: number | null
-    title: string
     description?: string | null
     dateTravel: Date | string
     duration?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    cities?: TravelCityUncheckedCreateNestedManyWithoutTravelInput
   }
 
   export type TravelUpdateInput = {
-    title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dateTravel?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: NullableIntFieldUpdateOperationsInput | number | null
@@ -10902,28 +12143,25 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserAccountUpdateOneRequiredWithoutTravelNestedInput
     country?: CountryUpdateOneWithoutTravelsNestedInput
-    city?: CityUpdateOneWithoutTravelsNestedInput
+    cities?: TravelCityUpdateManyWithoutTravelNestedInput
   }
 
   export type TravelUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
     countryId?: NullableIntFieldUpdateOperationsInput | number | null
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dateTravel?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    cities?: TravelCityUncheckedUpdateManyWithoutTravelNestedInput
   }
 
   export type TravelCreateManyInput = {
     id?: number
     userId: string
     countryId?: number | null
-    cityId?: number | null
-    title: string
     description?: string | null
     dateTravel: Date | string
     duration?: number | null
@@ -10932,7 +12170,6 @@ export namespace Prisma {
   }
 
   export type TravelUpdateManyMutationInput = {
-    title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dateTravel?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: NullableIntFieldUpdateOperationsInput | number | null
@@ -10944,13 +12181,55 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
     countryId?: NullableIntFieldUpdateOperationsInput | number | null
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dateTravel?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TravelCityCreateInput = {
+    createdAt?: Date | string
+    travel: TravelCreateNestedOneWithoutCitiesInput
+    city: CityCreateNestedOneWithoutTravelsInput
+  }
+
+  export type TravelCityUncheckedCreateInput = {
+    id?: number
+    travelId: number
+    cityId: number
+    createdAt?: Date | string
+  }
+
+  export type TravelCityUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    travel?: TravelUpdateOneRequiredWithoutCitiesNestedInput
+    city?: CityUpdateOneRequiredWithoutTravelsNestedInput
+  }
+
+  export type TravelCityUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    travelId?: IntFieldUpdateOperationsInput | number
+    cityId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TravelCityCreateManyInput = {
+    id?: number
+    travelId: number
+    cityId: number
+    createdAt?: Date | string
+  }
+
+  export type TravelCityUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TravelCityUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    travelId?: IntFieldUpdateOperationsInput | number
+    cityId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CountryCreateInput = {
@@ -11086,7 +12365,7 @@ export namespace Prisma {
     latitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    travels?: TravelCreateNestedManyWithoutCityInput
+    travels?: TravelCityCreateNestedManyWithoutCityInput
     wishlist?: WishlistCreateNestedManyWithoutCityInput
     country: CountryCreateNestedOneWithoutCitiesInput
   }
@@ -11105,7 +12384,7 @@ export namespace Prisma {
     latitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    travels?: TravelUncheckedCreateNestedManyWithoutCityInput
+    travels?: TravelCityUncheckedCreateNestedManyWithoutCityInput
     wishlist?: WishlistUncheckedCreateNestedManyWithoutCityInput
   }
 
@@ -11121,7 +12400,7 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    travels?: TravelUpdateManyWithoutCityNestedInput
+    travels?: TravelCityUpdateManyWithoutCityNestedInput
     wishlist?: WishlistUpdateManyWithoutCityNestedInput
     country?: CountryUpdateOneRequiredWithoutCitiesNestedInput
   }
@@ -11140,7 +12419,7 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    travels?: TravelUncheckedUpdateManyWithoutCityNestedInput
+    travels?: TravelCityUncheckedUpdateManyWithoutCityNestedInput
     wishlist?: WishlistUncheckedUpdateManyWithoutCityNestedInput
   }
 
@@ -11546,12 +12825,20 @@ export namespace Prisma {
     isNot?: CountryWhereInput | null
   }
 
+  export type TravelCityListRelationFilter = {
+    every?: TravelCityWhereInput
+    some?: TravelCityWhereInput
+    none?: TravelCityWhereInput
+  }
+
+  export type TravelCityOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type TravelCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     countryId?: SortOrder
-    cityId?: SortOrder
-    title?: SortOrder
     description?: SortOrder
     dateTravel?: SortOrder
     duration?: SortOrder
@@ -11562,7 +12849,6 @@ export namespace Prisma {
   export type TravelAvgOrderByAggregateInput = {
     id?: SortOrder
     countryId?: SortOrder
-    cityId?: SortOrder
     duration?: SortOrder
   }
 
@@ -11570,8 +12856,6 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     countryId?: SortOrder
-    cityId?: SortOrder
-    title?: SortOrder
     description?: SortOrder
     dateTravel?: SortOrder
     duration?: SortOrder
@@ -11583,8 +12867,6 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     countryId?: SortOrder
-    cityId?: SortOrder
-    title?: SortOrder
     description?: SortOrder
     dateTravel?: SortOrder
     duration?: SortOrder
@@ -11595,8 +12877,55 @@ export namespace Prisma {
   export type TravelSumOrderByAggregateInput = {
     id?: SortOrder
     countryId?: SortOrder
-    cityId?: SortOrder
     duration?: SortOrder
+  }
+
+  export type TravelScalarRelationFilter = {
+    is?: TravelWhereInput
+    isNot?: TravelWhereInput
+  }
+
+  export type CityScalarRelationFilter = {
+    is?: CityWhereInput
+    isNot?: CityWhereInput
+  }
+
+  export type TravelCityTravelIdCityIdCompoundUniqueInput = {
+    travelId: number
+    cityId: number
+  }
+
+  export type TravelCityCountOrderByAggregateInput = {
+    id?: SortOrder
+    travelId?: SortOrder
+    cityId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TravelCityAvgOrderByAggregateInput = {
+    id?: SortOrder
+    travelId?: SortOrder
+    cityId?: SortOrder
+  }
+
+  export type TravelCityMaxOrderByAggregateInput = {
+    id?: SortOrder
+    travelId?: SortOrder
+    cityId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TravelCityMinOrderByAggregateInput = {
+    id?: SortOrder
+    travelId?: SortOrder
+    cityId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TravelCitySumOrderByAggregateInput = {
+    id?: SortOrder
+    travelId?: SortOrder
+    cityId?: SortOrder
   }
 
   export type StringNullableListFilter<$PrismaModel = never> = {
@@ -12092,10 +13421,18 @@ export namespace Prisma {
     connect?: CountryWhereUniqueInput
   }
 
-  export type CityCreateNestedOneWithoutTravelsInput = {
-    create?: XOR<CityCreateWithoutTravelsInput, CityUncheckedCreateWithoutTravelsInput>
-    connectOrCreate?: CityCreateOrConnectWithoutTravelsInput
-    connect?: CityWhereUniqueInput
+  export type TravelCityCreateNestedManyWithoutTravelInput = {
+    create?: XOR<TravelCityCreateWithoutTravelInput, TravelCityUncheckedCreateWithoutTravelInput> | TravelCityCreateWithoutTravelInput[] | TravelCityUncheckedCreateWithoutTravelInput[]
+    connectOrCreate?: TravelCityCreateOrConnectWithoutTravelInput | TravelCityCreateOrConnectWithoutTravelInput[]
+    createMany?: TravelCityCreateManyTravelInputEnvelope
+    connect?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
+  }
+
+  export type TravelCityUncheckedCreateNestedManyWithoutTravelInput = {
+    create?: XOR<TravelCityCreateWithoutTravelInput, TravelCityUncheckedCreateWithoutTravelInput> | TravelCityCreateWithoutTravelInput[] | TravelCityUncheckedCreateWithoutTravelInput[]
+    connectOrCreate?: TravelCityCreateOrConnectWithoutTravelInput | TravelCityCreateOrConnectWithoutTravelInput[]
+    createMany?: TravelCityCreateManyTravelInputEnvelope
+    connect?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
   }
 
   export type UserAccountUpdateOneRequiredWithoutTravelNestedInput = {
@@ -12116,12 +13453,58 @@ export namespace Prisma {
     update?: XOR<XOR<CountryUpdateToOneWithWhereWithoutTravelsInput, CountryUpdateWithoutTravelsInput>, CountryUncheckedUpdateWithoutTravelsInput>
   }
 
-  export type CityUpdateOneWithoutTravelsNestedInput = {
+  export type TravelCityUpdateManyWithoutTravelNestedInput = {
+    create?: XOR<TravelCityCreateWithoutTravelInput, TravelCityUncheckedCreateWithoutTravelInput> | TravelCityCreateWithoutTravelInput[] | TravelCityUncheckedCreateWithoutTravelInput[]
+    connectOrCreate?: TravelCityCreateOrConnectWithoutTravelInput | TravelCityCreateOrConnectWithoutTravelInput[]
+    upsert?: TravelCityUpsertWithWhereUniqueWithoutTravelInput | TravelCityUpsertWithWhereUniqueWithoutTravelInput[]
+    createMany?: TravelCityCreateManyTravelInputEnvelope
+    set?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
+    disconnect?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
+    delete?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
+    connect?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
+    update?: TravelCityUpdateWithWhereUniqueWithoutTravelInput | TravelCityUpdateWithWhereUniqueWithoutTravelInput[]
+    updateMany?: TravelCityUpdateManyWithWhereWithoutTravelInput | TravelCityUpdateManyWithWhereWithoutTravelInput[]
+    deleteMany?: TravelCityScalarWhereInput | TravelCityScalarWhereInput[]
+  }
+
+  export type TravelCityUncheckedUpdateManyWithoutTravelNestedInput = {
+    create?: XOR<TravelCityCreateWithoutTravelInput, TravelCityUncheckedCreateWithoutTravelInput> | TravelCityCreateWithoutTravelInput[] | TravelCityUncheckedCreateWithoutTravelInput[]
+    connectOrCreate?: TravelCityCreateOrConnectWithoutTravelInput | TravelCityCreateOrConnectWithoutTravelInput[]
+    upsert?: TravelCityUpsertWithWhereUniqueWithoutTravelInput | TravelCityUpsertWithWhereUniqueWithoutTravelInput[]
+    createMany?: TravelCityCreateManyTravelInputEnvelope
+    set?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
+    disconnect?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
+    delete?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
+    connect?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
+    update?: TravelCityUpdateWithWhereUniqueWithoutTravelInput | TravelCityUpdateWithWhereUniqueWithoutTravelInput[]
+    updateMany?: TravelCityUpdateManyWithWhereWithoutTravelInput | TravelCityUpdateManyWithWhereWithoutTravelInput[]
+    deleteMany?: TravelCityScalarWhereInput | TravelCityScalarWhereInput[]
+  }
+
+  export type TravelCreateNestedOneWithoutCitiesInput = {
+    create?: XOR<TravelCreateWithoutCitiesInput, TravelUncheckedCreateWithoutCitiesInput>
+    connectOrCreate?: TravelCreateOrConnectWithoutCitiesInput
+    connect?: TravelWhereUniqueInput
+  }
+
+  export type CityCreateNestedOneWithoutTravelsInput = {
+    create?: XOR<CityCreateWithoutTravelsInput, CityUncheckedCreateWithoutTravelsInput>
+    connectOrCreate?: CityCreateOrConnectWithoutTravelsInput
+    connect?: CityWhereUniqueInput
+  }
+
+  export type TravelUpdateOneRequiredWithoutCitiesNestedInput = {
+    create?: XOR<TravelCreateWithoutCitiesInput, TravelUncheckedCreateWithoutCitiesInput>
+    connectOrCreate?: TravelCreateOrConnectWithoutCitiesInput
+    upsert?: TravelUpsertWithoutCitiesInput
+    connect?: TravelWhereUniqueInput
+    update?: XOR<XOR<TravelUpdateToOneWithWhereWithoutCitiesInput, TravelUpdateWithoutCitiesInput>, TravelUncheckedUpdateWithoutCitiesInput>
+  }
+
+  export type CityUpdateOneRequiredWithoutTravelsNestedInput = {
     create?: XOR<CityCreateWithoutTravelsInput, CityUncheckedCreateWithoutTravelsInput>
     connectOrCreate?: CityCreateOrConnectWithoutTravelsInput
     upsert?: CityUpsertWithoutTravelsInput
-    disconnect?: CityWhereInput | boolean
-    delete?: CityWhereInput | boolean
     connect?: CityWhereUniqueInput
     update?: XOR<XOR<CityUpdateToOneWithWhereWithoutTravelsInput, CityUpdateWithoutTravelsInput>, CityUncheckedUpdateWithoutTravelsInput>
   }
@@ -12286,11 +13669,11 @@ export namespace Prisma {
     set: string[]
   }
 
-  export type TravelCreateNestedManyWithoutCityInput = {
-    create?: XOR<TravelCreateWithoutCityInput, TravelUncheckedCreateWithoutCityInput> | TravelCreateWithoutCityInput[] | TravelUncheckedCreateWithoutCityInput[]
-    connectOrCreate?: TravelCreateOrConnectWithoutCityInput | TravelCreateOrConnectWithoutCityInput[]
-    createMany?: TravelCreateManyCityInputEnvelope
-    connect?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
+  export type TravelCityCreateNestedManyWithoutCityInput = {
+    create?: XOR<TravelCityCreateWithoutCityInput, TravelCityUncheckedCreateWithoutCityInput> | TravelCityCreateWithoutCityInput[] | TravelCityUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: TravelCityCreateOrConnectWithoutCityInput | TravelCityCreateOrConnectWithoutCityInput[]
+    createMany?: TravelCityCreateManyCityInputEnvelope
+    connect?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
   }
 
   export type WishlistCreateNestedManyWithoutCityInput = {
@@ -12306,11 +13689,11 @@ export namespace Prisma {
     connect?: CountryWhereUniqueInput
   }
 
-  export type TravelUncheckedCreateNestedManyWithoutCityInput = {
-    create?: XOR<TravelCreateWithoutCityInput, TravelUncheckedCreateWithoutCityInput> | TravelCreateWithoutCityInput[] | TravelUncheckedCreateWithoutCityInput[]
-    connectOrCreate?: TravelCreateOrConnectWithoutCityInput | TravelCreateOrConnectWithoutCityInput[]
-    createMany?: TravelCreateManyCityInputEnvelope
-    connect?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
+  export type TravelCityUncheckedCreateNestedManyWithoutCityInput = {
+    create?: XOR<TravelCityCreateWithoutCityInput, TravelCityUncheckedCreateWithoutCityInput> | TravelCityCreateWithoutCityInput[] | TravelCityUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: TravelCityCreateOrConnectWithoutCityInput | TravelCityCreateOrConnectWithoutCityInput[]
+    createMany?: TravelCityCreateManyCityInputEnvelope
+    connect?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
   }
 
   export type WishlistUncheckedCreateNestedManyWithoutCityInput = {
@@ -12330,18 +13713,18 @@ export namespace Prisma {
     push?: string | string[]
   }
 
-  export type TravelUpdateManyWithoutCityNestedInput = {
-    create?: XOR<TravelCreateWithoutCityInput, TravelUncheckedCreateWithoutCityInput> | TravelCreateWithoutCityInput[] | TravelUncheckedCreateWithoutCityInput[]
-    connectOrCreate?: TravelCreateOrConnectWithoutCityInput | TravelCreateOrConnectWithoutCityInput[]
-    upsert?: TravelUpsertWithWhereUniqueWithoutCityInput | TravelUpsertWithWhereUniqueWithoutCityInput[]
-    createMany?: TravelCreateManyCityInputEnvelope
-    set?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
-    disconnect?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
-    delete?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
-    connect?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
-    update?: TravelUpdateWithWhereUniqueWithoutCityInput | TravelUpdateWithWhereUniqueWithoutCityInput[]
-    updateMany?: TravelUpdateManyWithWhereWithoutCityInput | TravelUpdateManyWithWhereWithoutCityInput[]
-    deleteMany?: TravelScalarWhereInput | TravelScalarWhereInput[]
+  export type TravelCityUpdateManyWithoutCityNestedInput = {
+    create?: XOR<TravelCityCreateWithoutCityInput, TravelCityUncheckedCreateWithoutCityInput> | TravelCityCreateWithoutCityInput[] | TravelCityUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: TravelCityCreateOrConnectWithoutCityInput | TravelCityCreateOrConnectWithoutCityInput[]
+    upsert?: TravelCityUpsertWithWhereUniqueWithoutCityInput | TravelCityUpsertWithWhereUniqueWithoutCityInput[]
+    createMany?: TravelCityCreateManyCityInputEnvelope
+    set?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
+    disconnect?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
+    delete?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
+    connect?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
+    update?: TravelCityUpdateWithWhereUniqueWithoutCityInput | TravelCityUpdateWithWhereUniqueWithoutCityInput[]
+    updateMany?: TravelCityUpdateManyWithWhereWithoutCityInput | TravelCityUpdateManyWithWhereWithoutCityInput[]
+    deleteMany?: TravelCityScalarWhereInput | TravelCityScalarWhereInput[]
   }
 
   export type WishlistUpdateManyWithoutCityNestedInput = {
@@ -12366,18 +13749,18 @@ export namespace Prisma {
     update?: XOR<XOR<CountryUpdateToOneWithWhereWithoutCitiesInput, CountryUpdateWithoutCitiesInput>, CountryUncheckedUpdateWithoutCitiesInput>
   }
 
-  export type TravelUncheckedUpdateManyWithoutCityNestedInput = {
-    create?: XOR<TravelCreateWithoutCityInput, TravelUncheckedCreateWithoutCityInput> | TravelCreateWithoutCityInput[] | TravelUncheckedCreateWithoutCityInput[]
-    connectOrCreate?: TravelCreateOrConnectWithoutCityInput | TravelCreateOrConnectWithoutCityInput[]
-    upsert?: TravelUpsertWithWhereUniqueWithoutCityInput | TravelUpsertWithWhereUniqueWithoutCityInput[]
-    createMany?: TravelCreateManyCityInputEnvelope
-    set?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
-    disconnect?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
-    delete?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
-    connect?: TravelWhereUniqueInput | TravelWhereUniqueInput[]
-    update?: TravelUpdateWithWhereUniqueWithoutCityInput | TravelUpdateWithWhereUniqueWithoutCityInput[]
-    updateMany?: TravelUpdateManyWithWhereWithoutCityInput | TravelUpdateManyWithWhereWithoutCityInput[]
-    deleteMany?: TravelScalarWhereInput | TravelScalarWhereInput[]
+  export type TravelCityUncheckedUpdateManyWithoutCityNestedInput = {
+    create?: XOR<TravelCityCreateWithoutCityInput, TravelCityUncheckedCreateWithoutCityInput> | TravelCityCreateWithoutCityInput[] | TravelCityUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: TravelCityCreateOrConnectWithoutCityInput | TravelCityCreateOrConnectWithoutCityInput[]
+    upsert?: TravelCityUpsertWithWhereUniqueWithoutCityInput | TravelCityUpsertWithWhereUniqueWithoutCityInput[]
+    createMany?: TravelCityCreateManyCityInputEnvelope
+    set?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
+    disconnect?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
+    delete?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
+    connect?: TravelCityWhereUniqueInput | TravelCityWhereUniqueInput[]
+    update?: TravelCityUpdateWithWhereUniqueWithoutCityInput | TravelCityUpdateWithWhereUniqueWithoutCityInput[]
+    updateMany?: TravelCityUpdateManyWithWhereWithoutCityInput | TravelCityUpdateManyWithWhereWithoutCityInput[]
+    deleteMany?: TravelCityScalarWhereInput | TravelCityScalarWhereInput[]
   }
 
   export type WishlistUncheckedUpdateManyWithoutCityNestedInput = {
@@ -12606,26 +13989,24 @@ export namespace Prisma {
   }
 
   export type TravelCreateWithoutUserInput = {
-    title: string
     description?: string | null
     dateTravel: Date | string
     duration?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     country?: CountryCreateNestedOneWithoutTravelsInput
-    city?: CityCreateNestedOneWithoutTravelsInput
+    cities?: TravelCityCreateNestedManyWithoutTravelInput
   }
 
   export type TravelUncheckedCreateWithoutUserInput = {
     id?: number
     countryId?: number | null
-    cityId?: number | null
-    title: string
     description?: string | null
     dateTravel: Date | string
     duration?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    cities?: TravelCityUncheckedCreateNestedManyWithoutTravelInput
   }
 
   export type TravelCreateOrConnectWithoutUserInput = {
@@ -12751,8 +14132,6 @@ export namespace Prisma {
     id?: IntFilter<"Travel"> | number
     userId?: StringFilter<"Travel"> | string
     countryId?: IntNullableFilter<"Travel"> | number | null
-    cityId?: IntNullableFilter<"Travel"> | number | null
-    title?: StringFilter<"Travel"> | string
     description?: StringNullableFilter<"Travel"> | string | null
     dateTravel?: DateTimeFilter<"Travel"> | Date | string
     duration?: IntNullableFilter<"Travel"> | number | null
@@ -13172,7 +14551,7 @@ export namespace Prisma {
     latitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    travels?: TravelCreateNestedManyWithoutCityInput
+    travels?: TravelCityCreateNestedManyWithoutCityInput
     country: CountryCreateNestedOneWithoutCitiesInput
   }
 
@@ -13190,7 +14569,7 @@ export namespace Prisma {
     latitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    travels?: TravelUncheckedCreateNestedManyWithoutCityInput
+    travels?: TravelCityUncheckedCreateNestedManyWithoutCityInput
   }
 
   export type CityCreateOrConnectWithoutWishlistInput = {
@@ -13312,7 +14691,7 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    travels?: TravelUpdateManyWithoutCityNestedInput
+    travels?: TravelCityUpdateManyWithoutCityNestedInput
     country?: CountryUpdateOneRequiredWithoutCitiesNestedInput
   }
 
@@ -13330,7 +14709,7 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    travels?: TravelUncheckedUpdateManyWithoutCityNestedInput
+    travels?: TravelCityUncheckedUpdateManyWithoutCityNestedInput
   }
 
   export type UserAccountCreateWithoutTravelInput = {
@@ -13412,42 +14791,25 @@ export namespace Prisma {
     create: XOR<CountryCreateWithoutTravelsInput, CountryUncheckedCreateWithoutTravelsInput>
   }
 
-  export type CityCreateWithoutTravelsInput = {
-    code: string
-    name: string
-    population?: number | null
-    languages?: CityCreatelanguagesInput | string[]
-    landArea?: number | null
-    currency?: string | null
-    timezones?: CityCreatetimezonesInput | string[]
-    longitude?: number | null
-    latitude?: number | null
+  export type TravelCityCreateWithoutTravelInput = {
     createdAt?: Date | string
-    updatedAt?: Date | string
-    wishlist?: WishlistCreateNestedManyWithoutCityInput
-    country: CountryCreateNestedOneWithoutCitiesInput
+    city: CityCreateNestedOneWithoutTravelsInput
   }
 
-  export type CityUncheckedCreateWithoutTravelsInput = {
+  export type TravelCityUncheckedCreateWithoutTravelInput = {
     id?: number
-    countryId: number
-    code: string
-    name: string
-    population?: number | null
-    languages?: CityCreatelanguagesInput | string[]
-    landArea?: number | null
-    currency?: string | null
-    timezones?: CityCreatetimezonesInput | string[]
-    longitude?: number | null
-    latitude?: number | null
+    cityId: number
     createdAt?: Date | string
-    updatedAt?: Date | string
-    wishlist?: WishlistUncheckedCreateNestedManyWithoutCityInput
   }
 
-  export type CityCreateOrConnectWithoutTravelsInput = {
-    where: CityWhereUniqueInput
-    create: XOR<CityCreateWithoutTravelsInput, CityUncheckedCreateWithoutTravelsInput>
+  export type TravelCityCreateOrConnectWithoutTravelInput = {
+    where: TravelCityWhereUniqueInput
+    create: XOR<TravelCityCreateWithoutTravelInput, TravelCityUncheckedCreateWithoutTravelInput>
+  }
+
+  export type TravelCityCreateManyTravelInputEnvelope = {
+    data: TravelCityCreateManyTravelInput | TravelCityCreateManyTravelInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserAccountUpsertWithoutTravelInput = {
@@ -13541,6 +14903,128 @@ export namespace Prisma {
     cities?: CityUncheckedUpdateManyWithoutCountryNestedInput
   }
 
+  export type TravelCityUpsertWithWhereUniqueWithoutTravelInput = {
+    where: TravelCityWhereUniqueInput
+    update: XOR<TravelCityUpdateWithoutTravelInput, TravelCityUncheckedUpdateWithoutTravelInput>
+    create: XOR<TravelCityCreateWithoutTravelInput, TravelCityUncheckedCreateWithoutTravelInput>
+  }
+
+  export type TravelCityUpdateWithWhereUniqueWithoutTravelInput = {
+    where: TravelCityWhereUniqueInput
+    data: XOR<TravelCityUpdateWithoutTravelInput, TravelCityUncheckedUpdateWithoutTravelInput>
+  }
+
+  export type TravelCityUpdateManyWithWhereWithoutTravelInput = {
+    where: TravelCityScalarWhereInput
+    data: XOR<TravelCityUpdateManyMutationInput, TravelCityUncheckedUpdateManyWithoutTravelInput>
+  }
+
+  export type TravelCityScalarWhereInput = {
+    AND?: TravelCityScalarWhereInput | TravelCityScalarWhereInput[]
+    OR?: TravelCityScalarWhereInput[]
+    NOT?: TravelCityScalarWhereInput | TravelCityScalarWhereInput[]
+    id?: IntFilter<"TravelCity"> | number
+    travelId?: IntFilter<"TravelCity"> | number
+    cityId?: IntFilter<"TravelCity"> | number
+    createdAt?: DateTimeFilter<"TravelCity"> | Date | string
+  }
+
+  export type TravelCreateWithoutCitiesInput = {
+    description?: string | null
+    dateTravel: Date | string
+    duration?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserAccountCreateNestedOneWithoutTravelInput
+    country?: CountryCreateNestedOneWithoutTravelsInput
+  }
+
+  export type TravelUncheckedCreateWithoutCitiesInput = {
+    id?: number
+    userId: string
+    countryId?: number | null
+    description?: string | null
+    dateTravel: Date | string
+    duration?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TravelCreateOrConnectWithoutCitiesInput = {
+    where: TravelWhereUniqueInput
+    create: XOR<TravelCreateWithoutCitiesInput, TravelUncheckedCreateWithoutCitiesInput>
+  }
+
+  export type CityCreateWithoutTravelsInput = {
+    code: string
+    name: string
+    population?: number | null
+    languages?: CityCreatelanguagesInput | string[]
+    landArea?: number | null
+    currency?: string | null
+    timezones?: CityCreatetimezonesInput | string[]
+    longitude?: number | null
+    latitude?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wishlist?: WishlistCreateNestedManyWithoutCityInput
+    country: CountryCreateNestedOneWithoutCitiesInput
+  }
+
+  export type CityUncheckedCreateWithoutTravelsInput = {
+    id?: number
+    countryId: number
+    code: string
+    name: string
+    population?: number | null
+    languages?: CityCreatelanguagesInput | string[]
+    landArea?: number | null
+    currency?: string | null
+    timezones?: CityCreatetimezonesInput | string[]
+    longitude?: number | null
+    latitude?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wishlist?: WishlistUncheckedCreateNestedManyWithoutCityInput
+  }
+
+  export type CityCreateOrConnectWithoutTravelsInput = {
+    where: CityWhereUniqueInput
+    create: XOR<CityCreateWithoutTravelsInput, CityUncheckedCreateWithoutTravelsInput>
+  }
+
+  export type TravelUpsertWithoutCitiesInput = {
+    update: XOR<TravelUpdateWithoutCitiesInput, TravelUncheckedUpdateWithoutCitiesInput>
+    create: XOR<TravelCreateWithoutCitiesInput, TravelUncheckedCreateWithoutCitiesInput>
+    where?: TravelWhereInput
+  }
+
+  export type TravelUpdateToOneWithWhereWithoutCitiesInput = {
+    where?: TravelWhereInput
+    data: XOR<TravelUpdateWithoutCitiesInput, TravelUncheckedUpdateWithoutCitiesInput>
+  }
+
+  export type TravelUpdateWithoutCitiesInput = {
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dateTravel?: DateTimeFieldUpdateOperationsInput | Date | string
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserAccountUpdateOneRequiredWithoutTravelNestedInput
+    country?: CountryUpdateOneWithoutTravelsNestedInput
+  }
+
+  export type TravelUncheckedUpdateWithoutCitiesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    countryId?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dateTravel?: DateTimeFieldUpdateOperationsInput | Date | string
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CityUpsertWithoutTravelsInput = {
     update: XOR<CityUpdateWithoutTravelsInput, CityUncheckedUpdateWithoutTravelsInput>
     create: XOR<CityCreateWithoutTravelsInput, CityUncheckedCreateWithoutTravelsInput>
@@ -13586,26 +15070,24 @@ export namespace Prisma {
   }
 
   export type TravelCreateWithoutCountryInput = {
-    title: string
     description?: string | null
     dateTravel: Date | string
     duration?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserAccountCreateNestedOneWithoutTravelInput
-    city?: CityCreateNestedOneWithoutTravelsInput
+    cities?: TravelCityCreateNestedManyWithoutTravelInput
   }
 
   export type TravelUncheckedCreateWithoutCountryInput = {
     id?: number
     userId: string
-    cityId?: number | null
-    title: string
     description?: string | null
     dateTravel: Date | string
     duration?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    cities?: TravelCityUncheckedCreateNestedManyWithoutTravelInput
   }
 
   export type TravelCreateOrConnectWithoutCountryInput = {
@@ -13653,7 +15135,7 @@ export namespace Prisma {
     latitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    travels?: TravelCreateNestedManyWithoutCityInput
+    travels?: TravelCityCreateNestedManyWithoutCityInput
     wishlist?: WishlistCreateNestedManyWithoutCityInput
   }
 
@@ -13670,7 +15152,7 @@ export namespace Prisma {
     latitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    travels?: TravelUncheckedCreateNestedManyWithoutCityInput
+    travels?: TravelCityUncheckedCreateNestedManyWithoutCityInput
     wishlist?: WishlistUncheckedCreateNestedManyWithoutCityInput
   }
 
@@ -13751,36 +15233,24 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"City"> | Date | string
   }
 
-  export type TravelCreateWithoutCityInput = {
-    title: string
-    description?: string | null
-    dateTravel: Date | string
-    duration?: number | null
+  export type TravelCityCreateWithoutCityInput = {
     createdAt?: Date | string
-    updatedAt?: Date | string
-    user: UserAccountCreateNestedOneWithoutTravelInput
-    country?: CountryCreateNestedOneWithoutTravelsInput
+    travel: TravelCreateNestedOneWithoutCitiesInput
   }
 
-  export type TravelUncheckedCreateWithoutCityInput = {
+  export type TravelCityUncheckedCreateWithoutCityInput = {
     id?: number
-    userId: string
-    countryId?: number | null
-    title: string
-    description?: string | null
-    dateTravel: Date | string
-    duration?: number | null
+    travelId: number
     createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
-  export type TravelCreateOrConnectWithoutCityInput = {
-    where: TravelWhereUniqueInput
-    create: XOR<TravelCreateWithoutCityInput, TravelUncheckedCreateWithoutCityInput>
+  export type TravelCityCreateOrConnectWithoutCityInput = {
+    where: TravelCityWhereUniqueInput
+    create: XOR<TravelCityCreateWithoutCityInput, TravelCityUncheckedCreateWithoutCityInput>
   }
 
-  export type TravelCreateManyCityInputEnvelope = {
-    data: TravelCreateManyCityInput | TravelCreateManyCityInput[]
+  export type TravelCityCreateManyCityInputEnvelope = {
+    data: TravelCityCreateManyCityInput | TravelCityCreateManyCityInput[]
     skipDuplicates?: boolean
   }
 
@@ -13847,20 +15317,20 @@ export namespace Prisma {
     create: XOR<CountryCreateWithoutCitiesInput, CountryUncheckedCreateWithoutCitiesInput>
   }
 
-  export type TravelUpsertWithWhereUniqueWithoutCityInput = {
-    where: TravelWhereUniqueInput
-    update: XOR<TravelUpdateWithoutCityInput, TravelUncheckedUpdateWithoutCityInput>
-    create: XOR<TravelCreateWithoutCityInput, TravelUncheckedCreateWithoutCityInput>
+  export type TravelCityUpsertWithWhereUniqueWithoutCityInput = {
+    where: TravelCityWhereUniqueInput
+    update: XOR<TravelCityUpdateWithoutCityInput, TravelCityUncheckedUpdateWithoutCityInput>
+    create: XOR<TravelCityCreateWithoutCityInput, TravelCityUncheckedCreateWithoutCityInput>
   }
 
-  export type TravelUpdateWithWhereUniqueWithoutCityInput = {
-    where: TravelWhereUniqueInput
-    data: XOR<TravelUpdateWithoutCityInput, TravelUncheckedUpdateWithoutCityInput>
+  export type TravelCityUpdateWithWhereUniqueWithoutCityInput = {
+    where: TravelCityWhereUniqueInput
+    data: XOR<TravelCityUpdateWithoutCityInput, TravelCityUncheckedUpdateWithoutCityInput>
   }
 
-  export type TravelUpdateManyWithWhereWithoutCityInput = {
-    where: TravelScalarWhereInput
-    data: XOR<TravelUpdateManyMutationInput, TravelUncheckedUpdateManyWithoutCityInput>
+  export type TravelCityUpdateManyWithWhereWithoutCityInput = {
+    where: TravelCityScalarWhereInput
+    data: XOR<TravelCityUpdateManyMutationInput, TravelCityUncheckedUpdateManyWithoutCityInput>
   }
 
   export type WishlistUpsertWithWhereUniqueWithoutCityInput = {
@@ -13928,8 +15398,6 @@ export namespace Prisma {
   export type TravelCreateManyUserInput = {
     id?: number
     countryId?: number | null
-    cityId?: number | null
-    title: string
     description?: string | null
     dateTravel: Date | string
     duration?: number | null
@@ -13957,33 +15425,29 @@ export namespace Prisma {
   }
 
   export type TravelUpdateWithoutUserInput = {
-    title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dateTravel?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     country?: CountryUpdateOneWithoutTravelsNestedInput
-    city?: CityUpdateOneWithoutTravelsNestedInput
+    cities?: TravelCityUpdateManyWithoutTravelNestedInput
   }
 
   export type TravelUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     countryId?: NullableIntFieldUpdateOperationsInput | number | null
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dateTravel?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    cities?: TravelCityUncheckedUpdateManyWithoutTravelNestedInput
   }
 
   export type TravelUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     countryId?: NullableIntFieldUpdateOperationsInput | number | null
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dateTravel?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: NullableIntFieldUpdateOperationsInput | number | null
@@ -14045,11 +15509,32 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TravelCityCreateManyTravelInput = {
+    id?: number
+    cityId: number
+    createdAt?: Date | string
+  }
+
+  export type TravelCityUpdateWithoutTravelInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    city?: CityUpdateOneRequiredWithoutTravelsNestedInput
+  }
+
+  export type TravelCityUncheckedUpdateWithoutTravelInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cityId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TravelCityUncheckedUpdateManyWithoutTravelInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cityId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TravelCreateManyCountryInput = {
     id?: number
     userId: string
-    cityId?: number | null
-    title: string
     description?: string | null
     dateTravel: Date | string
     duration?: number | null
@@ -14080,33 +15565,29 @@ export namespace Prisma {
   }
 
   export type TravelUpdateWithoutCountryInput = {
-    title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dateTravel?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserAccountUpdateOneRequiredWithoutTravelNestedInput
-    city?: CityUpdateOneWithoutTravelsNestedInput
+    cities?: TravelCityUpdateManyWithoutTravelNestedInput
   }
 
   export type TravelUncheckedUpdateWithoutCountryInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dateTravel?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    cities?: TravelCityUncheckedUpdateManyWithoutTravelNestedInput
   }
 
   export type TravelUncheckedUpdateManyWithoutCountryInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     dateTravel?: DateTimeFieldUpdateOperationsInput | Date | string
     duration?: NullableIntFieldUpdateOperationsInput | number | null
@@ -14146,7 +15627,7 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    travels?: TravelUpdateManyWithoutCityNestedInput
+    travels?: TravelCityUpdateManyWithoutCityNestedInput
     wishlist?: WishlistUpdateManyWithoutCityNestedInput
   }
 
@@ -14163,7 +15644,7 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    travels?: TravelUncheckedUpdateManyWithoutCityNestedInput
+    travels?: TravelCityUncheckedUpdateManyWithoutCityNestedInput
     wishlist?: WishlistUncheckedUpdateManyWithoutCityNestedInput
   }
 
@@ -14182,16 +15663,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TravelCreateManyCityInput = {
+  export type TravelCityCreateManyCityInput = {
     id?: number
-    userId: string
-    countryId?: number | null
-    title: string
-    description?: string | null
-    dateTravel: Date | string
-    duration?: number | null
+    travelId: number
     createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type WishlistCreateManyCityInput = {
@@ -14201,39 +15676,21 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type TravelUpdateWithoutCityInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    dateTravel?: DateTimeFieldUpdateOperationsInput | Date | string
-    duration?: NullableIntFieldUpdateOperationsInput | number | null
+  export type TravelCityUpdateWithoutCityInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserAccountUpdateOneRequiredWithoutTravelNestedInput
-    country?: CountryUpdateOneWithoutTravelsNestedInput
+    travel?: TravelUpdateOneRequiredWithoutCitiesNestedInput
   }
 
-  export type TravelUncheckedUpdateWithoutCityInput = {
+  export type TravelCityUncheckedUpdateWithoutCityInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: StringFieldUpdateOperationsInput | string
-    countryId?: NullableIntFieldUpdateOperationsInput | number | null
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    dateTravel?: DateTimeFieldUpdateOperationsInput | Date | string
-    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    travelId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TravelUncheckedUpdateManyWithoutCityInput = {
+  export type TravelCityUncheckedUpdateManyWithoutCityInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: StringFieldUpdateOperationsInput | string
-    countryId?: NullableIntFieldUpdateOperationsInput | number | null
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    dateTravel?: DateTimeFieldUpdateOperationsInput | Date | string
-    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    travelId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type WishlistUpdateWithoutCityInput = {

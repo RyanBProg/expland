@@ -80,8 +80,6 @@ model Travel {
   id          Int      @id @default(autoincrement())
   userId      String
   countryId   Int?
-  cityId      Int?
-  title       String
   description String?  @db.Text
   dateTravel  DateTime
   duration    Int?
@@ -89,11 +87,26 @@ model Travel {
   updatedAt   DateTime @updatedAt
 
   // relations
-  user    UserAccount @relation(fields: [userId], references: [id], onDelete: Cascade)
-  country Country?    @relation(fields: [countryId], references: [id], onDelete: SetNull)
-  city    City?       @relation(fields: [cityId], references: [id], onDelete: SetNull)
+  user    UserAccount  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  country Country?     @relation(fields: [countryId], references: [id], onDelete: SetNull)
+  cities  TravelCity[]
 
   @@index([userId])
+}
+
+model TravelCity {
+  id        Int      @id @default(autoincrement())
+  travelId  Int
+  cityId    Int
+  createdAt DateTime @default(now())
+
+  // relations
+  travel Travel @relation(fields: [travelId], references: [id], onDelete: Cascade)
+  city   City   @relation(fields: [cityId], references: [id], onDelete: Cascade)
+
+  @@unique([travelId, cityId])
+  @@index([travelId])
+  @@index([cityId])
 }
 
 model Country {
@@ -136,9 +149,9 @@ model City {
   updatedAt  DateTime @updatedAt
 
   // relations
-  travels  Travel[]
+  travels  TravelCity[]
   wishlist Wishlist[]
-  country  Country    @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  country  Country      @relation(fields: [countryId], references: [id], onDelete: Cascade)
 
   @@index([countryId])
   @@index([name])
