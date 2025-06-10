@@ -176,16 +176,24 @@ exports.Prisma.TravelCityScalarFieldEnum = {
 
 exports.Prisma.CountryScalarFieldEnum = {
   id: 'id',
-  code: 'code',
   name: 'name',
-  continent: 'continent',
-  flagImageUrl: 'flagImageUrl',
+  official_name: 'official_name',
+  iso_2: 'iso_2',
+  iso_num: 'iso_num',
+  region: 'region',
+  subregion: 'subregion',
+  continents: 'continents',
+  languages: 'languages',
   capital: 'capital',
   population: 'population',
-  languages: 'languages',
   landArea: 'landArea',
+  landlocked: 'landlocked',
+  independent: 'independent',
   currency: 'currency',
   timezones: 'timezones',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  google_maps_url: 'google_maps_url',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -193,15 +201,12 @@ exports.Prisma.CountryScalarFieldEnum = {
 exports.Prisma.CityScalarFieldEnum = {
   id: 'id',
   countryId: 'countryId',
-  code: 'code',
+  country_iso_2: 'country_iso_2',
   name: 'name',
   population: 'population',
-  languages: 'languages',
-  landArea: 'landArea',
-  currency: 'currency',
-  timezones: 'timezones',
-  longitude: 'longitude',
+  timezone: 'timezone',
   latitude: 'latitude',
+  longitude: 'longitude',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

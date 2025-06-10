@@ -13,7 +13,8 @@
     "prisma:migrate:deploy": "npx prisma migrate deploy --schema=database/prisma/schema.prisma",
     "prisma:migrate:reset": "npx prisma migrate reset --schema=database/prisma/schema.prisma --force",
     "prisma:db:push": "npx prisma db push --schema=database/prisma/schema.prisma",
-    "prisma:studio": "npx prisma studio --schema=database/prisma/schema.prisma"
+    "prisma:studio": "npx prisma studio --schema=database/prisma/schema.prisma",
+    "prisma:seed": "ts-node --transpile-only database/seeding/seedCountries.ts"
   },
   "keywords": [],
   "author": "",

@@ -8512,54 +8512,80 @@ export namespace Prisma {
     id: number | null
     population: number | null
     landArea: number | null
+    latitude: number | null
+    longitude: number | null
   }
 
   export type CountrySumAggregateOutputType = {
     id: number | null
     population: number | null
     landArea: number | null
+    latitude: number | null
+    longitude: number | null
   }
 
   export type CountryMinAggregateOutputType = {
     id: number | null
-    code: string | null
     name: string | null
-    continent: string | null
-    flagImageUrl: string | null
+    official_name: string | null
+    iso_2: string | null
+    iso_num: string | null
+    region: string | null
+    subregion: string | null
     capital: string | null
     population: number | null
     landArea: number | null
+    landlocked: boolean | null
+    independent: boolean | null
     currency: string | null
+    latitude: number | null
+    longitude: number | null
+    google_maps_url: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type CountryMaxAggregateOutputType = {
     id: number | null
-    code: string | null
     name: string | null
-    continent: string | null
-    flagImageUrl: string | null
+    official_name: string | null
+    iso_2: string | null
+    iso_num: string | null
+    region: string | null
+    subregion: string | null
     capital: string | null
     population: number | null
     landArea: number | null
+    landlocked: boolean | null
+    independent: boolean | null
     currency: string | null
+    latitude: number | null
+    longitude: number | null
+    google_maps_url: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type CountryCountAggregateOutputType = {
     id: number
-    code: number
     name: number
-    continent: number
-    flagImageUrl: number
+    official_name: number
+    iso_2: number
+    iso_num: number
+    region: number
+    subregion: number
+    continents: number
+    languages: number
     capital: number
     population: number
-    languages: number
     landArea: number
+    landlocked: number
+    independent: number
     currency: number
     timezones: number
+    latitude: number
+    longitude: number
+    google_maps_url: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -8570,54 +8596,80 @@ export namespace Prisma {
     id?: true
     population?: true
     landArea?: true
+    latitude?: true
+    longitude?: true
   }
 
   export type CountrySumAggregateInputType = {
     id?: true
     population?: true
     landArea?: true
+    latitude?: true
+    longitude?: true
   }
 
   export type CountryMinAggregateInputType = {
     id?: true
-    code?: true
     name?: true
-    continent?: true
-    flagImageUrl?: true
+    official_name?: true
+    iso_2?: true
+    iso_num?: true
+    region?: true
+    subregion?: true
     capital?: true
     population?: true
     landArea?: true
+    landlocked?: true
+    independent?: true
     currency?: true
+    latitude?: true
+    longitude?: true
+    google_maps_url?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type CountryMaxAggregateInputType = {
     id?: true
-    code?: true
     name?: true
-    continent?: true
-    flagImageUrl?: true
+    official_name?: true
+    iso_2?: true
+    iso_num?: true
+    region?: true
+    subregion?: true
     capital?: true
     population?: true
     landArea?: true
+    landlocked?: true
+    independent?: true
     currency?: true
+    latitude?: true
+    longitude?: true
+    google_maps_url?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type CountryCountAggregateInputType = {
     id?: true
-    code?: true
     name?: true
-    continent?: true
-    flagImageUrl?: true
+    official_name?: true
+    iso_2?: true
+    iso_num?: true
+    region?: true
+    subregion?: true
+    continents?: true
+    languages?: true
     capital?: true
     population?: true
-    languages?: true
     landArea?: true
+    landlocked?: true
+    independent?: true
     currency?: true
     timezones?: true
+    latitude?: true
+    longitude?: true
+    google_maps_url?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -8711,16 +8763,24 @@ export namespace Prisma {
 
   export type CountryGroupByOutputType = {
     id: number
-    code: string
     name: string
-    continent: string
-    flagImageUrl: string | null
+    official_name: string
+    iso_2: string
+    iso_num: string | null
+    region: string
+    subregion: string | null
+    continents: string[]
+    languages: string[]
     capital: string | null
     population: number | null
-    languages: string[]
     landArea: number | null
+    landlocked: boolean
+    independent: boolean
     currency: string | null
     timezones: string[]
+    latitude: number | null
+    longitude: number | null
+    google_maps_url: string
     createdAt: Date
     updatedAt: Date
     _count: CountryCountAggregateOutputType | null
@@ -8746,16 +8806,24 @@ export namespace Prisma {
 
   export type CountrySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    code?: boolean
     name?: boolean
-    continent?: boolean
-    flagImageUrl?: boolean
+    official_name?: boolean
+    iso_2?: boolean
+    iso_num?: boolean
+    region?: boolean
+    subregion?: boolean
+    continents?: boolean
+    languages?: boolean
     capital?: boolean
     population?: boolean
-    languages?: boolean
     landArea?: boolean
+    landlocked?: boolean
+    independent?: boolean
     currency?: boolean
     timezones?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    google_maps_url?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     travels?: boolean | Country$travelsArgs<ExtArgs>
@@ -8766,53 +8834,77 @@ export namespace Prisma {
 
   export type CountrySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    code?: boolean
     name?: boolean
-    continent?: boolean
-    flagImageUrl?: boolean
+    official_name?: boolean
+    iso_2?: boolean
+    iso_num?: boolean
+    region?: boolean
+    subregion?: boolean
+    continents?: boolean
+    languages?: boolean
     capital?: boolean
     population?: boolean
-    languages?: boolean
     landArea?: boolean
+    landlocked?: boolean
+    independent?: boolean
     currency?: boolean
     timezones?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    google_maps_url?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["country"]>
 
   export type CountrySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    code?: boolean
     name?: boolean
-    continent?: boolean
-    flagImageUrl?: boolean
+    official_name?: boolean
+    iso_2?: boolean
+    iso_num?: boolean
+    region?: boolean
+    subregion?: boolean
+    continents?: boolean
+    languages?: boolean
     capital?: boolean
     population?: boolean
-    languages?: boolean
     landArea?: boolean
+    landlocked?: boolean
+    independent?: boolean
     currency?: boolean
     timezones?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    google_maps_url?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["country"]>
 
   export type CountrySelectScalar = {
     id?: boolean
-    code?: boolean
     name?: boolean
-    continent?: boolean
-    flagImageUrl?: boolean
+    official_name?: boolean
+    iso_2?: boolean
+    iso_num?: boolean
+    region?: boolean
+    subregion?: boolean
+    continents?: boolean
+    languages?: boolean
     capital?: boolean
     population?: boolean
-    languages?: boolean
     landArea?: boolean
+    landlocked?: boolean
+    independent?: boolean
     currency?: boolean
     timezones?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    google_maps_url?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CountryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "continent" | "flagImageUrl" | "capital" | "population" | "languages" | "landArea" | "currency" | "timezones" | "createdAt" | "updatedAt", ExtArgs["result"]["country"]>
+  export type CountryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "official_name" | "iso_2" | "iso_num" | "region" | "subregion" | "continents" | "languages" | "capital" | "population" | "landArea" | "landlocked" | "independent" | "currency" | "timezones" | "latitude" | "longitude" | "google_maps_url" | "createdAt" | "updatedAt", ExtArgs["result"]["country"]>
   export type CountryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     travels?: boolean | Country$travelsArgs<ExtArgs>
     wishlist?: boolean | Country$wishlistArgs<ExtArgs>
@@ -8831,16 +8923,24 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      code: string
       name: string
-      continent: string
-      flagImageUrl: string | null
+      official_name: string
+      iso_2: string
+      iso_num: string | null
+      region: string
+      subregion: string | null
+      continents: string[]
+      languages: string[]
       capital: string | null
       population: number | null
-      languages: string[]
       landArea: number | null
+      landlocked: boolean
+      independent: boolean
       currency: string | null
       timezones: string[]
+      latitude: number | null
+      longitude: number | null
+      google_maps_url: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["country"]>
@@ -9270,16 +9370,24 @@ export namespace Prisma {
    */
   interface CountryFieldRefs {
     readonly id: FieldRef<"Country", 'Int'>
-    readonly code: FieldRef<"Country", 'String'>
     readonly name: FieldRef<"Country", 'String'>
-    readonly continent: FieldRef<"Country", 'String'>
-    readonly flagImageUrl: FieldRef<"Country", 'String'>
+    readonly official_name: FieldRef<"Country", 'String'>
+    readonly iso_2: FieldRef<"Country", 'String'>
+    readonly iso_num: FieldRef<"Country", 'String'>
+    readonly region: FieldRef<"Country", 'String'>
+    readonly subregion: FieldRef<"Country", 'String'>
+    readonly continents: FieldRef<"Country", 'String[]'>
+    readonly languages: FieldRef<"Country", 'String[]'>
     readonly capital: FieldRef<"Country", 'String'>
     readonly population: FieldRef<"Country", 'Int'>
-    readonly languages: FieldRef<"Country", 'String[]'>
-    readonly landArea: FieldRef<"Country", 'Float'>
+    readonly landArea: FieldRef<"Country", 'Int'>
+    readonly landlocked: FieldRef<"Country", 'Boolean'>
+    readonly independent: FieldRef<"Country", 'Boolean'>
     readonly currency: FieldRef<"Country", 'String'>
     readonly timezones: FieldRef<"Country", 'String[]'>
+    readonly latitude: FieldRef<"Country", 'Float'>
+    readonly longitude: FieldRef<"Country", 'Float'>
+    readonly google_maps_url: FieldRef<"Country", 'String'>
     readonly createdAt: FieldRef<"Country", 'DateTime'>
     readonly updatedAt: FieldRef<"Country", 'DateTime'>
   }
@@ -9776,30 +9884,27 @@ export namespace Prisma {
     id: number | null
     countryId: number | null
     population: number | null
-    landArea: number | null
-    longitude: number | null
     latitude: number | null
+    longitude: number | null
   }
 
   export type CitySumAggregateOutputType = {
     id: number | null
     countryId: number | null
     population: number | null
-    landArea: number | null
-    longitude: number | null
     latitude: number | null
+    longitude: number | null
   }
 
   export type CityMinAggregateOutputType = {
     id: number | null
     countryId: number | null
-    code: string | null
+    country_iso_2: string | null
     name: string | null
     population: number | null
-    landArea: number | null
-    currency: string | null
-    longitude: number | null
+    timezone: string | null
     latitude: number | null
+    longitude: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9807,13 +9912,12 @@ export namespace Prisma {
   export type CityMaxAggregateOutputType = {
     id: number | null
     countryId: number | null
-    code: string | null
+    country_iso_2: string | null
     name: string | null
     population: number | null
-    landArea: number | null
-    currency: string | null
-    longitude: number | null
+    timezone: string | null
     latitude: number | null
+    longitude: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9821,15 +9925,12 @@ export namespace Prisma {
   export type CityCountAggregateOutputType = {
     id: number
     countryId: number
-    code: number
+    country_iso_2: number
     name: number
     population: number
-    languages: number
-    landArea: number
-    currency: number
-    timezones: number
-    longitude: number
+    timezone: number
     latitude: number
+    longitude: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -9840,30 +9941,27 @@ export namespace Prisma {
     id?: true
     countryId?: true
     population?: true
-    landArea?: true
-    longitude?: true
     latitude?: true
+    longitude?: true
   }
 
   export type CitySumAggregateInputType = {
     id?: true
     countryId?: true
     population?: true
-    landArea?: true
-    longitude?: true
     latitude?: true
+    longitude?: true
   }
 
   export type CityMinAggregateInputType = {
     id?: true
     countryId?: true
-    code?: true
+    country_iso_2?: true
     name?: true
     population?: true
-    landArea?: true
-    currency?: true
-    longitude?: true
+    timezone?: true
     latitude?: true
+    longitude?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -9871,13 +9969,12 @@ export namespace Prisma {
   export type CityMaxAggregateInputType = {
     id?: true
     countryId?: true
-    code?: true
+    country_iso_2?: true
     name?: true
     population?: true
-    landArea?: true
-    currency?: true
-    longitude?: true
+    timezone?: true
     latitude?: true
+    longitude?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -9885,15 +9982,12 @@ export namespace Prisma {
   export type CityCountAggregateInputType = {
     id?: true
     countryId?: true
-    code?: true
+    country_iso_2?: true
     name?: true
     population?: true
-    languages?: true
-    landArea?: true
-    currency?: true
-    timezones?: true
-    longitude?: true
+    timezone?: true
     latitude?: true
+    longitude?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -9988,15 +10082,12 @@ export namespace Prisma {
   export type CityGroupByOutputType = {
     id: number
     countryId: number
-    code: string
+    country_iso_2: string
     name: string
     population: number | null
-    languages: string[]
-    landArea: number | null
-    currency: string | null
-    timezones: string[]
-    longitude: number | null
+    timezone: string
     latitude: number | null
+    longitude: number | null
     createdAt: Date
     updatedAt: Date
     _count: CityCountAggregateOutputType | null
@@ -10023,15 +10114,12 @@ export namespace Prisma {
   export type CitySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     countryId?: boolean
-    code?: boolean
+    country_iso_2?: boolean
     name?: boolean
     population?: boolean
-    languages?: boolean
-    landArea?: boolean
-    currency?: boolean
-    timezones?: boolean
-    longitude?: boolean
+    timezone?: boolean
     latitude?: boolean
+    longitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     travels?: boolean | City$travelsArgs<ExtArgs>
@@ -10043,15 +10131,12 @@ export namespace Prisma {
   export type CitySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     countryId?: boolean
-    code?: boolean
+    country_iso_2?: boolean
     name?: boolean
     population?: boolean
-    languages?: boolean
-    landArea?: boolean
-    currency?: boolean
-    timezones?: boolean
-    longitude?: boolean
+    timezone?: boolean
     latitude?: boolean
+    longitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     country?: boolean | CountryDefaultArgs<ExtArgs>
@@ -10060,15 +10145,12 @@ export namespace Prisma {
   export type CitySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     countryId?: boolean
-    code?: boolean
+    country_iso_2?: boolean
     name?: boolean
     population?: boolean
-    languages?: boolean
-    landArea?: boolean
-    currency?: boolean
-    timezones?: boolean
-    longitude?: boolean
+    timezone?: boolean
     latitude?: boolean
+    longitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     country?: boolean | CountryDefaultArgs<ExtArgs>
@@ -10077,20 +10159,17 @@ export namespace Prisma {
   export type CitySelectScalar = {
     id?: boolean
     countryId?: boolean
-    code?: boolean
+    country_iso_2?: boolean
     name?: boolean
     population?: boolean
-    languages?: boolean
-    landArea?: boolean
-    currency?: boolean
-    timezones?: boolean
-    longitude?: boolean
+    timezone?: boolean
     latitude?: boolean
+    longitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "countryId" | "code" | "name" | "population" | "languages" | "landArea" | "currency" | "timezones" | "longitude" | "latitude" | "createdAt" | "updatedAt", ExtArgs["result"]["city"]>
+  export type CityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "countryId" | "country_iso_2" | "name" | "population" | "timezone" | "latitude" | "longitude" | "createdAt" | "updatedAt", ExtArgs["result"]["city"]>
   export type CityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     travels?: boolean | City$travelsArgs<ExtArgs>
     wishlist?: boolean | City$wishlistArgs<ExtArgs>
@@ -10114,15 +10193,12 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       countryId: number
-      code: string
+      country_iso_2: string
       name: string
       population: number | null
-      languages: string[]
-      landArea: number | null
-      currency: string | null
-      timezones: string[]
-      longitude: number | null
+      timezone: string
       latitude: number | null
+      longitude: number | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["city"]>
@@ -10553,15 +10629,12 @@ export namespace Prisma {
   interface CityFieldRefs {
     readonly id: FieldRef<"City", 'Int'>
     readonly countryId: FieldRef<"City", 'Int'>
-    readonly code: FieldRef<"City", 'String'>
+    readonly country_iso_2: FieldRef<"City", 'String'>
     readonly name: FieldRef<"City", 'String'>
     readonly population: FieldRef<"City", 'Int'>
-    readonly languages: FieldRef<"City", 'String[]'>
-    readonly landArea: FieldRef<"City", 'Float'>
-    readonly currency: FieldRef<"City", 'String'>
-    readonly timezones: FieldRef<"City", 'String[]'>
-    readonly longitude: FieldRef<"City", 'Float'>
+    readonly timezone: FieldRef<"City", 'String'>
     readonly latitude: FieldRef<"City", 'Float'>
+    readonly longitude: FieldRef<"City", 'Float'>
     readonly createdAt: FieldRef<"City", 'DateTime'>
     readonly updatedAt: FieldRef<"City", 'DateTime'>
   }
@@ -11114,16 +11187,24 @@ export namespace Prisma {
 
   export const CountryScalarFieldEnum: {
     id: 'id',
-    code: 'code',
     name: 'name',
-    continent: 'continent',
-    flagImageUrl: 'flagImageUrl',
+    official_name: 'official_name',
+    iso_2: 'iso_2',
+    iso_num: 'iso_num',
+    region: 'region',
+    subregion: 'subregion',
+    continents: 'continents',
+    languages: 'languages',
     capital: 'capital',
     population: 'population',
-    languages: 'languages',
     landArea: 'landArea',
+    landlocked: 'landlocked',
+    independent: 'independent',
     currency: 'currency',
     timezones: 'timezones',
+    latitude: 'latitude',
+    longitude: 'longitude',
+    google_maps_url: 'google_maps_url',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -11134,15 +11215,12 @@ export namespace Prisma {
   export const CityScalarFieldEnum: {
     id: 'id',
     countryId: 'countryId',
-    code: 'code',
+    country_iso_2: 'country_iso_2',
     name: 'name',
     population: 'population',
-    languages: 'languages',
-    landArea: 'landArea',
-    currency: 'currency',
-    timezones: 'timezones',
-    longitude: 'longitude',
+    timezone: 'timezone',
     latitude: 'latitude',
+    longitude: 'longitude',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -11651,16 +11729,24 @@ export namespace Prisma {
     OR?: CountryWhereInput[]
     NOT?: CountryWhereInput | CountryWhereInput[]
     id?: IntFilter<"Country"> | number
-    code?: StringFilter<"Country"> | string
     name?: StringFilter<"Country"> | string
-    continent?: StringFilter<"Country"> | string
-    flagImageUrl?: StringNullableFilter<"Country"> | string | null
+    official_name?: StringFilter<"Country"> | string
+    iso_2?: StringFilter<"Country"> | string
+    iso_num?: StringNullableFilter<"Country"> | string | null
+    region?: StringFilter<"Country"> | string
+    subregion?: StringNullableFilter<"Country"> | string | null
+    continents?: StringNullableListFilter<"Country">
+    languages?: StringNullableListFilter<"Country">
     capital?: StringNullableFilter<"Country"> | string | null
     population?: IntNullableFilter<"Country"> | number | null
-    languages?: StringNullableListFilter<"Country">
-    landArea?: FloatNullableFilter<"Country"> | number | null
+    landArea?: IntNullableFilter<"Country"> | number | null
+    landlocked?: BoolFilter<"Country"> | boolean
+    independent?: BoolFilter<"Country"> | boolean
     currency?: StringNullableFilter<"Country"> | string | null
     timezones?: StringNullableListFilter<"Country">
+    latitude?: FloatNullableFilter<"Country"> | number | null
+    longitude?: FloatNullableFilter<"Country"> | number | null
+    google_maps_url?: StringFilter<"Country"> | string
     createdAt?: DateTimeFilter<"Country"> | Date | string
     updatedAt?: DateTimeFilter<"Country"> | Date | string
     travels?: TravelListRelationFilter
@@ -11670,16 +11756,24 @@ export namespace Prisma {
 
   export type CountryOrderByWithRelationInput = {
     id?: SortOrder
-    code?: SortOrder
     name?: SortOrder
-    continent?: SortOrder
-    flagImageUrl?: SortOrderInput | SortOrder
+    official_name?: SortOrder
+    iso_2?: SortOrder
+    iso_num?: SortOrderInput | SortOrder
+    region?: SortOrder
+    subregion?: SortOrderInput | SortOrder
+    continents?: SortOrder
+    languages?: SortOrder
     capital?: SortOrderInput | SortOrder
     population?: SortOrderInput | SortOrder
-    languages?: SortOrder
     landArea?: SortOrderInput | SortOrder
+    landlocked?: SortOrder
+    independent?: SortOrder
     currency?: SortOrderInput | SortOrder
     timezones?: SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
+    google_maps_url?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     travels?: TravelOrderByRelationAggregateInput
@@ -11689,38 +11783,54 @@ export namespace Prisma {
 
   export type CountryWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    code?: string
+    iso_2?: string
+    iso_num?: string
     AND?: CountryWhereInput | CountryWhereInput[]
     OR?: CountryWhereInput[]
     NOT?: CountryWhereInput | CountryWhereInput[]
     name?: StringFilter<"Country"> | string
-    continent?: StringFilter<"Country"> | string
-    flagImageUrl?: StringNullableFilter<"Country"> | string | null
+    official_name?: StringFilter<"Country"> | string
+    region?: StringFilter<"Country"> | string
+    subregion?: StringNullableFilter<"Country"> | string | null
+    continents?: StringNullableListFilter<"Country">
+    languages?: StringNullableListFilter<"Country">
     capital?: StringNullableFilter<"Country"> | string | null
     population?: IntNullableFilter<"Country"> | number | null
-    languages?: StringNullableListFilter<"Country">
-    landArea?: FloatNullableFilter<"Country"> | number | null
+    landArea?: IntNullableFilter<"Country"> | number | null
+    landlocked?: BoolFilter<"Country"> | boolean
+    independent?: BoolFilter<"Country"> | boolean
     currency?: StringNullableFilter<"Country"> | string | null
     timezones?: StringNullableListFilter<"Country">
+    latitude?: FloatNullableFilter<"Country"> | number | null
+    longitude?: FloatNullableFilter<"Country"> | number | null
+    google_maps_url?: StringFilter<"Country"> | string
     createdAt?: DateTimeFilter<"Country"> | Date | string
     updatedAt?: DateTimeFilter<"Country"> | Date | string
     travels?: TravelListRelationFilter
     wishlist?: WishlistListRelationFilter
     cities?: CityListRelationFilter
-  }, "id" | "code">
+  }, "id" | "iso_2" | "iso_num">
 
   export type CountryOrderByWithAggregationInput = {
     id?: SortOrder
-    code?: SortOrder
     name?: SortOrder
-    continent?: SortOrder
-    flagImageUrl?: SortOrderInput | SortOrder
+    official_name?: SortOrder
+    iso_2?: SortOrder
+    iso_num?: SortOrderInput | SortOrder
+    region?: SortOrder
+    subregion?: SortOrderInput | SortOrder
+    continents?: SortOrder
+    languages?: SortOrder
     capital?: SortOrderInput | SortOrder
     population?: SortOrderInput | SortOrder
-    languages?: SortOrder
     landArea?: SortOrderInput | SortOrder
+    landlocked?: SortOrder
+    independent?: SortOrder
     currency?: SortOrderInput | SortOrder
     timezones?: SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
+    google_maps_url?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CountryCountOrderByAggregateInput
@@ -11735,16 +11845,24 @@ export namespace Prisma {
     OR?: CountryScalarWhereWithAggregatesInput[]
     NOT?: CountryScalarWhereWithAggregatesInput | CountryScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Country"> | number
-    code?: StringWithAggregatesFilter<"Country"> | string
     name?: StringWithAggregatesFilter<"Country"> | string
-    continent?: StringWithAggregatesFilter<"Country"> | string
-    flagImageUrl?: StringNullableWithAggregatesFilter<"Country"> | string | null
+    official_name?: StringWithAggregatesFilter<"Country"> | string
+    iso_2?: StringWithAggregatesFilter<"Country"> | string
+    iso_num?: StringNullableWithAggregatesFilter<"Country"> | string | null
+    region?: StringWithAggregatesFilter<"Country"> | string
+    subregion?: StringNullableWithAggregatesFilter<"Country"> | string | null
+    continents?: StringNullableListFilter<"Country">
+    languages?: StringNullableListFilter<"Country">
     capital?: StringNullableWithAggregatesFilter<"Country"> | string | null
     population?: IntNullableWithAggregatesFilter<"Country"> | number | null
-    languages?: StringNullableListFilter<"Country">
-    landArea?: FloatNullableWithAggregatesFilter<"Country"> | number | null
+    landArea?: IntNullableWithAggregatesFilter<"Country"> | number | null
+    landlocked?: BoolWithAggregatesFilter<"Country"> | boolean
+    independent?: BoolWithAggregatesFilter<"Country"> | boolean
     currency?: StringNullableWithAggregatesFilter<"Country"> | string | null
     timezones?: StringNullableListFilter<"Country">
+    latitude?: FloatNullableWithAggregatesFilter<"Country"> | number | null
+    longitude?: FloatNullableWithAggregatesFilter<"Country"> | number | null
+    google_maps_url?: StringWithAggregatesFilter<"Country"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Country"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Country"> | Date | string
   }
@@ -11755,15 +11873,12 @@ export namespace Prisma {
     NOT?: CityWhereInput | CityWhereInput[]
     id?: IntFilter<"City"> | number
     countryId?: IntFilter<"City"> | number
-    code?: StringFilter<"City"> | string
+    country_iso_2?: StringFilter<"City"> | string
     name?: StringFilter<"City"> | string
     population?: IntNullableFilter<"City"> | number | null
-    languages?: StringNullableListFilter<"City">
-    landArea?: FloatNullableFilter<"City"> | number | null
-    currency?: StringNullableFilter<"City"> | string | null
-    timezones?: StringNullableListFilter<"City">
-    longitude?: FloatNullableFilter<"City"> | number | null
+    timezone?: StringFilter<"City"> | string
     latitude?: FloatNullableFilter<"City"> | number | null
+    longitude?: FloatNullableFilter<"City"> | number | null
     createdAt?: DateTimeFilter<"City"> | Date | string
     updatedAt?: DateTimeFilter<"City"> | Date | string
     travels?: TravelCityListRelationFilter
@@ -11774,15 +11889,12 @@ export namespace Prisma {
   export type CityOrderByWithRelationInput = {
     id?: SortOrder
     countryId?: SortOrder
-    code?: SortOrder
+    country_iso_2?: SortOrder
     name?: SortOrder
     population?: SortOrderInput | SortOrder
-    languages?: SortOrder
-    landArea?: SortOrderInput | SortOrder
-    currency?: SortOrderInput | SortOrder
-    timezones?: SortOrder
-    longitude?: SortOrderInput | SortOrder
+    timezone?: SortOrder
     latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     travels?: TravelCityOrderByRelationAggregateInput
@@ -11792,38 +11904,32 @@ export namespace Prisma {
 
   export type CityWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    code?: string
     AND?: CityWhereInput | CityWhereInput[]
     OR?: CityWhereInput[]
     NOT?: CityWhereInput | CityWhereInput[]
     countryId?: IntFilter<"City"> | number
+    country_iso_2?: StringFilter<"City"> | string
     name?: StringFilter<"City"> | string
     population?: IntNullableFilter<"City"> | number | null
-    languages?: StringNullableListFilter<"City">
-    landArea?: FloatNullableFilter<"City"> | number | null
-    currency?: StringNullableFilter<"City"> | string | null
-    timezones?: StringNullableListFilter<"City">
-    longitude?: FloatNullableFilter<"City"> | number | null
+    timezone?: StringFilter<"City"> | string
     latitude?: FloatNullableFilter<"City"> | number | null
+    longitude?: FloatNullableFilter<"City"> | number | null
     createdAt?: DateTimeFilter<"City"> | Date | string
     updatedAt?: DateTimeFilter<"City"> | Date | string
     travels?: TravelCityListRelationFilter
     wishlist?: WishlistListRelationFilter
     country?: XOR<CountryScalarRelationFilter, CountryWhereInput>
-  }, "id" | "code">
+  }, "id">
 
   export type CityOrderByWithAggregationInput = {
     id?: SortOrder
     countryId?: SortOrder
-    code?: SortOrder
+    country_iso_2?: SortOrder
     name?: SortOrder
     population?: SortOrderInput | SortOrder
-    languages?: SortOrder
-    landArea?: SortOrderInput | SortOrder
-    currency?: SortOrderInput | SortOrder
-    timezones?: SortOrder
-    longitude?: SortOrderInput | SortOrder
+    timezone?: SortOrder
     latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CityCountOrderByAggregateInput
@@ -11839,15 +11945,12 @@ export namespace Prisma {
     NOT?: CityScalarWhereWithAggregatesInput | CityScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"City"> | number
     countryId?: IntWithAggregatesFilter<"City"> | number
-    code?: StringWithAggregatesFilter<"City"> | string
+    country_iso_2?: StringWithAggregatesFilter<"City"> | string
     name?: StringWithAggregatesFilter<"City"> | string
     population?: IntNullableWithAggregatesFilter<"City"> | number | null
-    languages?: StringNullableListFilter<"City">
-    landArea?: FloatNullableWithAggregatesFilter<"City"> | number | null
-    currency?: StringNullableWithAggregatesFilter<"City"> | string | null
-    timezones?: StringNullableListFilter<"City">
-    longitude?: FloatNullableWithAggregatesFilter<"City"> | number | null
+    timezone?: StringWithAggregatesFilter<"City"> | string
     latitude?: FloatNullableWithAggregatesFilter<"City"> | number | null
+    longitude?: FloatNullableWithAggregatesFilter<"City"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"City"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"City"> | Date | string
   }
@@ -12233,16 +12336,24 @@ export namespace Prisma {
   }
 
   export type CountryCreateInput = {
-    code: string
     name: string
-    continent: string
-    flagImageUrl?: string | null
+    official_name: string
+    iso_2: string
+    iso_num?: string | null
+    region: string
+    subregion?: string | null
+    continents?: CountryCreatecontinentsInput | string[]
+    languages?: CountryCreatelanguagesInput | string[]
     capital?: string | null
     population?: number | null
-    languages?: CountryCreatelanguagesInput | string[]
     landArea?: number | null
+    landlocked: boolean
+    independent: boolean
     currency?: string | null
     timezones?: CountryCreatetimezonesInput | string[]
+    latitude?: number | null
+    longitude?: number | null
+    google_maps_url: string
     createdAt?: Date | string
     updatedAt?: Date | string
     travels?: TravelCreateNestedManyWithoutCountryInput
@@ -12252,16 +12363,24 @@ export namespace Prisma {
 
   export type CountryUncheckedCreateInput = {
     id?: number
-    code: string
     name: string
-    continent: string
-    flagImageUrl?: string | null
+    official_name: string
+    iso_2: string
+    iso_num?: string | null
+    region: string
+    subregion?: string | null
+    continents?: CountryCreatecontinentsInput | string[]
+    languages?: CountryCreatelanguagesInput | string[]
     capital?: string | null
     population?: number | null
-    languages?: CountryCreatelanguagesInput | string[]
     landArea?: number | null
+    landlocked: boolean
+    independent: boolean
     currency?: string | null
     timezones?: CountryCreatetimezonesInput | string[]
+    latitude?: number | null
+    longitude?: number | null
+    google_maps_url: string
     createdAt?: Date | string
     updatedAt?: Date | string
     travels?: TravelUncheckedCreateNestedManyWithoutCountryInput
@@ -12270,16 +12389,24 @@ export namespace Prisma {
   }
 
   export type CountryUpdateInput = {
-    code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    continent?: StringFieldUpdateOperationsInput | string
-    flagImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    official_name?: StringFieldUpdateOperationsInput | string
+    iso_2?: StringFieldUpdateOperationsInput | string
+    iso_num?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    subregion?: NullableStringFieldUpdateOperationsInput | string | null
+    continents?: CountryUpdatecontinentsInput | string[]
+    languages?: CountryUpdatelanguagesInput | string[]
     capital?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CountryUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    landArea?: NullableIntFieldUpdateOperationsInput | number | null
+    landlocked?: BoolFieldUpdateOperationsInput | boolean
+    independent?: BoolFieldUpdateOperationsInput | boolean
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     timezones?: CountryUpdatetimezonesInput | string[]
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    google_maps_url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     travels?: TravelUpdateManyWithoutCountryNestedInput
@@ -12289,16 +12416,24 @@ export namespace Prisma {
 
   export type CountryUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    continent?: StringFieldUpdateOperationsInput | string
-    flagImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    official_name?: StringFieldUpdateOperationsInput | string
+    iso_2?: StringFieldUpdateOperationsInput | string
+    iso_num?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    subregion?: NullableStringFieldUpdateOperationsInput | string | null
+    continents?: CountryUpdatecontinentsInput | string[]
+    languages?: CountryUpdatelanguagesInput | string[]
     capital?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CountryUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    landArea?: NullableIntFieldUpdateOperationsInput | number | null
+    landlocked?: BoolFieldUpdateOperationsInput | boolean
+    independent?: BoolFieldUpdateOperationsInput | boolean
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     timezones?: CountryUpdatetimezonesInput | string[]
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    google_maps_url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     travels?: TravelUncheckedUpdateManyWithoutCountryNestedInput
@@ -12308,61 +12443,82 @@ export namespace Prisma {
 
   export type CountryCreateManyInput = {
     id?: number
-    code: string
     name: string
-    continent: string
-    flagImageUrl?: string | null
+    official_name: string
+    iso_2: string
+    iso_num?: string | null
+    region: string
+    subregion?: string | null
+    continents?: CountryCreatecontinentsInput | string[]
+    languages?: CountryCreatelanguagesInput | string[]
     capital?: string | null
     population?: number | null
-    languages?: CountryCreatelanguagesInput | string[]
     landArea?: number | null
+    landlocked: boolean
+    independent: boolean
     currency?: string | null
     timezones?: CountryCreatetimezonesInput | string[]
+    latitude?: number | null
+    longitude?: number | null
+    google_maps_url: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type CountryUpdateManyMutationInput = {
-    code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    continent?: StringFieldUpdateOperationsInput | string
-    flagImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    official_name?: StringFieldUpdateOperationsInput | string
+    iso_2?: StringFieldUpdateOperationsInput | string
+    iso_num?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    subregion?: NullableStringFieldUpdateOperationsInput | string | null
+    continents?: CountryUpdatecontinentsInput | string[]
+    languages?: CountryUpdatelanguagesInput | string[]
     capital?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CountryUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    landArea?: NullableIntFieldUpdateOperationsInput | number | null
+    landlocked?: BoolFieldUpdateOperationsInput | boolean
+    independent?: BoolFieldUpdateOperationsInput | boolean
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     timezones?: CountryUpdatetimezonesInput | string[]
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    google_maps_url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CountryUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    continent?: StringFieldUpdateOperationsInput | string
-    flagImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    official_name?: StringFieldUpdateOperationsInput | string
+    iso_2?: StringFieldUpdateOperationsInput | string
+    iso_num?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    subregion?: NullableStringFieldUpdateOperationsInput | string | null
+    continents?: CountryUpdatecontinentsInput | string[]
+    languages?: CountryUpdatelanguagesInput | string[]
     capital?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CountryUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    landArea?: NullableIntFieldUpdateOperationsInput | number | null
+    landlocked?: BoolFieldUpdateOperationsInput | boolean
+    independent?: BoolFieldUpdateOperationsInput | boolean
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     timezones?: CountryUpdatetimezonesInput | string[]
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    google_maps_url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CityCreateInput = {
-    code: string
+    country_iso_2: string
     name: string
     population?: number | null
-    languages?: CityCreatelanguagesInput | string[]
-    landArea?: number | null
-    currency?: string | null
-    timezones?: CityCreatetimezonesInput | string[]
-    longitude?: number | null
+    timezone: string
     latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     travels?: TravelCityCreateNestedManyWithoutCityInput
@@ -12373,15 +12529,12 @@ export namespace Prisma {
   export type CityUncheckedCreateInput = {
     id?: number
     countryId: number
-    code: string
+    country_iso_2: string
     name: string
     population?: number | null
-    languages?: CityCreatelanguagesInput | string[]
-    landArea?: number | null
-    currency?: string | null
-    timezones?: CityCreatetimezonesInput | string[]
-    longitude?: number | null
+    timezone: string
     latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     travels?: TravelCityUncheckedCreateNestedManyWithoutCityInput
@@ -12389,15 +12542,12 @@ export namespace Prisma {
   }
 
   export type CityUpdateInput = {
-    code?: StringFieldUpdateOperationsInput | string
+    country_iso_2?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CityUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    currency?: NullableStringFieldUpdateOperationsInput | string | null
-    timezones?: CityUpdatetimezonesInput | string[]
-    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     travels?: TravelCityUpdateManyWithoutCityNestedInput
@@ -12408,15 +12558,12 @@ export namespace Prisma {
   export type CityUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     countryId?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    country_iso_2?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CityUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    currency?: NullableStringFieldUpdateOperationsInput | string | null
-    timezones?: CityUpdatetimezonesInput | string[]
-    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     travels?: TravelCityUncheckedUpdateManyWithoutCityNestedInput
@@ -12426,29 +12573,23 @@ export namespace Prisma {
   export type CityCreateManyInput = {
     id?: number
     countryId: number
-    code: string
+    country_iso_2: string
     name: string
     population?: number | null
-    languages?: CityCreatelanguagesInput | string[]
-    landArea?: number | null
-    currency?: string | null
-    timezones?: CityCreatetimezonesInput | string[]
-    longitude?: number | null
+    timezone: string
     latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type CityUpdateManyMutationInput = {
-    code?: StringFieldUpdateOperationsInput | string
+    country_iso_2?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CityUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    currency?: NullableStringFieldUpdateOperationsInput | string | null
-    timezones?: CityUpdatetimezonesInput | string[]
-    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12456,15 +12597,12 @@ export namespace Prisma {
   export type CityUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     countryId?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    country_iso_2?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CityUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    currency?: NullableStringFieldUpdateOperationsInput | string | null
-    timezones?: CityUpdatetimezonesInput | string[]
-    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12959,16 +13097,24 @@ export namespace Prisma {
 
   export type CountryCountOrderByAggregateInput = {
     id?: SortOrder
-    code?: SortOrder
     name?: SortOrder
-    continent?: SortOrder
-    flagImageUrl?: SortOrder
+    official_name?: SortOrder
+    iso_2?: SortOrder
+    iso_num?: SortOrder
+    region?: SortOrder
+    subregion?: SortOrder
+    continents?: SortOrder
+    languages?: SortOrder
     capital?: SortOrder
     population?: SortOrder
-    languages?: SortOrder
     landArea?: SortOrder
+    landlocked?: SortOrder
+    independent?: SortOrder
     currency?: SortOrder
     timezones?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    google_maps_url?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12977,32 +13123,48 @@ export namespace Prisma {
     id?: SortOrder
     population?: SortOrder
     landArea?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
   }
 
   export type CountryMaxOrderByAggregateInput = {
     id?: SortOrder
-    code?: SortOrder
     name?: SortOrder
-    continent?: SortOrder
-    flagImageUrl?: SortOrder
+    official_name?: SortOrder
+    iso_2?: SortOrder
+    iso_num?: SortOrder
+    region?: SortOrder
+    subregion?: SortOrder
     capital?: SortOrder
     population?: SortOrder
     landArea?: SortOrder
+    landlocked?: SortOrder
+    independent?: SortOrder
     currency?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    google_maps_url?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type CountryMinOrderByAggregateInput = {
     id?: SortOrder
-    code?: SortOrder
     name?: SortOrder
-    continent?: SortOrder
-    flagImageUrl?: SortOrder
+    official_name?: SortOrder
+    iso_2?: SortOrder
+    iso_num?: SortOrder
+    region?: SortOrder
+    subregion?: SortOrder
     capital?: SortOrder
     population?: SortOrder
     landArea?: SortOrder
+    landlocked?: SortOrder
+    independent?: SortOrder
     currency?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    google_maps_url?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13011,6 +13173,8 @@ export namespace Prisma {
     id?: SortOrder
     population?: SortOrder
     landArea?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
   }
 
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -13032,15 +13196,12 @@ export namespace Prisma {
   export type CityCountOrderByAggregateInput = {
     id?: SortOrder
     countryId?: SortOrder
-    code?: SortOrder
+    country_iso_2?: SortOrder
     name?: SortOrder
     population?: SortOrder
-    languages?: SortOrder
-    landArea?: SortOrder
-    currency?: SortOrder
-    timezones?: SortOrder
-    longitude?: SortOrder
+    timezone?: SortOrder
     latitude?: SortOrder
+    longitude?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13049,21 +13210,19 @@ export namespace Prisma {
     id?: SortOrder
     countryId?: SortOrder
     population?: SortOrder
-    landArea?: SortOrder
-    longitude?: SortOrder
     latitude?: SortOrder
+    longitude?: SortOrder
   }
 
   export type CityMaxOrderByAggregateInput = {
     id?: SortOrder
     countryId?: SortOrder
-    code?: SortOrder
+    country_iso_2?: SortOrder
     name?: SortOrder
     population?: SortOrder
-    landArea?: SortOrder
-    currency?: SortOrder
-    longitude?: SortOrder
+    timezone?: SortOrder
     latitude?: SortOrder
+    longitude?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13071,13 +13230,12 @@ export namespace Prisma {
   export type CityMinOrderByAggregateInput = {
     id?: SortOrder
     countryId?: SortOrder
-    code?: SortOrder
+    country_iso_2?: SortOrder
     name?: SortOrder
     population?: SortOrder
-    landArea?: SortOrder
-    currency?: SortOrder
-    longitude?: SortOrder
+    timezone?: SortOrder
     latitude?: SortOrder
+    longitude?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13086,9 +13244,8 @@ export namespace Prisma {
     id?: SortOrder
     countryId?: SortOrder
     population?: SortOrder
-    landArea?: SortOrder
-    longitude?: SortOrder
     latitude?: SortOrder
+    longitude?: SortOrder
   }
 
   export type UserProfileCreateNestedOneWithoutUserInput = {
@@ -13509,6 +13666,10 @@ export namespace Prisma {
     update?: XOR<XOR<CityUpdateToOneWithWhereWithoutTravelsInput, CityUpdateWithoutTravelsInput>, CityUncheckedUpdateWithoutTravelsInput>
   }
 
+  export type CountryCreatecontinentsInput = {
+    set: string[]
+  }
+
   export type CountryCreatelanguagesInput = {
     set: string[]
   }
@@ -13559,7 +13720,17 @@ export namespace Prisma {
     connect?: CityWhereUniqueInput | CityWhereUniqueInput[]
   }
 
+  export type CountryUpdatecontinentsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
   export type CountryUpdatelanguagesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type CountryUpdatetimezonesInput = {
     set?: string[]
     push?: string | string[]
   }
@@ -13570,11 +13741,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type CountryUpdatetimezonesInput = {
-    set?: string[]
-    push?: string | string[]
   }
 
   export type TravelUpdateManyWithoutCountryNestedInput = {
@@ -13661,14 +13827,6 @@ export namespace Prisma {
     deleteMany?: CityScalarWhereInput | CityScalarWhereInput[]
   }
 
-  export type CityCreatelanguagesInput = {
-    set: string[]
-  }
-
-  export type CityCreatetimezonesInput = {
-    set: string[]
-  }
-
   export type TravelCityCreateNestedManyWithoutCityInput = {
     create?: XOR<TravelCityCreateWithoutCityInput, TravelCityUncheckedCreateWithoutCityInput> | TravelCityCreateWithoutCityInput[] | TravelCityUncheckedCreateWithoutCityInput[]
     connectOrCreate?: TravelCityCreateOrConnectWithoutCityInput | TravelCityCreateOrConnectWithoutCityInput[]
@@ -13701,16 +13859,6 @@ export namespace Prisma {
     connectOrCreate?: WishlistCreateOrConnectWithoutCityInput | WishlistCreateOrConnectWithoutCityInput[]
     createMany?: WishlistCreateManyCityInputEnvelope
     connect?: WishlistWhereUniqueInput | WishlistWhereUniqueInput[]
-  }
-
-  export type CityUpdatelanguagesInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
-  export type CityUpdatetimezonesInput = {
-    set?: string[]
-    push?: string | string[]
   }
 
   export type TravelCityUpdateManyWithoutCityNestedInput = {
@@ -14500,16 +14648,24 @@ export namespace Prisma {
   }
 
   export type CountryCreateWithoutWishlistInput = {
-    code: string
     name: string
-    continent: string
-    flagImageUrl?: string | null
+    official_name: string
+    iso_2: string
+    iso_num?: string | null
+    region: string
+    subregion?: string | null
+    continents?: CountryCreatecontinentsInput | string[]
+    languages?: CountryCreatelanguagesInput | string[]
     capital?: string | null
     population?: number | null
-    languages?: CountryCreatelanguagesInput | string[]
     landArea?: number | null
+    landlocked: boolean
+    independent: boolean
     currency?: string | null
     timezones?: CountryCreatetimezonesInput | string[]
+    latitude?: number | null
+    longitude?: number | null
+    google_maps_url: string
     createdAt?: Date | string
     updatedAt?: Date | string
     travels?: TravelCreateNestedManyWithoutCountryInput
@@ -14518,16 +14674,24 @@ export namespace Prisma {
 
   export type CountryUncheckedCreateWithoutWishlistInput = {
     id?: number
-    code: string
     name: string
-    continent: string
-    flagImageUrl?: string | null
+    official_name: string
+    iso_2: string
+    iso_num?: string | null
+    region: string
+    subregion?: string | null
+    continents?: CountryCreatecontinentsInput | string[]
+    languages?: CountryCreatelanguagesInput | string[]
     capital?: string | null
     population?: number | null
-    languages?: CountryCreatelanguagesInput | string[]
     landArea?: number | null
+    landlocked: boolean
+    independent: boolean
     currency?: string | null
     timezones?: CountryCreatetimezonesInput | string[]
+    latitude?: number | null
+    longitude?: number | null
+    google_maps_url: string
     createdAt?: Date | string
     updatedAt?: Date | string
     travels?: TravelUncheckedCreateNestedManyWithoutCountryInput
@@ -14540,15 +14704,12 @@ export namespace Prisma {
   }
 
   export type CityCreateWithoutWishlistInput = {
-    code: string
+    country_iso_2: string
     name: string
     population?: number | null
-    languages?: CityCreatelanguagesInput | string[]
-    landArea?: number | null
-    currency?: string | null
-    timezones?: CityCreatetimezonesInput | string[]
-    longitude?: number | null
+    timezone: string
     latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     travels?: TravelCityCreateNestedManyWithoutCityInput
@@ -14558,15 +14719,12 @@ export namespace Prisma {
   export type CityUncheckedCreateWithoutWishlistInput = {
     id?: number
     countryId: number
-    code: string
+    country_iso_2: string
     name: string
     population?: number | null
-    languages?: CityCreatelanguagesInput | string[]
-    landArea?: number | null
-    currency?: string | null
-    timezones?: CityCreatetimezonesInput | string[]
-    longitude?: number | null
+    timezone: string
     latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     travels?: TravelCityUncheckedCreateNestedManyWithoutCityInput
@@ -14634,16 +14792,24 @@ export namespace Prisma {
   }
 
   export type CountryUpdateWithoutWishlistInput = {
-    code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    continent?: StringFieldUpdateOperationsInput | string
-    flagImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    official_name?: StringFieldUpdateOperationsInput | string
+    iso_2?: StringFieldUpdateOperationsInput | string
+    iso_num?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    subregion?: NullableStringFieldUpdateOperationsInput | string | null
+    continents?: CountryUpdatecontinentsInput | string[]
+    languages?: CountryUpdatelanguagesInput | string[]
     capital?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CountryUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    landArea?: NullableIntFieldUpdateOperationsInput | number | null
+    landlocked?: BoolFieldUpdateOperationsInput | boolean
+    independent?: BoolFieldUpdateOperationsInput | boolean
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     timezones?: CountryUpdatetimezonesInput | string[]
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    google_maps_url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     travels?: TravelUpdateManyWithoutCountryNestedInput
@@ -14652,16 +14818,24 @@ export namespace Prisma {
 
   export type CountryUncheckedUpdateWithoutWishlistInput = {
     id?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    continent?: StringFieldUpdateOperationsInput | string
-    flagImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    official_name?: StringFieldUpdateOperationsInput | string
+    iso_2?: StringFieldUpdateOperationsInput | string
+    iso_num?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    subregion?: NullableStringFieldUpdateOperationsInput | string | null
+    continents?: CountryUpdatecontinentsInput | string[]
+    languages?: CountryUpdatelanguagesInput | string[]
     capital?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CountryUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    landArea?: NullableIntFieldUpdateOperationsInput | number | null
+    landlocked?: BoolFieldUpdateOperationsInput | boolean
+    independent?: BoolFieldUpdateOperationsInput | boolean
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     timezones?: CountryUpdatetimezonesInput | string[]
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    google_maps_url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     travels?: TravelUncheckedUpdateManyWithoutCountryNestedInput
@@ -14680,15 +14854,12 @@ export namespace Prisma {
   }
 
   export type CityUpdateWithoutWishlistInput = {
-    code?: StringFieldUpdateOperationsInput | string
+    country_iso_2?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CityUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    currency?: NullableStringFieldUpdateOperationsInput | string | null
-    timezones?: CityUpdatetimezonesInput | string[]
-    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     travels?: TravelCityUpdateManyWithoutCityNestedInput
@@ -14698,15 +14869,12 @@ export namespace Prisma {
   export type CityUncheckedUpdateWithoutWishlistInput = {
     id?: IntFieldUpdateOperationsInput | number
     countryId?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    country_iso_2?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CityUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    currency?: NullableStringFieldUpdateOperationsInput | string | null
-    timezones?: CityUpdatetimezonesInput | string[]
-    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     travels?: TravelCityUncheckedUpdateManyWithoutCityNestedInput
@@ -14752,16 +14920,24 @@ export namespace Prisma {
   }
 
   export type CountryCreateWithoutTravelsInput = {
-    code: string
     name: string
-    continent: string
-    flagImageUrl?: string | null
+    official_name: string
+    iso_2: string
+    iso_num?: string | null
+    region: string
+    subregion?: string | null
+    continents?: CountryCreatecontinentsInput | string[]
+    languages?: CountryCreatelanguagesInput | string[]
     capital?: string | null
     population?: number | null
-    languages?: CountryCreatelanguagesInput | string[]
     landArea?: number | null
+    landlocked: boolean
+    independent: boolean
     currency?: string | null
     timezones?: CountryCreatetimezonesInput | string[]
+    latitude?: number | null
+    longitude?: number | null
+    google_maps_url: string
     createdAt?: Date | string
     updatedAt?: Date | string
     wishlist?: WishlistCreateNestedManyWithoutCountryInput
@@ -14770,16 +14946,24 @@ export namespace Prisma {
 
   export type CountryUncheckedCreateWithoutTravelsInput = {
     id?: number
-    code: string
     name: string
-    continent: string
-    flagImageUrl?: string | null
+    official_name: string
+    iso_2: string
+    iso_num?: string | null
+    region: string
+    subregion?: string | null
+    continents?: CountryCreatecontinentsInput | string[]
+    languages?: CountryCreatelanguagesInput | string[]
     capital?: string | null
     population?: number | null
-    languages?: CountryCreatelanguagesInput | string[]
     landArea?: number | null
+    landlocked: boolean
+    independent: boolean
     currency?: string | null
     timezones?: CountryCreatetimezonesInput | string[]
+    latitude?: number | null
+    longitude?: number | null
+    google_maps_url: string
     createdAt?: Date | string
     updatedAt?: Date | string
     wishlist?: WishlistUncheckedCreateNestedManyWithoutCountryInput
@@ -14869,16 +15053,24 @@ export namespace Prisma {
   }
 
   export type CountryUpdateWithoutTravelsInput = {
-    code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    continent?: StringFieldUpdateOperationsInput | string
-    flagImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    official_name?: StringFieldUpdateOperationsInput | string
+    iso_2?: StringFieldUpdateOperationsInput | string
+    iso_num?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    subregion?: NullableStringFieldUpdateOperationsInput | string | null
+    continents?: CountryUpdatecontinentsInput | string[]
+    languages?: CountryUpdatelanguagesInput | string[]
     capital?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CountryUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    landArea?: NullableIntFieldUpdateOperationsInput | number | null
+    landlocked?: BoolFieldUpdateOperationsInput | boolean
+    independent?: BoolFieldUpdateOperationsInput | boolean
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     timezones?: CountryUpdatetimezonesInput | string[]
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    google_maps_url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wishlist?: WishlistUpdateManyWithoutCountryNestedInput
@@ -14887,16 +15079,24 @@ export namespace Prisma {
 
   export type CountryUncheckedUpdateWithoutTravelsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    continent?: StringFieldUpdateOperationsInput | string
-    flagImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    official_name?: StringFieldUpdateOperationsInput | string
+    iso_2?: StringFieldUpdateOperationsInput | string
+    iso_num?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    subregion?: NullableStringFieldUpdateOperationsInput | string | null
+    continents?: CountryUpdatecontinentsInput | string[]
+    languages?: CountryUpdatelanguagesInput | string[]
     capital?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CountryUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    landArea?: NullableIntFieldUpdateOperationsInput | number | null
+    landlocked?: BoolFieldUpdateOperationsInput | boolean
+    independent?: BoolFieldUpdateOperationsInput | boolean
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     timezones?: CountryUpdatetimezonesInput | string[]
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    google_maps_url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wishlist?: WishlistUncheckedUpdateManyWithoutCountryNestedInput
@@ -14956,15 +15156,12 @@ export namespace Prisma {
   }
 
   export type CityCreateWithoutTravelsInput = {
-    code: string
+    country_iso_2: string
     name: string
     population?: number | null
-    languages?: CityCreatelanguagesInput | string[]
-    landArea?: number | null
-    currency?: string | null
-    timezones?: CityCreatetimezonesInput | string[]
-    longitude?: number | null
+    timezone: string
     latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     wishlist?: WishlistCreateNestedManyWithoutCityInput
@@ -14974,15 +15171,12 @@ export namespace Prisma {
   export type CityUncheckedCreateWithoutTravelsInput = {
     id?: number
     countryId: number
-    code: string
+    country_iso_2: string
     name: string
     population?: number | null
-    languages?: CityCreatelanguagesInput | string[]
-    landArea?: number | null
-    currency?: string | null
-    timezones?: CityCreatetimezonesInput | string[]
-    longitude?: number | null
+    timezone: string
     latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     wishlist?: WishlistUncheckedCreateNestedManyWithoutCityInput
@@ -15037,15 +15231,12 @@ export namespace Prisma {
   }
 
   export type CityUpdateWithoutTravelsInput = {
-    code?: StringFieldUpdateOperationsInput | string
+    country_iso_2?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CityUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    currency?: NullableStringFieldUpdateOperationsInput | string | null
-    timezones?: CityUpdatetimezonesInput | string[]
-    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wishlist?: WishlistUpdateManyWithoutCityNestedInput
@@ -15055,15 +15246,12 @@ export namespace Prisma {
   export type CityUncheckedUpdateWithoutTravelsInput = {
     id?: IntFieldUpdateOperationsInput | number
     countryId?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    country_iso_2?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CityUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    currency?: NullableStringFieldUpdateOperationsInput | string | null
-    timezones?: CityUpdatetimezonesInput | string[]
-    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wishlist?: WishlistUncheckedUpdateManyWithoutCityNestedInput
@@ -15124,15 +15312,12 @@ export namespace Prisma {
   }
 
   export type CityCreateWithoutCountryInput = {
-    code: string
+    country_iso_2: string
     name: string
     population?: number | null
-    languages?: CityCreatelanguagesInput | string[]
-    landArea?: number | null
-    currency?: string | null
-    timezones?: CityCreatetimezonesInput | string[]
-    longitude?: number | null
+    timezone: string
     latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     travels?: TravelCityCreateNestedManyWithoutCityInput
@@ -15141,15 +15326,12 @@ export namespace Prisma {
 
   export type CityUncheckedCreateWithoutCountryInput = {
     id?: number
-    code: string
+    country_iso_2: string
     name: string
     population?: number | null
-    languages?: CityCreatelanguagesInput | string[]
-    landArea?: number | null
-    currency?: string | null
-    timezones?: CityCreatetimezonesInput | string[]
-    longitude?: number | null
+    timezone: string
     latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     travels?: TravelCityUncheckedCreateNestedManyWithoutCityInput
@@ -15220,15 +15402,12 @@ export namespace Prisma {
     NOT?: CityScalarWhereInput | CityScalarWhereInput[]
     id?: IntFilter<"City"> | number
     countryId?: IntFilter<"City"> | number
-    code?: StringFilter<"City"> | string
+    country_iso_2?: StringFilter<"City"> | string
     name?: StringFilter<"City"> | string
     population?: IntNullableFilter<"City"> | number | null
-    languages?: StringNullableListFilter<"City">
-    landArea?: FloatNullableFilter<"City"> | number | null
-    currency?: StringNullableFilter<"City"> | string | null
-    timezones?: StringNullableListFilter<"City">
-    longitude?: FloatNullableFilter<"City"> | number | null
+    timezone?: StringFilter<"City"> | string
     latitude?: FloatNullableFilter<"City"> | number | null
+    longitude?: FloatNullableFilter<"City"> | number | null
     createdAt?: DateTimeFilter<"City"> | Date | string
     updatedAt?: DateTimeFilter<"City"> | Date | string
   }
@@ -15278,16 +15457,24 @@ export namespace Prisma {
   }
 
   export type CountryCreateWithoutCitiesInput = {
-    code: string
     name: string
-    continent: string
-    flagImageUrl?: string | null
+    official_name: string
+    iso_2: string
+    iso_num?: string | null
+    region: string
+    subregion?: string | null
+    continents?: CountryCreatecontinentsInput | string[]
+    languages?: CountryCreatelanguagesInput | string[]
     capital?: string | null
     population?: number | null
-    languages?: CountryCreatelanguagesInput | string[]
     landArea?: number | null
+    landlocked: boolean
+    independent: boolean
     currency?: string | null
     timezones?: CountryCreatetimezonesInput | string[]
+    latitude?: number | null
+    longitude?: number | null
+    google_maps_url: string
     createdAt?: Date | string
     updatedAt?: Date | string
     travels?: TravelCreateNestedManyWithoutCountryInput
@@ -15296,16 +15483,24 @@ export namespace Prisma {
 
   export type CountryUncheckedCreateWithoutCitiesInput = {
     id?: number
-    code: string
     name: string
-    continent: string
-    flagImageUrl?: string | null
+    official_name: string
+    iso_2: string
+    iso_num?: string | null
+    region: string
+    subregion?: string | null
+    continents?: CountryCreatecontinentsInput | string[]
+    languages?: CountryCreatelanguagesInput | string[]
     capital?: string | null
     population?: number | null
-    languages?: CountryCreatelanguagesInput | string[]
     landArea?: number | null
+    landlocked: boolean
+    independent: boolean
     currency?: string | null
     timezones?: CountryCreatetimezonesInput | string[]
+    latitude?: number | null
+    longitude?: number | null
+    google_maps_url: string
     createdAt?: Date | string
     updatedAt?: Date | string
     travels?: TravelUncheckedCreateNestedManyWithoutCountryInput
@@ -15361,16 +15556,24 @@ export namespace Prisma {
   }
 
   export type CountryUpdateWithoutCitiesInput = {
-    code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    continent?: StringFieldUpdateOperationsInput | string
-    flagImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    official_name?: StringFieldUpdateOperationsInput | string
+    iso_2?: StringFieldUpdateOperationsInput | string
+    iso_num?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    subregion?: NullableStringFieldUpdateOperationsInput | string | null
+    continents?: CountryUpdatecontinentsInput | string[]
+    languages?: CountryUpdatelanguagesInput | string[]
     capital?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CountryUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    landArea?: NullableIntFieldUpdateOperationsInput | number | null
+    landlocked?: BoolFieldUpdateOperationsInput | boolean
+    independent?: BoolFieldUpdateOperationsInput | boolean
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     timezones?: CountryUpdatetimezonesInput | string[]
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    google_maps_url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     travels?: TravelUpdateManyWithoutCountryNestedInput
@@ -15379,16 +15582,24 @@ export namespace Prisma {
 
   export type CountryUncheckedUpdateWithoutCitiesInput = {
     id?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    continent?: StringFieldUpdateOperationsInput | string
-    flagImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    official_name?: StringFieldUpdateOperationsInput | string
+    iso_2?: StringFieldUpdateOperationsInput | string
+    iso_num?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    subregion?: NullableStringFieldUpdateOperationsInput | string | null
+    continents?: CountryUpdatecontinentsInput | string[]
+    languages?: CountryUpdatelanguagesInput | string[]
     capital?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CountryUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
+    landArea?: NullableIntFieldUpdateOperationsInput | number | null
+    landlocked?: BoolFieldUpdateOperationsInput | boolean
+    independent?: BoolFieldUpdateOperationsInput | boolean
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     timezones?: CountryUpdatetimezonesInput | string[]
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    google_maps_url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     travels?: TravelUncheckedUpdateManyWithoutCountryNestedInput
@@ -15551,15 +15762,12 @@ export namespace Prisma {
 
   export type CityCreateManyCountryInput = {
     id?: number
-    code: string
+    country_iso_2: string
     name: string
     population?: number | null
-    languages?: CityCreatelanguagesInput | string[]
-    landArea?: number | null
-    currency?: string | null
-    timezones?: CityCreatetimezonesInput | string[]
-    longitude?: number | null
+    timezone: string
     latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -15616,15 +15824,12 @@ export namespace Prisma {
   }
 
   export type CityUpdateWithoutCountryInput = {
-    code?: StringFieldUpdateOperationsInput | string
+    country_iso_2?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CityUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    currency?: NullableStringFieldUpdateOperationsInput | string | null
-    timezones?: CityUpdatetimezonesInput | string[]
-    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     travels?: TravelCityUpdateManyWithoutCityNestedInput
@@ -15633,15 +15838,12 @@ export namespace Prisma {
 
   export type CityUncheckedUpdateWithoutCountryInput = {
     id?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    country_iso_2?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CityUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    currency?: NullableStringFieldUpdateOperationsInput | string | null
-    timezones?: CityUpdatetimezonesInput | string[]
-    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     travels?: TravelCityUncheckedUpdateManyWithoutCityNestedInput
@@ -15650,15 +15852,12 @@ export namespace Prisma {
 
   export type CityUncheckedUpdateManyWithoutCountryInput = {
     id?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    country_iso_2?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
-    languages?: CityUpdatelanguagesInput | string[]
-    landArea?: NullableFloatFieldUpdateOperationsInput | number | null
-    currency?: NullableStringFieldUpdateOperationsInput | string | null
-    timezones?: CityUpdatetimezonesInput | string[]
-    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

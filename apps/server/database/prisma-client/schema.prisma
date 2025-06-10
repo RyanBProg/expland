@@ -110,19 +110,27 @@ model TravelCity {
 }
 
 model Country {
-  id           Int      @id @default(autoincrement())
-  code         String   @unique
-  name         String
-  continent    String
-  flagImageUrl String?
-  capital      String?
-  population   Int?
-  languages    String[]
-  landArea     Float?
-  currency     String?
-  timezones    String[]
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id              Int      @id @default(autoincrement())
+  name            String
+  official_name   String
+  iso_2           String   @unique @db.Char(2)
+  iso_num         String?  @unique
+  region          String
+  subregion       String?
+  continents      String[]
+  languages       String[]
+  capital         String?
+  population      Int?
+  landArea        Int?
+  landlocked      Boolean
+  independent     Boolean
+  currency        String?
+  timezones       String[]
+  latitude        Float?
+  longitude       Float?
+  google_maps_url String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   // relations
   travels  Travel[]
@@ -130,23 +138,20 @@ model Country {
   cities   City[]
 
   @@index([name])
-  @@index([code])
+  @@index([iso_2])
 }
 
 model City {
-  id         Int      @id @default(autoincrement())
-  countryId  Int
-  code       String   @unique
-  name       String
-  population Int?
-  languages  String[]
-  landArea   Float?
-  currency   String?
-  timezones  String[]
-  longitude  Float?
-  latitude   Float?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id            Int      @id @default(autoincrement())
+  countryId     Int
+  country_iso_2 String   @db.Char(2)
+  name          String
+  population    Int?
+  timezone      String
+  latitude      Float?
+  longitude     Float?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   // relations
   travels  TravelCity[]
@@ -155,5 +160,5 @@ model City {
 
   @@index([countryId])
   @@index([name])
-  @@index([code])
+  @@index([country_iso_2])
 }

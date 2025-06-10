@@ -209,8 +209,7 @@ async function getAllTravels(req: TUserTokenRequest, res: Response) {
         country: {
           select: {
             name: true,
-            flagImageUrl: true,
-            continent: true,
+            continents: true,
           },
         },
         cities: {
@@ -275,8 +274,7 @@ async function getTravel(req: TUserTokenRequest, res: Response) {
           select: {
             id: true,
             name: true,
-            flagImageUrl: true,
-            continent: true,
+            continents: true,
           },
         },
         cities: {
