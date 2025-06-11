@@ -9900,6 +9900,7 @@ export namespace Prisma {
     id: number | null
     countryId: number | null
     country_iso_2: string | null
+    country_name: string | null
     name: string | null
     population: number | null
     timezone: string | null
@@ -9913,6 +9914,7 @@ export namespace Prisma {
     id: number | null
     countryId: number | null
     country_iso_2: string | null
+    country_name: string | null
     name: string | null
     population: number | null
     timezone: string | null
@@ -9926,6 +9928,7 @@ export namespace Prisma {
     id: number
     countryId: number
     country_iso_2: number
+    country_name: number
     name: number
     population: number
     timezone: number
@@ -9957,6 +9960,7 @@ export namespace Prisma {
     id?: true
     countryId?: true
     country_iso_2?: true
+    country_name?: true
     name?: true
     population?: true
     timezone?: true
@@ -9970,6 +9974,7 @@ export namespace Prisma {
     id?: true
     countryId?: true
     country_iso_2?: true
+    country_name?: true
     name?: true
     population?: true
     timezone?: true
@@ -9983,6 +9988,7 @@ export namespace Prisma {
     id?: true
     countryId?: true
     country_iso_2?: true
+    country_name?: true
     name?: true
     population?: true
     timezone?: true
@@ -10083,6 +10089,7 @@ export namespace Prisma {
     id: number
     countryId: number
     country_iso_2: string
+    country_name: string
     name: string
     population: number | null
     timezone: string
@@ -10115,6 +10122,7 @@ export namespace Prisma {
     id?: boolean
     countryId?: boolean
     country_iso_2?: boolean
+    country_name?: boolean
     name?: boolean
     population?: boolean
     timezone?: boolean
@@ -10132,6 +10140,7 @@ export namespace Prisma {
     id?: boolean
     countryId?: boolean
     country_iso_2?: boolean
+    country_name?: boolean
     name?: boolean
     population?: boolean
     timezone?: boolean
@@ -10146,6 +10155,7 @@ export namespace Prisma {
     id?: boolean
     countryId?: boolean
     country_iso_2?: boolean
+    country_name?: boolean
     name?: boolean
     population?: boolean
     timezone?: boolean
@@ -10160,6 +10170,7 @@ export namespace Prisma {
     id?: boolean
     countryId?: boolean
     country_iso_2?: boolean
+    country_name?: boolean
     name?: boolean
     population?: boolean
     timezone?: boolean
@@ -10169,7 +10180,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type CityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "countryId" | "country_iso_2" | "name" | "population" | "timezone" | "latitude" | "longitude" | "createdAt" | "updatedAt", ExtArgs["result"]["city"]>
+  export type CityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "countryId" | "country_iso_2" | "country_name" | "name" | "population" | "timezone" | "latitude" | "longitude" | "createdAt" | "updatedAt", ExtArgs["result"]["city"]>
   export type CityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     travels?: boolean | City$travelsArgs<ExtArgs>
     wishlist?: boolean | City$wishlistArgs<ExtArgs>
@@ -10194,6 +10205,7 @@ export namespace Prisma {
       id: number
       countryId: number
       country_iso_2: string
+      country_name: string
       name: string
       population: number | null
       timezone: string
@@ -10630,6 +10642,7 @@ export namespace Prisma {
     readonly id: FieldRef<"City", 'Int'>
     readonly countryId: FieldRef<"City", 'Int'>
     readonly country_iso_2: FieldRef<"City", 'String'>
+    readonly country_name: FieldRef<"City", 'String'>
     readonly name: FieldRef<"City", 'String'>
     readonly population: FieldRef<"City", 'Int'>
     readonly timezone: FieldRef<"City", 'String'>
@@ -11216,6 +11229,7 @@ export namespace Prisma {
     id: 'id',
     countryId: 'countryId',
     country_iso_2: 'country_iso_2',
+    country_name: 'country_name',
     name: 'name',
     population: 'population',
     timezone: 'timezone',
@@ -11874,6 +11888,7 @@ export namespace Prisma {
     id?: IntFilter<"City"> | number
     countryId?: IntFilter<"City"> | number
     country_iso_2?: StringFilter<"City"> | string
+    country_name?: StringFilter<"City"> | string
     name?: StringFilter<"City"> | string
     population?: IntNullableFilter<"City"> | number | null
     timezone?: StringFilter<"City"> | string
@@ -11890,6 +11905,7 @@ export namespace Prisma {
     id?: SortOrder
     countryId?: SortOrder
     country_iso_2?: SortOrder
+    country_name?: SortOrder
     name?: SortOrder
     population?: SortOrderInput | SortOrder
     timezone?: SortOrder
@@ -11909,6 +11925,7 @@ export namespace Prisma {
     NOT?: CityWhereInput | CityWhereInput[]
     countryId?: IntFilter<"City"> | number
     country_iso_2?: StringFilter<"City"> | string
+    country_name?: StringFilter<"City"> | string
     name?: StringFilter<"City"> | string
     population?: IntNullableFilter<"City"> | number | null
     timezone?: StringFilter<"City"> | string
@@ -11925,6 +11942,7 @@ export namespace Prisma {
     id?: SortOrder
     countryId?: SortOrder
     country_iso_2?: SortOrder
+    country_name?: SortOrder
     name?: SortOrder
     population?: SortOrderInput | SortOrder
     timezone?: SortOrder
@@ -11946,6 +11964,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"City"> | number
     countryId?: IntWithAggregatesFilter<"City"> | number
     country_iso_2?: StringWithAggregatesFilter<"City"> | string
+    country_name?: StringWithAggregatesFilter<"City"> | string
     name?: StringWithAggregatesFilter<"City"> | string
     population?: IntNullableWithAggregatesFilter<"City"> | number | null
     timezone?: StringWithAggregatesFilter<"City"> | string
@@ -12514,6 +12533,7 @@ export namespace Prisma {
 
   export type CityCreateInput = {
     country_iso_2: string
+    country_name: string
     name: string
     population?: number | null
     timezone: string
@@ -12530,6 +12550,7 @@ export namespace Prisma {
     id?: number
     countryId: number
     country_iso_2: string
+    country_name: string
     name: string
     population?: number | null
     timezone: string
@@ -12543,6 +12564,7 @@ export namespace Prisma {
 
   export type CityUpdateInput = {
     country_iso_2?: StringFieldUpdateOperationsInput | string
+    country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
@@ -12559,6 +12581,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     countryId?: IntFieldUpdateOperationsInput | number
     country_iso_2?: StringFieldUpdateOperationsInput | string
+    country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
@@ -12574,6 +12597,7 @@ export namespace Prisma {
     id?: number
     countryId: number
     country_iso_2: string
+    country_name: string
     name: string
     population?: number | null
     timezone: string
@@ -12585,6 +12609,7 @@ export namespace Prisma {
 
   export type CityUpdateManyMutationInput = {
     country_iso_2?: StringFieldUpdateOperationsInput | string
+    country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
@@ -12598,6 +12623,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     countryId?: IntFieldUpdateOperationsInput | number
     country_iso_2?: StringFieldUpdateOperationsInput | string
+    country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
@@ -13197,6 +13223,7 @@ export namespace Prisma {
     id?: SortOrder
     countryId?: SortOrder
     country_iso_2?: SortOrder
+    country_name?: SortOrder
     name?: SortOrder
     population?: SortOrder
     timezone?: SortOrder
@@ -13218,6 +13245,7 @@ export namespace Prisma {
     id?: SortOrder
     countryId?: SortOrder
     country_iso_2?: SortOrder
+    country_name?: SortOrder
     name?: SortOrder
     population?: SortOrder
     timezone?: SortOrder
@@ -13231,6 +13259,7 @@ export namespace Prisma {
     id?: SortOrder
     countryId?: SortOrder
     country_iso_2?: SortOrder
+    country_name?: SortOrder
     name?: SortOrder
     population?: SortOrder
     timezone?: SortOrder
@@ -14705,6 +14734,7 @@ export namespace Prisma {
 
   export type CityCreateWithoutWishlistInput = {
     country_iso_2: string
+    country_name: string
     name: string
     population?: number | null
     timezone: string
@@ -14720,6 +14750,7 @@ export namespace Prisma {
     id?: number
     countryId: number
     country_iso_2: string
+    country_name: string
     name: string
     population?: number | null
     timezone: string
@@ -14855,6 +14886,7 @@ export namespace Prisma {
 
   export type CityUpdateWithoutWishlistInput = {
     country_iso_2?: StringFieldUpdateOperationsInput | string
+    country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
@@ -14870,6 +14902,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     countryId?: IntFieldUpdateOperationsInput | number
     country_iso_2?: StringFieldUpdateOperationsInput | string
+    country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
@@ -15157,6 +15190,7 @@ export namespace Prisma {
 
   export type CityCreateWithoutTravelsInput = {
     country_iso_2: string
+    country_name: string
     name: string
     population?: number | null
     timezone: string
@@ -15172,6 +15206,7 @@ export namespace Prisma {
     id?: number
     countryId: number
     country_iso_2: string
+    country_name: string
     name: string
     population?: number | null
     timezone: string
@@ -15232,6 +15267,7 @@ export namespace Prisma {
 
   export type CityUpdateWithoutTravelsInput = {
     country_iso_2?: StringFieldUpdateOperationsInput | string
+    country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
@@ -15247,6 +15283,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     countryId?: IntFieldUpdateOperationsInput | number
     country_iso_2?: StringFieldUpdateOperationsInput | string
+    country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
@@ -15313,6 +15350,7 @@ export namespace Prisma {
 
   export type CityCreateWithoutCountryInput = {
     country_iso_2: string
+    country_name: string
     name: string
     population?: number | null
     timezone: string
@@ -15327,6 +15365,7 @@ export namespace Prisma {
   export type CityUncheckedCreateWithoutCountryInput = {
     id?: number
     country_iso_2: string
+    country_name: string
     name: string
     population?: number | null
     timezone: string
@@ -15403,6 +15442,7 @@ export namespace Prisma {
     id?: IntFilter<"City"> | number
     countryId?: IntFilter<"City"> | number
     country_iso_2?: StringFilter<"City"> | string
+    country_name?: StringFilter<"City"> | string
     name?: StringFilter<"City"> | string
     population?: IntNullableFilter<"City"> | number | null
     timezone?: StringFilter<"City"> | string
@@ -15763,6 +15803,7 @@ export namespace Prisma {
   export type CityCreateManyCountryInput = {
     id?: number
     country_iso_2: string
+    country_name: string
     name: string
     population?: number | null
     timezone: string
@@ -15825,6 +15866,7 @@ export namespace Prisma {
 
   export type CityUpdateWithoutCountryInput = {
     country_iso_2?: StringFieldUpdateOperationsInput | string
+    country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
@@ -15839,6 +15881,7 @@ export namespace Prisma {
   export type CityUncheckedUpdateWithoutCountryInput = {
     id?: IntFieldUpdateOperationsInput | number
     country_iso_2?: StringFieldUpdateOperationsInput | string
+    country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
@@ -15853,6 +15896,7 @@ export namespace Prisma {
   export type CityUncheckedUpdateManyWithoutCountryInput = {
     id?: IntFieldUpdateOperationsInput | number
     country_iso_2?: StringFieldUpdateOperationsInput | string
+    country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string

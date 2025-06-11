@@ -145,6 +145,7 @@ model City {
   id            Int      @id @default(autoincrement())
   countryId     Int
   country_iso_2 String   @db.Char(2)
+  country_name  String
   name          String
   population    Int?
   timezone      String

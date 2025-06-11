@@ -36,7 +36,7 @@ export default function CreateTripDialog() {
   return (
     <Dialog.Root size="cover" placement="center" motionPreset="slide-in-bottom">
       <Dialog.Trigger asChild>
-        <Button rounded="2xl" size="lg" variant="surface">
+        <Button rounded="2xl" size="md" variant="surface">
           <PlusCircle />
         </Button>
       </Dialog.Trigger>

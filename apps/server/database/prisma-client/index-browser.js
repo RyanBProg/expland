@@ -202,6 +202,7 @@ exports.Prisma.CityScalarFieldEnum = {
   id: 'id',
   countryId: 'countryId',
   country_iso_2: 'country_iso_2',
+  country_name: 'country_name',
   name: 'name',
   population: 'population',
   timezone: 'timezone',

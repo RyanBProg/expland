@@ -16,13 +16,17 @@ import { CaretLeft, CaretRight } from "phosphor-react";
 import { useState } from "react";
 import ReactCountryFlag from "react-country-flag";
 
+// fetch paginated trips (allow for year filtering and age sorting)
+
 export default function ViewTripsPage() {
   return (
     <Box p="4" maxWidth="4xl" mx="auto">
-      <Heading as="h1" textAlign="center" my="10" size="4xl">
-        My Trips
+      <Flex gap="4" justifyContent="center" alignItems="center">
+        <Heading as="h1" textAlign="center" my="10" size="4xl">
+          My Trips
+        </Heading>
         <CreateTripDialog />
-      </Heading>
+      </Flex>
       <FilterBar />
       <Box>
         <Card.Root size="sm" mt="1" rounded="2xl">
@@ -135,7 +139,7 @@ function FilterBar() {
   const [selectedSort, setSelectedSort] = useState<string>("newest");
 
   return (
-    <Flex justify="space-between" mb="10" gap="4">
+    <Flex justify="space-between" mb="5" gap="4">
       <NativeSelect.Root width="150px">
         <NativeSelect.Field
           placeholder="Filter by Year"
