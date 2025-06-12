@@ -11,6 +11,13 @@ async function listCountries(req: TUserTokenRequest, res: Response) {
       return;
     }
 
+    // query parameters for pagination
+    const page = parseInt(req.query.page as string) || 1;
+    if (page < 1) {
+      res.status(400).json({ message: "Page must be greater than 0" });
+      return;
+    }
+
     const { continent, language, independent } = req.query;
     const isValidIndependent = ["true", "false"].includes(independent as string);
 
@@ -20,11 +27,30 @@ async function listCountries(req: TUserTokenRequest, res: Response) {
       ...(isValidIndependent && { independent: independent === "true" }),
     };
 
-    const countries = await prisma.country.findMany({
+    // total count for pagination
+    const totalTravels = await prisma.country.count({
       where: Object.keys(where).length ? where : undefined,
     });
 
-    res.status(200).json({ data: countries });
+    const limit = 10;
+    const totalPages = Math.ceil(totalTravels / limit);
+
+    const countries = await prisma.country.findMany({
+      where: Object.keys(where).length ? where : undefined,
+      skip: (page - 1) * limit,
+      take: limit,
+    });
+
+    res.status(200).json({
+      data: countries,
+      pagination: {
+        currentPage: page,
+        totalPages,
+        totalItems: totalTravels,
+        hasNextPage: page < totalPages,
+        hasPreviousPage: page > 1,
+      },
+    });
   } catch (error) {
     handleControllerError(error, res, "listCountries");
   }
@@ -75,26 +101,45 @@ async function listCities(req: TUserTokenRequest, res: Response) {
       return;
     }
 
+    // query parameters for pagination
+    const page = parseInt(req.query.page as string) || 1;
+    if (page < 1) {
+      res.status(400).json({ message: "Page must be greater than 0" });
+      return;
+    }
+
     const { countryId, countryIso } = req.query;
+
+    let where = {};
 
     if (countryId) {
       const id = parseInt(countryId as string);
       if (isNaN(id)) {
         res.status(400).json({ message: "Invalid country ID format" });
       }
-      const cities = await prisma.city.findMany({
-        where: { countryId: id },
-      });
-      res.status(200).json({ data: cities });
+      where = { countryId: id };
     } else if (countryIso) {
-      const cities = await prisma.city.findMany({
-        where: { country_iso_2: { equals: countryIso as string, mode: "insensitive" } },
-      });
-      res.status(200).json({ data: cities });
-    } else {
-      const cities = await prisma.city.findMany();
-      res.status(200).json({ data: cities });
+      where = { country_iso_2: { equals: countryIso as string, mode: "insensitive" } };
     }
+
+    // total count for pagination
+    const totalTravels = await prisma.city.count({ where });
+
+    const limit = 10;
+    const totalPages = Math.ceil(totalTravels / limit);
+
+    const cities = await prisma.city.findMany({ where, skip: (page - 1) * limit, take: limit });
+
+    res.status(200).json({
+      data: cities,
+      pagination: {
+        currentPage: page,
+        totalPages,
+        totalItems: totalTravels,
+        hasNextPage: page < totalPages,
+        hasPreviousPage: page > 1,
+      },
+    });
   } catch (error) {
     handleControllerError(error, res, "listCities");
   }
