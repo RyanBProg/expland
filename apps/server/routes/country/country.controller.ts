@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { TUserTokenRequest } from "../../utils/types/types";
 import prisma from "../../database/prismaClient";
 import { handleControllerError } from "../../utils/handleControllerError";
@@ -11,7 +11,18 @@ async function listCountries(req: TUserTokenRequest, res: Response) {
       return;
     }
 
-    const countries = await prisma.country.findMany();
+    const { continent, language, independent } = req.query;
+    const isValidIndependent = ["true", "false"].includes(independent as string);
+
+    const where = {
+      ...(continent && { continents: { hasSome: [continent as string] } }),
+      ...(language && { languages: { hasSome: [language as string] } }),
+      ...(isValidIndependent && { independent: independent === "true" }),
+    };
+
+    const countries = await prisma.country.findMany({
+      where: Object.keys(where).length ? where : undefined,
+    });
 
     res.status(200).json({ data: countries });
   } catch (error) {
@@ -19,7 +30,7 @@ async function listCountries(req: TUserTokenRequest, res: Response) {
   }
 }
 
-async function getCountryById(req: TUserTokenRequest, res: Response) {
+async function getCountry(req: TUserTokenRequest, res: Response) {
   try {
     const userId = req.user?.userId;
     if (!userId) {
@@ -27,30 +38,36 @@ async function getCountryById(req: TUserTokenRequest, res: Response) {
       return;
     }
 
-    const countryId = req.params.countryId;
-    if (!countryId) {
-      res.status(400).json({ message: "Country ID is required" });
-      return;
+    const { countryId, countryName, countryIso } = req.query;
+
+    if (countryId) {
+      const id = parseInt(countryId as string);
+      if (isNaN(id)) {
+        res.status(400).json({ message: "Invalid country ID format" });
+      }
+      const country = await prisma.country.findFirst({ where: { id } });
+      res.status(200).json({ data: country });
+    } else if (countryIso) {
+      const country = await prisma.country.findFirst({
+        where: { iso_2: { equals: countryIso as string, mode: "insensitive" } },
+      });
+      res.status(200).json({ data: country });
+    } else if (countryName) {
+      const country = await prisma.country.findFirst({
+        where: { name: { equals: countryName as string, mode: "insensitive" } },
+      });
+      res.status(200).json({ data: country });
+    } else {
+      res
+        .status(400)
+        .json({ message: "Query parameter required: countryId, countryName, or countryIso" });
     }
-
-    const country = await prisma.country.findFirst({ where: { id: parseInt(countryId) } });
-
-    res.status(200).json({ data: country });
   } catch (error) {
-    handleControllerError(error, res, "getCountryById");
+    handleControllerError(error, res, "getCountry");
   }
 }
 
-async function searchCountries(req: Request, res: Response) {
-  try {
-    // TODO
-    res.status(200).json({ message: "Not implemented yet" });
-  } catch (error) {
-    handleControllerError(error, res, "searchCountries");
-  }
-}
-
-async function getCityById(req: TUserTokenRequest, res: Response) {
+async function listCities(req: TUserTokenRequest, res: Response) {
   try {
     const userId = req.user?.userId;
     if (!userId) {
@@ -58,23 +75,64 @@ async function getCityById(req: TUserTokenRequest, res: Response) {
       return;
     }
 
-    const cityId = req.params.cityId;
-    if (!cityId) {
-      res.status(400).json({ message: "City ID is required" });
+    const { countryId, countryIso } = req.query;
+
+    if (countryId) {
+      const id = parseInt(countryId as string);
+      if (isNaN(id)) {
+        res.status(400).json({ message: "Invalid country ID format" });
+      }
+      const cities = await prisma.city.findMany({
+        where: { countryId: id },
+      });
+      res.status(200).json({ data: cities });
+    } else if (countryIso) {
+      const cities = await prisma.city.findMany({
+        where: { country_iso_2: { equals: countryIso as string, mode: "insensitive" } },
+      });
+      res.status(200).json({ data: cities });
+    } else {
+      const cities = await prisma.city.findMany();
+      res.status(200).json({ data: cities });
+    }
+  } catch (error) {
+    handleControllerError(error, res, "listCities");
+  }
+}
+
+async function getCity(req: TUserTokenRequest, res: Response) {
+  try {
+    const userId = req.user?.userId;
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized" });
       return;
     }
 
-    const city = await prisma.city.findFirst({ where: { id: parseInt(cityId) } });
+    const { cityId, cityName } = req.query;
 
-    res.status(200).json({ data: city });
+    if (cityId) {
+      const id = parseInt(cityId as string);
+      if (isNaN(id)) {
+        res.status(400).json({ message: "Invalid country ID format" });
+      }
+      const city = await prisma.city.findFirst({ where: { id } });
+      res.status(200).json({ data: city });
+    } else if (cityName) {
+      const city = await prisma.city.findFirst({
+        where: { name: { equals: cityName as string, mode: "insensitive" } },
+      });
+      res.status(200).json({ data: city });
+    } else {
+      res.status(400).json({ message: "Query parameter required: cityId or cityName" });
+    }
   } catch (error) {
-    handleControllerError(error, res, "getCityById");
+    handleControllerError(error, res, "getCity");
   }
 }
 
 export default {
   listCountries,
-  getCountryById,
-  searchCountries,
-  getCityById,
+  getCountry,
+  listCities,
+  getCity,
 };

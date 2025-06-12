@@ -3,16 +3,16 @@ import countryControllers from "./country.controller";
 
 const router = express.Router();
 
-// List all countries (optionally paginated or filtered)
+// List countries (paginated and filtered)
 router.get("/", countryControllers.listCountries);
 
-// Get info for a specific country by id
-router.get("/:countryId", countryControllers.getCountryById);
+// Get a specific country
+router.get("/find", countryControllers.getCountry);
 
-// Search countries by name, continent, etc.
-router.get("/search", countryControllers.searchCountries);
+// List cities (paginated and filtered)
+router.get("/cities", countryControllers.listCities);
 
-// Get info for a specific city by id
-router.get("/city/:cityId", countryControllers.getCityById);
+// Get a specific city
+router.get("/cities/find", countryControllers.getCity);
 
 export default router;
