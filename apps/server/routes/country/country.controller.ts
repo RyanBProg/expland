@@ -2,6 +2,7 @@ import { Response } from "express";
 import { TUserTokenRequest } from "../../utils/types/types";
 import prisma from "../../database/prismaClient";
 import { handleControllerError } from "../../utils/handleControllerError";
+import { validatePageLimit } from "../../utils/validatePageLimit";
 
 async function listCountries(req: TUserTokenRequest, res: Response) {
   try {
@@ -11,46 +12,74 @@ async function listCountries(req: TUserTokenRequest, res: Response) {
       return;
     }
 
-    // query parameters for pagination
-    // const page = parseInt(req.query.page as string) || 1;
-    // if (page < 1) {
-    //   res.status(400).json({ message: "Page must be greater than 0" });
-    //   return;
-    // }
+    const {
+      continent,
+      language,
+      independent,
+      detail = "summary",
+      limit = "10",
+      page = "1",
+    } = req.query;
 
-    const { continent, language, independent } = req.query;
+    // build a select
+    let select;
+    if (detail === "summary") {
+      select = {
+        id: true,
+        name: true,
+        iso_2: true,
+      };
+    } else if (detail === "full") {
+      select = undefined;
+    }
+
+    // build a where clause
     const isValidIndependent = ["true", "false"].includes(independent as string);
-
     const where = {
       ...(continent && { continents: { hasSome: [continent as string] } }),
       ...(language && { languages: { hasSome: [language as string] } }),
       ...(isValidIndependent && { independent: independent === "true" }),
     };
 
-    // total count for pagination
-    // const totalTravels = await prisma.country.count({
-    //   where: Object.keys(where).length ? where : undefined,
-    // });
+    if (limit === "all") {
+      const countries = await prisma.country.findMany({
+        where: Object.keys(where).length ? where : undefined,
+        select,
+      });
+      res.status(200).json({ data: countries });
+    } else {
+      const { error, pageNum, resultLimit } = validatePageLimit(page as string, limit as string);
+      if (error) {
+        res.status(400).json({ message: error });
+        return;
+      }
+      if (!pageNum && !resultLimit) {
+        res.status(400).json({ message: "Invalid page or limit values" });
+        return;
+      }
 
-    // const limit = 10;
-    // const totalPages = Math.ceil(totalTravels / limit);
+      const totalCountries = await prisma.country.count({
+        where: Object.keys(where).length ? where : undefined,
+      });
+      const totalPages = Math.ceil(totalCountries / resultLimit);
 
-    const countries = await prisma.country.findMany({
-      where: Object.keys(where).length ? where : undefined,
-      // skip: (page - 1) * limit,
-      // take: limit,
-    });
-
-    res.status(200).json({
-      data: countries,
-      // pagination: {
-      //   currentPage: page,
-      //   totalPages,
-      //   totalItems: totalTravels,
-      //   hasNextPage: page < totalPages,
-      //   hasPreviousPage: page > 1,
-      // },
-    });
+      const countries = await prisma.country.findMany({
+        where: Object.keys(where).length ? where : undefined,
+        select,
+        skip: (pageNum - 1) * resultLimit,
+        take: resultLimit,
+      });
+      res.status(200).json({
+        data: countries,
+        pagination: {
+          currentPage: page,
+          totalPages,
+          totalItems: totalCountries,
+          hasNextPage: pageNum < totalPages,
+          hasPreviousPage: pageNum > 1,
+        },
+      });
+    }
   } catch (error) {
     handleControllerError(error, res, "listCountries");
   }
@@ -101,45 +130,69 @@ async function listCities(req: TUserTokenRequest, res: Response) {
       return;
     }
 
-    // query parameters for pagination
-    const page = parseInt(req.query.page as string) || 1;
-    if (page < 1) {
-      res.status(400).json({ message: "Page must be greater than 0" });
-      return;
+    const { countryId, countryIso, detail = "summary", limit = "10", page = "1" } = req.query;
+
+    // build a select
+    let select;
+    if (detail === "summary") {
+      select = {
+        id: true,
+        name: true,
+        countryId: true,
+      };
+    } else if (detail === "full") {
+      select = undefined;
     }
 
-    const { countryId, countryIso } = req.query;
-
+    // build a where clause
     let where = {};
-
     if (countryId) {
       const id = parseInt(countryId as string);
       if (isNaN(id)) {
         res.status(400).json({ message: "Invalid country ID format" });
+        return;
       }
       where = { countryId: id };
     } else if (countryIso) {
       where = { country_iso_2: { equals: countryIso as string, mode: "insensitive" } };
     }
 
-    // total count for pagination
-    const totalTravels = await prisma.city.count({ where });
+    // build pagination values
+    if (limit === "all") {
+      const cities = await prisma.city.findMany({ where, select });
+      res.status(200).json({ data: cities });
+    } else {
+      const { error, pageNum, resultLimit } = validatePageLimit(page as string, limit as string);
+      if (error) {
+        res.status(400).json({ message: error });
+        return;
+      }
+      if (!pageNum && !resultLimit) {
+        res.status(400).json({ message: "Invalid page or limit values" });
+        return;
+      }
 
-    const limit = 10;
-    const totalPages = Math.ceil(totalTravels / limit);
+      const totalCities = await prisma.city.count({ where });
+      const totalPages = Math.ceil(totalCities / resultLimit);
 
-    const cities = await prisma.city.findMany({ where, skip: (page - 1) * limit, take: limit });
+      const cities = await prisma.city.findMany({
+        where,
+        select,
+        skip: (pageNum - 1) * resultLimit,
+        take: resultLimit,
+      });
 
-    res.status(200).json({
-      data: cities,
-      pagination: {
-        currentPage: page,
-        totalPages,
-        totalItems: totalTravels,
-        hasNextPage: page < totalPages,
-        hasPreviousPage: page > 1,
-      },
-    });
+      res.status(200).json({
+        data: cities,
+        pagination: {
+          currentPage: pageNum,
+          totalPages,
+          totalItems: totalCities,
+          hasNextPage: pageNum < totalPages,
+          hasPreviousPage: pageNum > 1,
+        },
+      });
+    }
   } catch (error) {
     handleControllerError(error, res, "listCities");
   }
