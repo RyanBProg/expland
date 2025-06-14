@@ -31,6 +31,9 @@ async function listCountries(req: TUserTokenRequest, res: Response) {
       };
     } else if (detail === "full") {
       select = undefined;
+    } else {
+      res.status(400).json({ message: "Invalid detail param value" });
+      return;
     }
 
     // build a where clause
@@ -142,6 +145,9 @@ async function listCities(req: TUserTokenRequest, res: Response) {
       };
     } else if (detail === "full") {
       select = undefined;
+    } else {
+      res.status(400).json({ message: "Invalid detail param value" });
+      return;
     }
 
     // build a where clause
