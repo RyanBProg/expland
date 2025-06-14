@@ -10,13 +10,13 @@ const router = express.Router();
 router.get("/", authenticateTokens, accountControllers.getAccount);
 
 // Update user email
-router.put("/email", accountControllers.updateEmail);
+router.put("/email", authenticateTokens, accountControllers.updateEmail);
 
 // Update user password
-router.put("/password", accountControllers.updatePassword);
+router.put("/password", authenticateTokens, accountControllers.updatePassword);
 
 // Delete user account
-router.delete("/", accountControllers.deleteAccount);
+router.delete("/", authenticateTokens, accountControllers.deleteAccount);
 
 // - Profile Management -
 
@@ -27,26 +27,26 @@ router.get("/profile", authenticateTokens, accountControllers.getProfile);
 router.post("/profile", authenticateTokens, accountControllers.createProfile);
 
 // Update profile (bio, location etc.)
-router.put("/profile", accountControllers.updateProfile);
+router.put("/profile", authenticateTokens, accountControllers.updateProfile);
 
 // Update profile picture
-router.put("profile/profile-picture", accountControllers.updateProfilePicture);
+router.put("/profile/profile-picture", authenticateTokens, accountControllers.updateProfilePicture);
 
 // - Travel Management -
 
 // List/search all users travels (paginated)
-router.get("profile/travels", accountControllers.getAllTravels);
+router.get("/profile/travels", authenticateTokens, accountControllers.getAllTravels);
 
 // Get a specific travel
-router.get("profile/travels/:travelId", accountControllers.getTravel);
+router.get("/profile/travels/:travelId", authenticateTokens, accountControllers.getTravel);
 
 // Add a new travel
-router.post("profile/travels", accountControllers.addTravel);
+router.post("/profile/travels", authenticateTokens, accountControllers.addTravel);
 
 // Edit a travel
-router.put("profile/travels/:travelId", accountControllers.editTravel);
+router.put("/profile/travels/:travelId", authenticateTokens, accountControllers.editTravel);
 
 // Delete a travel
-router.delete("profile/travels/:travelId", accountControllers.deleteTravel);
+router.delete("/profile/travels/:travelId", authenticateTokens, accountControllers.deleteTravel);
 
 export default router;

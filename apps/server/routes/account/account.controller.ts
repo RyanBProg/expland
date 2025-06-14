@@ -41,16 +41,7 @@ async function getProfile(req: TUserTokenRequest, res: Response) {
       return;
     }
 
-    const user = await prisma.userProfile.findFirst({
-      where: { userId },
-      select: {
-        id: true,
-        userId: true,
-        bio: true,
-        location: true,
-        profilePictureUrl: true,
-      },
-    });
+    const user = await prisma.userProfile.findFirst({ where: { userId } });
     if (!user) {
       res.status(401).json({ message: "No user profile found" });
       return;
@@ -183,6 +174,7 @@ async function getAllTravels(req: TUserTokenRequest, res: Response) {
 
     // Build where clause
     const whereClause: WhereClause = { userId };
+
     if (year) {
       whereClause.dateTravel = {
         gte: new Date(`${year}-01-01`),
@@ -208,8 +200,13 @@ async function getAllTravels(req: TUserTokenRequest, res: Response) {
         duration: true,
         country: {
           select: {
+            id: true,
+            iso_2: true,
             name: true,
             continents: true,
+            independent: true,
+            latitude: true,
+            longitude: true,
           },
         },
         cities: {
@@ -218,6 +215,10 @@ async function getAllTravels(req: TUserTokenRequest, res: Response) {
               select: {
                 id: true,
                 name: true,
+                countryId: true,
+                country_iso_2: true,
+                latitude: true,
+                longitude: true,
               },
             },
           },
@@ -273,8 +274,12 @@ async function getTravel(req: TUserTokenRequest, res: Response) {
         country: {
           select: {
             id: true,
+            iso_2: true,
             name: true,
             continents: true,
+            independent: true,
+            latitude: true,
+            longitude: true,
           },
         },
         cities: {
@@ -283,8 +288,10 @@ async function getTravel(req: TUserTokenRequest, res: Response) {
               select: {
                 id: true,
                 name: true,
-                longitude: true,
+                countryId: true,
+                country_iso_2: true,
                 latitude: true,
+                longitude: true,
               },
             },
           },

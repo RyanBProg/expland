@@ -12,11 +12,11 @@ async function listCountries(req: TUserTokenRequest, res: Response) {
     }
 
     // query parameters for pagination
-    const page = parseInt(req.query.page as string) || 1;
-    if (page < 1) {
-      res.status(400).json({ message: "Page must be greater than 0" });
-      return;
-    }
+    // const page = parseInt(req.query.page as string) || 1;
+    // if (page < 1) {
+    //   res.status(400).json({ message: "Page must be greater than 0" });
+    //   return;
+    // }
 
     const { continent, language, independent } = req.query;
     const isValidIndependent = ["true", "false"].includes(independent as string);
@@ -28,28 +28,28 @@ async function listCountries(req: TUserTokenRequest, res: Response) {
     };
 
     // total count for pagination
-    const totalTravels = await prisma.country.count({
-      where: Object.keys(where).length ? where : undefined,
-    });
+    // const totalTravels = await prisma.country.count({
+    //   where: Object.keys(where).length ? where : undefined,
+    // });
 
-    const limit = 10;
-    const totalPages = Math.ceil(totalTravels / limit);
+    // const limit = 10;
+    // const totalPages = Math.ceil(totalTravels / limit);
 
     const countries = await prisma.country.findMany({
       where: Object.keys(where).length ? where : undefined,
-      skip: (page - 1) * limit,
-      take: limit,
+      // skip: (page - 1) * limit,
+      // take: limit,
     });
 
     res.status(200).json({
       data: countries,
-      pagination: {
-        currentPage: page,
-        totalPages,
-        totalItems: totalTravels,
-        hasNextPage: page < totalPages,
-        hasPreviousPage: page > 1,
-      },
+      // pagination: {
+      //   currentPage: page,
+      //   totalPages,
+      //   totalItems: totalTravels,
+      //   hasNextPage: page < totalPages,
+      //   hasPreviousPage: page > 1,
+      // },
     });
   } catch (error) {
     handleControllerError(error, res, "listCountries");
