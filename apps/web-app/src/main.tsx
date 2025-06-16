@@ -15,6 +15,7 @@ import ContactPage from "./routes/contact/ContactPage";
 import PoliciesPage from "./routes/policies/Policies";
 import ViewTripsPage from "./routes/dashboard/trips/ViewTripsPage";
 import CreateTripPage from "./routes/dashboard/trips/CreateTripPage";
+import { Toaster } from "./components/ui/toaster";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider>
       <RouterProvider router={router} />
+      <Toaster />
     </Provider>
   </StrictMode>,
 );
