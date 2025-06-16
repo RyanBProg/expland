@@ -9902,10 +9902,14 @@ export namespace Prisma {
     country_iso_2: string | null
     country_name: string | null
     name: string | null
+    county: string | null
+    state: string | null
     population: number | null
     timezone: string | null
     latitude: number | null
     longitude: number | null
+    elevation: string | null
+    digital_elevation: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9916,10 +9920,14 @@ export namespace Prisma {
     country_iso_2: string | null
     country_name: string | null
     name: string | null
+    county: string | null
+    state: string | null
     population: number | null
     timezone: string | null
     latitude: number | null
     longitude: number | null
+    elevation: string | null
+    digital_elevation: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9930,10 +9938,14 @@ export namespace Prisma {
     country_iso_2: number
     country_name: number
     name: number
+    county: number
+    state: number
     population: number
     timezone: number
     latitude: number
     longitude: number
+    elevation: number
+    digital_elevation: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -9962,10 +9974,14 @@ export namespace Prisma {
     country_iso_2?: true
     country_name?: true
     name?: true
+    county?: true
+    state?: true
     population?: true
     timezone?: true
     latitude?: true
     longitude?: true
+    elevation?: true
+    digital_elevation?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -9976,10 +9992,14 @@ export namespace Prisma {
     country_iso_2?: true
     country_name?: true
     name?: true
+    county?: true
+    state?: true
     population?: true
     timezone?: true
     latitude?: true
     longitude?: true
+    elevation?: true
+    digital_elevation?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -9990,10 +10010,14 @@ export namespace Prisma {
     country_iso_2?: true
     country_name?: true
     name?: true
+    county?: true
+    state?: true
     population?: true
     timezone?: true
     latitude?: true
     longitude?: true
+    elevation?: true
+    digital_elevation?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -10091,10 +10115,14 @@ export namespace Prisma {
     country_iso_2: string
     country_name: string
     name: string
+    county: string | null
+    state: string | null
     population: number | null
     timezone: string
     latitude: number | null
     longitude: number | null
+    elevation: string | null
+    digital_elevation: string | null
     createdAt: Date
     updatedAt: Date
     _count: CityCountAggregateOutputType | null
@@ -10124,10 +10152,14 @@ export namespace Prisma {
     country_iso_2?: boolean
     country_name?: boolean
     name?: boolean
+    county?: boolean
+    state?: boolean
     population?: boolean
     timezone?: boolean
     latitude?: boolean
     longitude?: boolean
+    elevation?: boolean
+    digital_elevation?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     travels?: boolean | City$travelsArgs<ExtArgs>
@@ -10142,10 +10174,14 @@ export namespace Prisma {
     country_iso_2?: boolean
     country_name?: boolean
     name?: boolean
+    county?: boolean
+    state?: boolean
     population?: boolean
     timezone?: boolean
     latitude?: boolean
     longitude?: boolean
+    elevation?: boolean
+    digital_elevation?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     country?: boolean | CountryDefaultArgs<ExtArgs>
@@ -10157,10 +10193,14 @@ export namespace Prisma {
     country_iso_2?: boolean
     country_name?: boolean
     name?: boolean
+    county?: boolean
+    state?: boolean
     population?: boolean
     timezone?: boolean
     latitude?: boolean
     longitude?: boolean
+    elevation?: boolean
+    digital_elevation?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     country?: boolean | CountryDefaultArgs<ExtArgs>
@@ -10172,15 +10212,19 @@ export namespace Prisma {
     country_iso_2?: boolean
     country_name?: boolean
     name?: boolean
+    county?: boolean
+    state?: boolean
     population?: boolean
     timezone?: boolean
     latitude?: boolean
     longitude?: boolean
+    elevation?: boolean
+    digital_elevation?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "countryId" | "country_iso_2" | "country_name" | "name" | "population" | "timezone" | "latitude" | "longitude" | "createdAt" | "updatedAt", ExtArgs["result"]["city"]>
+  export type CityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "countryId" | "country_iso_2" | "country_name" | "name" | "county" | "state" | "population" | "timezone" | "latitude" | "longitude" | "elevation" | "digital_elevation" | "createdAt" | "updatedAt", ExtArgs["result"]["city"]>
   export type CityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     travels?: boolean | City$travelsArgs<ExtArgs>
     wishlist?: boolean | City$wishlistArgs<ExtArgs>
@@ -10207,10 +10251,14 @@ export namespace Prisma {
       country_iso_2: string
       country_name: string
       name: string
+      county: string | null
+      state: string | null
       population: number | null
       timezone: string
       latitude: number | null
       longitude: number | null
+      elevation: string | null
+      digital_elevation: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["city"]>
@@ -10644,10 +10692,14 @@ export namespace Prisma {
     readonly country_iso_2: FieldRef<"City", 'String'>
     readonly country_name: FieldRef<"City", 'String'>
     readonly name: FieldRef<"City", 'String'>
+    readonly county: FieldRef<"City", 'String'>
+    readonly state: FieldRef<"City", 'String'>
     readonly population: FieldRef<"City", 'Int'>
     readonly timezone: FieldRef<"City", 'String'>
     readonly latitude: FieldRef<"City", 'Float'>
     readonly longitude: FieldRef<"City", 'Float'>
+    readonly elevation: FieldRef<"City", 'String'>
+    readonly digital_elevation: FieldRef<"City", 'String'>
     readonly createdAt: FieldRef<"City", 'DateTime'>
     readonly updatedAt: FieldRef<"City", 'DateTime'>
   }
@@ -11231,10 +11283,14 @@ export namespace Prisma {
     country_iso_2: 'country_iso_2',
     country_name: 'country_name',
     name: 'name',
+    county: 'county',
+    state: 'state',
     population: 'population',
     timezone: 'timezone',
     latitude: 'latitude',
     longitude: 'longitude',
+    elevation: 'elevation',
+    digital_elevation: 'digital_elevation',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -11890,10 +11946,14 @@ export namespace Prisma {
     country_iso_2?: StringFilter<"City"> | string
     country_name?: StringFilter<"City"> | string
     name?: StringFilter<"City"> | string
+    county?: StringNullableFilter<"City"> | string | null
+    state?: StringNullableFilter<"City"> | string | null
     population?: IntNullableFilter<"City"> | number | null
     timezone?: StringFilter<"City"> | string
     latitude?: FloatNullableFilter<"City"> | number | null
     longitude?: FloatNullableFilter<"City"> | number | null
+    elevation?: StringNullableFilter<"City"> | string | null
+    digital_elevation?: StringNullableFilter<"City"> | string | null
     createdAt?: DateTimeFilter<"City"> | Date | string
     updatedAt?: DateTimeFilter<"City"> | Date | string
     travels?: TravelCityListRelationFilter
@@ -11907,10 +11967,14 @@ export namespace Prisma {
     country_iso_2?: SortOrder
     country_name?: SortOrder
     name?: SortOrder
+    county?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
     population?: SortOrderInput | SortOrder
     timezone?: SortOrder
     latitude?: SortOrderInput | SortOrder
     longitude?: SortOrderInput | SortOrder
+    elevation?: SortOrderInput | SortOrder
+    digital_elevation?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     travels?: TravelCityOrderByRelationAggregateInput
@@ -11927,10 +11991,14 @@ export namespace Prisma {
     country_iso_2?: StringFilter<"City"> | string
     country_name?: StringFilter<"City"> | string
     name?: StringFilter<"City"> | string
+    county?: StringNullableFilter<"City"> | string | null
+    state?: StringNullableFilter<"City"> | string | null
     population?: IntNullableFilter<"City"> | number | null
     timezone?: StringFilter<"City"> | string
     latitude?: FloatNullableFilter<"City"> | number | null
     longitude?: FloatNullableFilter<"City"> | number | null
+    elevation?: StringNullableFilter<"City"> | string | null
+    digital_elevation?: StringNullableFilter<"City"> | string | null
     createdAt?: DateTimeFilter<"City"> | Date | string
     updatedAt?: DateTimeFilter<"City"> | Date | string
     travels?: TravelCityListRelationFilter
@@ -11944,10 +12012,14 @@ export namespace Prisma {
     country_iso_2?: SortOrder
     country_name?: SortOrder
     name?: SortOrder
+    county?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
     population?: SortOrderInput | SortOrder
     timezone?: SortOrder
     latitude?: SortOrderInput | SortOrder
     longitude?: SortOrderInput | SortOrder
+    elevation?: SortOrderInput | SortOrder
+    digital_elevation?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CityCountOrderByAggregateInput
@@ -11966,10 +12038,14 @@ export namespace Prisma {
     country_iso_2?: StringWithAggregatesFilter<"City"> | string
     country_name?: StringWithAggregatesFilter<"City"> | string
     name?: StringWithAggregatesFilter<"City"> | string
+    county?: StringNullableWithAggregatesFilter<"City"> | string | null
+    state?: StringNullableWithAggregatesFilter<"City"> | string | null
     population?: IntNullableWithAggregatesFilter<"City"> | number | null
     timezone?: StringWithAggregatesFilter<"City"> | string
     latitude?: FloatNullableWithAggregatesFilter<"City"> | number | null
     longitude?: FloatNullableWithAggregatesFilter<"City"> | number | null
+    elevation?: StringNullableWithAggregatesFilter<"City"> | string | null
+    digital_elevation?: StringNullableWithAggregatesFilter<"City"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"City"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"City"> | Date | string
   }
@@ -12535,10 +12611,14 @@ export namespace Prisma {
     country_iso_2: string
     country_name: string
     name: string
+    county?: string | null
+    state?: string | null
     population?: number | null
     timezone: string
     latitude?: number | null
     longitude?: number | null
+    elevation?: string | null
+    digital_elevation?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     travels?: TravelCityCreateNestedManyWithoutCityInput
@@ -12552,10 +12632,14 @@ export namespace Prisma {
     country_iso_2: string
     country_name: string
     name: string
+    county?: string | null
+    state?: string | null
     population?: number | null
     timezone: string
     latitude?: number | null
     longitude?: number | null
+    elevation?: string | null
+    digital_elevation?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     travels?: TravelCityUncheckedCreateNestedManyWithoutCityInput
@@ -12566,10 +12650,14 @@ export namespace Prisma {
     country_iso_2?: StringFieldUpdateOperationsInput | string
     country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    county?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    elevation?: NullableStringFieldUpdateOperationsInput | string | null
+    digital_elevation?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     travels?: TravelCityUpdateManyWithoutCityNestedInput
@@ -12583,10 +12671,14 @@ export namespace Prisma {
     country_iso_2?: StringFieldUpdateOperationsInput | string
     country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    county?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    elevation?: NullableStringFieldUpdateOperationsInput | string | null
+    digital_elevation?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     travels?: TravelCityUncheckedUpdateManyWithoutCityNestedInput
@@ -12599,10 +12691,14 @@ export namespace Prisma {
     country_iso_2: string
     country_name: string
     name: string
+    county?: string | null
+    state?: string | null
     population?: number | null
     timezone: string
     latitude?: number | null
     longitude?: number | null
+    elevation?: string | null
+    digital_elevation?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12611,10 +12707,14 @@ export namespace Prisma {
     country_iso_2?: StringFieldUpdateOperationsInput | string
     country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    county?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    elevation?: NullableStringFieldUpdateOperationsInput | string | null
+    digital_elevation?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12625,10 +12725,14 @@ export namespace Prisma {
     country_iso_2?: StringFieldUpdateOperationsInput | string
     country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    county?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    elevation?: NullableStringFieldUpdateOperationsInput | string | null
+    digital_elevation?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13225,10 +13329,14 @@ export namespace Prisma {
     country_iso_2?: SortOrder
     country_name?: SortOrder
     name?: SortOrder
+    county?: SortOrder
+    state?: SortOrder
     population?: SortOrder
     timezone?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    elevation?: SortOrder
+    digital_elevation?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13247,10 +13355,14 @@ export namespace Prisma {
     country_iso_2?: SortOrder
     country_name?: SortOrder
     name?: SortOrder
+    county?: SortOrder
+    state?: SortOrder
     population?: SortOrder
     timezone?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    elevation?: SortOrder
+    digital_elevation?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13261,10 +13373,14 @@ export namespace Prisma {
     country_iso_2?: SortOrder
     country_name?: SortOrder
     name?: SortOrder
+    county?: SortOrder
+    state?: SortOrder
     population?: SortOrder
     timezone?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    elevation?: SortOrder
+    digital_elevation?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -14736,10 +14852,14 @@ export namespace Prisma {
     country_iso_2: string
     country_name: string
     name: string
+    county?: string | null
+    state?: string | null
     population?: number | null
     timezone: string
     latitude?: number | null
     longitude?: number | null
+    elevation?: string | null
+    digital_elevation?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     travels?: TravelCityCreateNestedManyWithoutCityInput
@@ -14752,10 +14872,14 @@ export namespace Prisma {
     country_iso_2: string
     country_name: string
     name: string
+    county?: string | null
+    state?: string | null
     population?: number | null
     timezone: string
     latitude?: number | null
     longitude?: number | null
+    elevation?: string | null
+    digital_elevation?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     travels?: TravelCityUncheckedCreateNestedManyWithoutCityInput
@@ -14888,10 +15012,14 @@ export namespace Prisma {
     country_iso_2?: StringFieldUpdateOperationsInput | string
     country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    county?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    elevation?: NullableStringFieldUpdateOperationsInput | string | null
+    digital_elevation?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     travels?: TravelCityUpdateManyWithoutCityNestedInput
@@ -14904,10 +15032,14 @@ export namespace Prisma {
     country_iso_2?: StringFieldUpdateOperationsInput | string
     country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    county?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    elevation?: NullableStringFieldUpdateOperationsInput | string | null
+    digital_elevation?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     travels?: TravelCityUncheckedUpdateManyWithoutCityNestedInput
@@ -15192,10 +15324,14 @@ export namespace Prisma {
     country_iso_2: string
     country_name: string
     name: string
+    county?: string | null
+    state?: string | null
     population?: number | null
     timezone: string
     latitude?: number | null
     longitude?: number | null
+    elevation?: string | null
+    digital_elevation?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     wishlist?: WishlistCreateNestedManyWithoutCityInput
@@ -15208,10 +15344,14 @@ export namespace Prisma {
     country_iso_2: string
     country_name: string
     name: string
+    county?: string | null
+    state?: string | null
     population?: number | null
     timezone: string
     latitude?: number | null
     longitude?: number | null
+    elevation?: string | null
+    digital_elevation?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     wishlist?: WishlistUncheckedCreateNestedManyWithoutCityInput
@@ -15269,10 +15409,14 @@ export namespace Prisma {
     country_iso_2?: StringFieldUpdateOperationsInput | string
     country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    county?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    elevation?: NullableStringFieldUpdateOperationsInput | string | null
+    digital_elevation?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wishlist?: WishlistUpdateManyWithoutCityNestedInput
@@ -15285,10 +15429,14 @@ export namespace Prisma {
     country_iso_2?: StringFieldUpdateOperationsInput | string
     country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    county?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    elevation?: NullableStringFieldUpdateOperationsInput | string | null
+    digital_elevation?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wishlist?: WishlistUncheckedUpdateManyWithoutCityNestedInput
@@ -15352,10 +15500,14 @@ export namespace Prisma {
     country_iso_2: string
     country_name: string
     name: string
+    county?: string | null
+    state?: string | null
     population?: number | null
     timezone: string
     latitude?: number | null
     longitude?: number | null
+    elevation?: string | null
+    digital_elevation?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     travels?: TravelCityCreateNestedManyWithoutCityInput
@@ -15367,10 +15519,14 @@ export namespace Prisma {
     country_iso_2: string
     country_name: string
     name: string
+    county?: string | null
+    state?: string | null
     population?: number | null
     timezone: string
     latitude?: number | null
     longitude?: number | null
+    elevation?: string | null
+    digital_elevation?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     travels?: TravelCityUncheckedCreateNestedManyWithoutCityInput
@@ -15444,10 +15600,14 @@ export namespace Prisma {
     country_iso_2?: StringFilter<"City"> | string
     country_name?: StringFilter<"City"> | string
     name?: StringFilter<"City"> | string
+    county?: StringNullableFilter<"City"> | string | null
+    state?: StringNullableFilter<"City"> | string | null
     population?: IntNullableFilter<"City"> | number | null
     timezone?: StringFilter<"City"> | string
     latitude?: FloatNullableFilter<"City"> | number | null
     longitude?: FloatNullableFilter<"City"> | number | null
+    elevation?: StringNullableFilter<"City"> | string | null
+    digital_elevation?: StringNullableFilter<"City"> | string | null
     createdAt?: DateTimeFilter<"City"> | Date | string
     updatedAt?: DateTimeFilter<"City"> | Date | string
   }
@@ -15805,10 +15965,14 @@ export namespace Prisma {
     country_iso_2: string
     country_name: string
     name: string
+    county?: string | null
+    state?: string | null
     population?: number | null
     timezone: string
     latitude?: number | null
     longitude?: number | null
+    elevation?: string | null
+    digital_elevation?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -15868,10 +16032,14 @@ export namespace Prisma {
     country_iso_2?: StringFieldUpdateOperationsInput | string
     country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    county?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    elevation?: NullableStringFieldUpdateOperationsInput | string | null
+    digital_elevation?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     travels?: TravelCityUpdateManyWithoutCityNestedInput
@@ -15883,10 +16051,14 @@ export namespace Prisma {
     country_iso_2?: StringFieldUpdateOperationsInput | string
     country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    county?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    elevation?: NullableStringFieldUpdateOperationsInput | string | null
+    digital_elevation?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     travels?: TravelCityUncheckedUpdateManyWithoutCityNestedInput
@@ -15898,10 +16070,14 @@ export namespace Prisma {
     country_iso_2?: StringFieldUpdateOperationsInput | string
     country_name?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    county?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     population?: NullableIntFieldUpdateOperationsInput | number | null
     timezone?: StringFieldUpdateOperationsInput | string
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    elevation?: NullableStringFieldUpdateOperationsInput | string | null
+    digital_elevation?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

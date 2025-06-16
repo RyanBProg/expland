@@ -142,17 +142,21 @@ model Country {
 }
 
 model City {
-  id            Int      @id @default(autoincrement())
-  countryId     Int
-  country_iso_2 String   @db.Char(2)
-  country_name  String
-  name          String
-  population    Int?
-  timezone      String
-  latitude      Float?
-  longitude     Float?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id                Int      @id @default(autoincrement())
+  countryId         Int
+  country_iso_2     String   @db.Char(2)
+  country_name      String
+  name              String
+  county            String?
+  state             String?
+  population        Int?
+  timezone          String
+  latitude          Float?
+  longitude         Float?
+  elevation         String?
+  digital_elevation String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
   // relations
   travels  TravelCity[]

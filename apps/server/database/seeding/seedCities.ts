@@ -4,9 +4,13 @@ import prisma from "../prismaClient";
 
 type CityData = {
   name: string;
-  country_iso_2: string;
+  county: string;
+  state: string;
+  countryIso2: string;
   country_name: string;
   population: string;
+  elevation: string;
+  digitalElevation: string;
   latitude: string;
   longitude: string;
   timezone: string;
@@ -31,18 +35,22 @@ export async function seedCities() {
 
   const formattedCities: CityCreateManyInput[] = citiesDataTyped
     .map(city => {
-      const country = countryMap.get(city.country_iso_2);
+      const country = countryMap.get(city.countryIso2);
 
       if (!country) {
-        console.warn(`No country found for ISO code: ${city.country_iso_2}`);
+        console.warn(`No country found for ISO code: ${city.countryIso2}`);
         return null;
       }
 
       return {
         name: city.name,
-        country_iso_2: city.country_iso_2,
+        county: city.county,
+        state: city.state,
+        country_iso_2: city.countryIso2,
         country_name: country.name,
         population: city.population ? parseInt(city.population) : null,
+        elevation: city.elevation,
+        digital_elevation: city.digitalElevation,
         timezone: city.timezone,
         latitude: city.latitude ? parseFloat(city.latitude) : null,
         longitude: city.longitude ? parseFloat(city.longitude) : null,
