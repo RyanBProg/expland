@@ -1,5 +1,5 @@
-import CreateTripDialog from "@/components/dashboard/CreateTripDialog";
-import EditTripDialog from "@/components/dashboard/EditTripDialog";
+import CreateTravelDialog from "@/components/dashboard/CreateTravelDialog";
+import EditTravelDialog from "@/components/dashboard/EditTravelDialog";
 import {
   Box,
   ButtonGroup,
@@ -16,16 +16,16 @@ import { CaretLeft, CaretRight } from "phosphor-react";
 import { useState } from "react";
 import ReactCountryFlag from "react-country-flag";
 
-// fetch paginated trips (allow for year filtering and age sorting)
+// fetch paginated travels (allow for year filtering and age sorting)
 
-export default function ViewTripsPage() {
+export default function MyTravels() {
   return (
     <Box p="4" maxWidth="4xl" mx="auto">
       <Flex gap="4" justifyContent="center" alignItems="center">
         <Heading as="h1" textAlign="center" my="10" size="4xl">
-          My Trips
+          My Travels
         </Heading>
-        <CreateTripDialog />
+        <CreateTravelDialog />
       </Flex>
       <FilterBar />
       <Box>
@@ -47,7 +47,7 @@ export default function ViewTripsPage() {
                 </Flex>
                 <Card.Description>15th March 2025 - 7 Days</Card.Description>
               </Box>
-              <EditTripDialog />
+              <EditTravelDialog />
             </Flex>
           </Card.Header>
           <Card.Body textStyle="md" lineHeight="tall">
@@ -84,7 +84,7 @@ export default function ViewTripsPage() {
                 </Flex>
                 <Card.Description>8th June 2025 - 5 Days</Card.Description>
               </Box>
-              <EditTripDialog />
+              <EditTravelDialog />
             </Flex>
           </Card.Header>
           <Card.Body textStyle="md" lineHeight="tall">
@@ -123,7 +123,7 @@ export default function ViewTripsPage() {
                 </Flex>
                 <Card.Description>8th August 2025 - 6 Days</Card.Description>
               </Box>
-              <EditTripDialog />
+              <EditTravelDialog />
             </Flex>
           </Card.Header>
           <Card.Body textStyle="md" lineHeight="tall"></Card.Body>

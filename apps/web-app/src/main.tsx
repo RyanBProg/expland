@@ -6,15 +6,14 @@ import NotFound from "./routes/error/NotFound";
 import DashboardLayout from "./layouts/DashboardLayout";
 import SiteLayout from "./layouts/SiteLayout";
 import Dashboard from "./routes/dashboard/Dashboard";
-import ManageAccountPage from "./routes/dashboard/account/ManageAccountPage";
-import ProfilePage from "./routes/dashboard/account/ProfilePage";
-import LoginPage from "./routes/login/LoginPage";
-import RegisterPage from "./routes/register/RegisterPage";
+import ManageAccount from "./routes/dashboard/account/ManageAccount";
+import MyProfile from "./routes/dashboard/account/MyProfile";
+import Login from "./routes/Login";
+import Register from "./routes/Register";
 import Home from "./routes/Home";
-import ContactPage from "./routes/contact/ContactPage";
-import PoliciesPage from "./routes/policies/Policies";
-import ViewTripsPage from "./routes/dashboard/trips/ViewTripsPage";
-import CreateTripPage from "./routes/dashboard/trips/CreateTripPage";
+import Contact from "./routes/Contact";
+import Policies from "./routes/Policies";
+import MyTravels from "./routes/dashboard/MyTravels";
 import { Toaster } from "./components/ui/toaster";
 
 const router = createBrowserRouter([
@@ -24,10 +23,10 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, Component: Home },
-      { path: "login", Component: LoginPage },
-      { path: "register", Component: RegisterPage },
-      { path: "contact", Component: ContactPage },
-      { path: "policies", Component: PoliciesPage },
+      { path: "login", Component: Login },
+      { path: "register", Component: Register },
+      { path: "contact", Component: Contact },
+      { path: "policies", Component: Policies },
     ],
   },
 
@@ -37,10 +36,9 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, Component: Dashboard },
-      { path: "account", Component: ManageAccountPage },
-      { path: "account/profile", Component: ProfilePage },
-      { path: "trips", Component: ViewTripsPage },
-      { path: "trips/new-trip", Component: CreateTripPage },
+      { path: "account", Component: ManageAccount },
+      { path: "account/profile", Component: MyProfile },
+      { path: "trips", Component: MyTravels },
     ],
   },
 ]);

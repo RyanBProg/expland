@@ -36,7 +36,7 @@ const emptyForm = {
   confirmPassword: "",
 };
 
-export default function RegisterPage() {
+export default function Register() {
   const navigate = useNavigate();
   const [form, setForm] = useState(emptyForm);
   const [isLoading, setIsLoading] = useState(false);

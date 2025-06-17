@@ -1,6 +1,6 @@
 import { Box, Card, Flex, Heading, Link, Text, Stack } from "@chakra-ui/react";
 
-export default function PoliciesPage() {
+export default function Policies() {
   return (
     <Flex direction="column" maxW="4xl" mx="auto" p="8" gap="12">
       {/* Header */}

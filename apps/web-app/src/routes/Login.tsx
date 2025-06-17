@@ -20,7 +20,7 @@ interface LoginResponse {
   message: string;
 }
 
-export default function LoginPage() {
+export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

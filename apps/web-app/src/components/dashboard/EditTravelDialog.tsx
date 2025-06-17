@@ -16,7 +16,7 @@ import { Pencil, XCircle } from "phosphor-react";
 import { useEffect, useState, type ChangeEvent } from "react";
 
 type Props = {
-  tripData: {
+  travelData: {
     country: string;
     cities: string[];
     description: string;
@@ -24,16 +24,17 @@ type Props = {
     duration: number;
   };
   handleSubmit: () => void;
-  deleteTrip: () => void;
+  deleteTravel: () => void;
 };
 
-export default function EditTripDialog() {
+export default function EditTravelDialog() {
   const [selectedCountry, setSelectedCountry] = useState<string | undefined>(undefined);
   const [citiesList, setCitiesList] = useState<string[]>([]);
   const [selectedCity, setSelectedCity] = useState<string | undefined>(undefined);
   const [description, setDescription] = useState<string>("");
   const [startDate, setStartDate] = useState<string>(new Date().toISOString().slice(0, 10));
   const [duration, setDuration] = useState<string>("5");
+  const [open, setOpen] = useState(false);
 
   const updateCities = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedCity(e.currentTarget.value);
@@ -46,10 +47,17 @@ export default function EditTripDialog() {
   }, [selectedCity]);
 
   return (
-    <Dialog.Root size="cover" placement="center" motionPreset="slide-in-bottom">
+    <Dialog.Root
+      lazyMount
+      size="cover"
+      placement="center"
+      motionPreset="slide-in-bottom"
+      open={open}
+      onOpenChange={e => setOpen(e.open)}
+    >
       <Dialog.Trigger asChild>
         <Button variant="outline" size="sm">
-          Edit Trip
+          Edit Travel
           <Pencil />
         </Button>
       </Dialog.Trigger>
@@ -58,7 +66,7 @@ export default function EditTripDialog() {
         <Dialog.Positioner>
           <Dialog.Content>
             <Dialog.Header>
-              <Dialog.Title>Trip Details</Dialog.Title>
+              <Dialog.Title>Travel Details</Dialog.Title>
               <Dialog.CloseTrigger asChild>
                 <CloseButton size="sm" />
               </Dialog.CloseTrigger>
@@ -156,7 +164,7 @@ export default function EditTripDialog() {
                     Submit Changes
                   </Button>
                   <Button type="button" variant="solid" colorPalette="red">
-                    Delete Trip
+                    Delete Travel
                   </Button>
                 </ButtonGroup>
               </Fieldset.Root>

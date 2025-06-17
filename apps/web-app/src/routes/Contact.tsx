@@ -1,7 +1,7 @@
 import { Box, Button, Card, Flex, Heading, Input, Stack, Text, Textarea } from "@chakra-ui/react";
 import { EnvelopeSimple, Globe, MapPin } from "phosphor-react";
 
-export default function ContactPage() {
+export default function Contact() {
   return (
     <Flex direction="column" maxW="6xl" mx="auto" p="8" gap="12">
       {/* Header */}
