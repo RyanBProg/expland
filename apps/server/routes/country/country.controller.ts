@@ -133,7 +133,22 @@ async function listCities(req: TUserTokenRequest, res: Response) {
       return;
     }
 
-    const { countryId, countryIso, detail = "summary", limit = "10", page = "1" } = req.query;
+    const {
+      countryId,
+      countryIso,
+      search,
+      detail = "summary",
+      limit = "10",
+      page = "1",
+    } = req.query;
+
+    // Validate search param
+    if (typeof search !== "string" || search.length < 2) {
+      res.status(400).json({
+        message: "Search term must be at least 2 characters long using letters only",
+      });
+      return;
+    }
 
     // build a select
     let select;
@@ -142,6 +157,8 @@ async function listCities(req: TUserTokenRequest, res: Response) {
         id: true,
         name: true,
         countryId: true,
+        county: true,
+        state: true,
       };
     } else if (detail === "full") {
       select = undefined;
@@ -152,15 +169,34 @@ async function listCities(req: TUserTokenRequest, res: Response) {
 
     // build a where clause
     let where = {};
+    if (search && typeof search === "string") {
+      where = {
+        OR: [
+          {
+            name: {
+              startsWith: search,
+              mode: "insensitive",
+            },
+          },
+          {
+            name: {
+              contains: ` ${search}`, // match words within the string
+              mode: "insensitive",
+            },
+          },
+        ],
+      };
+    }
+
     if (countryId) {
       const id = parseInt(countryId as string);
       if (isNaN(id)) {
         res.status(400).json({ message: "Invalid country ID format" });
         return;
       }
-      where = { countryId: id };
+      where = { ...where, countryId: id };
     } else if (countryIso) {
-      where = { country_iso_2: { equals: countryIso as string, mode: "insensitive" } };
+      where = { ...where, country_iso_2: { equals: countryIso as string, mode: "insensitive" } };
     }
 
     // build pagination values
