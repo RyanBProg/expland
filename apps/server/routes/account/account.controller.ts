@@ -232,8 +232,14 @@ async function getAllTravels(req: TUserTokenRequest, res: Response) {
       take: limit,
     });
 
+    // transform/flatten cities array to be cleaner
+    const transformedTravels = travels.map(travel => ({
+      ...travel,
+      cities: travel.cities.map(tc => tc.city),
+    }));
+
     res.status(200).json({
-      data: travels,
+      data: transformedTravels,
       pagination: {
         currentPage: page,
         totalPages,
@@ -306,7 +312,7 @@ async function getTravel(req: TUserTokenRequest, res: Response) {
       return;
     }
 
-    // Transform cities array to be cleaner
+    // transform/flatten cities array to be cleaner
     const transformedTravel = {
       ...travel,
       cities: travel.cities.map(tc => tc.city),

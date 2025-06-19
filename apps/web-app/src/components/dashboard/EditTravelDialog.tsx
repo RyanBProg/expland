@@ -1,6 +1,5 @@
 import {
   Button,
-  ButtonGroup,
   CloseButton,
   Dialog,
   Field,
@@ -11,52 +10,261 @@ import {
   Portal,
   NativeSelect,
   Textarea,
+  ButtonGroup,
+  Box,
+  Grid,
+  Text,
+  Span,
 } from "@chakra-ui/react";
 import { Pencil, XCircle } from "phosphor-react";
-import { useEffect, useState, type ChangeEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
+import { toaster } from "../ui/toaster";
+import { PlusIcon } from "lucide-react";
 
-type Props = {
-  travelData: {
-    country: string;
-    cities: string[];
-    description: string;
-    startDate: Date;
-    duration: number;
-  };
-  handleSubmit: () => void;
-  deleteTravel: () => void;
+type Country = {
+  id: number;
+  name: string;
 };
 
-export default function EditTravelDialog() {
-  const [selectedCountry, setSelectedCountry] = useState<string | undefined>(undefined);
-  const [citiesList, setCitiesList] = useState<string[]>([]);
-  const [selectedCity, setSelectedCity] = useState<string | undefined>(undefined);
-  const [description, setDescription] = useState<string>("");
-  const [startDate, setStartDate] = useState<string>(new Date().toISOString().slice(0, 10));
-  const [duration, setDuration] = useState<string>("5");
-  const [open, setOpen] = useState(false);
+type City = {
+  id: number;
+  name: string;
+  countryId: number;
+  county: string;
+  state: string;
+};
 
-  const updateCities = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCity(e.currentTarget.value);
-  };
+type FormData = {
+  country: Country | null;
+  cities: City[];
+  description: string;
+  startDate: string;
+  duration: string;
+};
+
+type CityFetchStatus = "NOT FOUND" | "RESULTS FOUND" | "TYPING" | "EMPTY" | "FETCHING";
+
+const emptyForm = {
+  country: null,
+  cities: [],
+  description: "",
+  startDate: new Date().toISOString().slice(0, 10),
+  duration: "5",
+};
+
+export default function EditTravelDialog({ travelId }: { travelId: number }) {
+  const [formData, setFormData] = useState<FormData>(emptyForm);
+  const [open, setOpen] = useState(false);
+  const [fetchedCountries, setFetchedCountries] = useState<Country[]>([]);
+  const [fetchedCities, setFetchedCities] = useState<City[] | undefined>(undefined);
+  const [citySearch, setCitySearch] = useState("");
+  const [cityFetchStatus, setCityFetchStatus] = useState<CityFetchStatus>("EMPTY");
 
   useEffect(() => {
-    if (selectedCity && !citiesList.includes(selectedCity)) {
-      setCitiesList(prev => [...prev, selectedCity]);
+    const fetchTravel = async () => {
+      try {
+        const res = await fetch(`http://localhost:3000/api/account/profile/travels/${travelId}`, {
+          method: "GET",
+          credentials: "include",
+        });
+
+        const { data } = await res.json();
+
+        console.log(data);
+
+        setFormData({
+          country: { id: data.country.id, name: data.country.name },
+          cities: data.cities,
+          description: data.description,
+          startDate: data.startDate,
+          duration: data.duration,
+        });
+      } catch (error) {
+        console.error("Error fetching countries:", error);
+      }
+    };
+
+    if (open) {
+      fetchTravel();
     }
-  }, [selectedCity]);
+  }, [open]);
+
+  // fetch countries on mount
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const res = await fetch(`http://localhost:3000/api/countries/?detail=summary&limit=all`, {
+          method: "GET",
+          credentials: "include",
+        });
+        const { data } = await res.json();
+
+        const countries = data
+          .map((country: Country) => ({
+            id: country.id,
+            name: country.name,
+          }))
+          .sort((a: Country, b: Country) => a.name.localeCompare(b.name));
+
+        setFetchedCountries(countries);
+      } catch (error) {
+        console.error("Error fetching countries:", error);
+      }
+    };
+
+    fetchCountries();
+  }, []);
+
+  // reset selected cities when country is changed
+  useEffect(() => {
+    setFormData(prev => ({ ...prev, cities: [] }));
+    setCitySearch("");
+  }, [formData.country]);
+
+  // fetch new cities when typing in search
+  useEffect(() => {
+    if (!formData.country) return;
+    if (citySearch.length < 2 && citySearch.length > 0) {
+      setCityFetchStatus("TYPING");
+      return;
+    } else if (citySearch.length === 0) {
+      setCityFetchStatus("EMPTY");
+      return;
+    }
+
+    setCityFetchStatus("FETCHING");
+
+    const fetchCities = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:3000/api/countries/cities/?countryId=${
+            formData.country!.id
+          }&detail=summary&limit=all&search=${citySearch}`,
+          {
+            method: "GET",
+            credentials: "include",
+          },
+        );
+        const { data } = await res.json();
+        const cities = data.sort((a: City, b: City) => a.name.localeCompare(b.name));
+
+        if (cities.length === 0) {
+          setCityFetchStatus("NOT FOUND");
+        } else {
+          setCityFetchStatus("RESULTS FOUND");
+        }
+
+        setFetchedCities(cities);
+      } catch (error) {
+        console.error("Error fetching cities:", error);
+        setCityFetchStatus("NOT FOUND");
+      }
+    };
+
+    const timeout = setTimeout(() => {
+      fetchCities();
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, [citySearch, formData.country]);
+
+  const handleCountryChange = (countryName: string) => {
+    const selectedCountry = fetchedCountries.find(c => c.name === countryName);
+    setFormData(prev => ({
+      ...prev,
+      country: selectedCountry || null,
+      cities: [],
+    }));
+  };
+
+  const handleCityInput = (inputVal: string) => {
+    if (inputVal.length < 2) {
+      setFetchedCities([]);
+    }
+
+    setCitySearch(inputVal);
+  };
+
+  const handleClearCityInput = () => {
+    setFetchedCities([]);
+    setCitySearch("");
+  };
+
+  const handleCityAdd = (cityId: number) => {
+    const cityToAdd = fetchedCities?.find(c => c.id === cityId);
+    if (cityToAdd && !formData.cities.some(c => c.id === cityId)) {
+      setFormData(prev => ({
+        ...prev,
+        cities: [...prev.cities, cityToAdd],
+      }));
+    }
+  };
+
+  const handleCityRemove = (cityId: number) => {
+    setFormData(prev => ({
+      ...prev,
+      cities: prev.cities.filter(city => city.id !== cityId),
+    }));
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!formData.country) {
+      return;
+    }
+
+    const payload = {
+      userId: "c177a183-77a8-48eb-b6bc-6b27ce13ebea",
+      countryId: formData.country.id,
+      cityIds: formData.cities.map(city => city.id),
+      description: formData.description,
+      dateTravel: formData.startDate,
+      duration: parseInt(formData.duration),
+    };
+
+    try {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/account/profile/travels`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw Error(data.message || "Unkown error");
+      }
+
+      setFormData(emptyForm);
+      setOpen(false);
+      toaster.create({
+        title: "Travel Added",
+        description: "Travel created successfully",
+        type: "success",
+      });
+    } catch (error) {
+      console.error("Error creating travel: ", error);
+      toaster.create({
+        title: "Travel Error",
+        description: "Error creating travel, please try again.",
+        type: "error",
+      });
+    }
+  };
 
   return (
     <Dialog.Root
       lazyMount
-      size="cover"
+      size="full"
       placement="center"
       motionPreset="slide-in-bottom"
       open={open}
       onOpenChange={e => setOpen(e.open)}
     >
       <Dialog.Trigger asChild>
-        <Button variant="outline" size="sm">
+        <Button size="sm" variant="surface">
           Edit Travel
           <Pencil />
         </Button>
@@ -66,108 +274,185 @@ export default function EditTravelDialog() {
         <Dialog.Positioner>
           <Dialog.Content>
             <Dialog.Header>
-              <Dialog.Title>Travel Details</Dialog.Title>
+              <Dialog.Title>Create a Travel</Dialog.Title>
               <Dialog.CloseTrigger asChild>
                 <CloseButton size="sm" />
               </Dialog.CloseTrigger>
             </Dialog.Header>
             <Dialog.Body>
-              <Fieldset.Root size="lg">
-                <Fieldset.Content>
-                  <Field.Root>
-                    <Field.Label>Country</Field.Label>
-                    <NativeSelect.Root>
-                      <NativeSelect.Field
-                        placeholder="Select option"
-                        value={selectedCountry}
-                        onChange={e => setSelectedCountry(e.currentTarget.value)}
-                      >
-                        <option value="france">🇫🇷 France</option>
-                        <option value="spain">🇪🇸 Spain</option>
-                      </NativeSelect.Field>
-                      <NativeSelect.Indicator />
-                    </NativeSelect.Root>
-                  </Field.Root>
-
-                  {selectedCountry && (
+              <form onSubmit={handleSubmit}>
+                <Fieldset.Root size="lg" width="full" maxWidth="2xl" mx="auto">
+                  <Fieldset.Content>
                     <Field.Root>
-                      <Field.Label>Cities</Field.Label>
-
+                      <Field.Label>Country</Field.Label>
                       <NativeSelect.Root>
                         <NativeSelect.Field
-                          placeholder="Select option"
-                          value={selectedCity}
-                          onChange={e => updateCities(e)}
+                          placeholder="Select country"
+                          value={formData.country?.name || ""}
+                          onChange={e => handleCountryChange(e.currentTarget.value)}
                         >
-                          <option value="paris">Paris</option>
-                          <option value="lyon">Lyon</option>
-                          <option value="nice">Nice</option>
+                          {fetchedCountries.map(country => (
+                            <option key={country.id} value={country.name}>
+                              {country.name}
+                            </option>
+                          ))}
                         </NativeSelect.Field>
                         <NativeSelect.Indicator />
                       </NativeSelect.Root>
-
-                      <Flex as="ul" alignItems="center" gap="4" wrap="1" mt="3">
-                        {citiesList.map(city => (
-                          <li key={city}>
-                            <Button
-                              size="xs"
-                              rounded="full"
-                              variant="solid"
-                              colorPalette="gray"
-                              type="button"
-                              css={{ textTransform: "capitalize" }}
-                              onClick={() =>
-                                setCitiesList(prev =>
-                                  prev.filter(currentCity => currentCity !== city),
-                                )
-                              }
-                            >
-                              {city}
-                              <XCircle />
-                            </Button>
-                          </li>
-                        ))}
-                      </Flex>
                     </Field.Root>
-                  )}
 
-                  <Field.Root>
-                    <Field.Label>Description</Field.Label>
-                    <Textarea
-                      rows={4}
-                      value={description}
-                      onChange={e => setDescription(e.currentTarget.value)}
-                    />
-                  </Field.Root>
+                    {formData.country && (
+                      <>
+                        <Field.Root>
+                          <Field.Label>
+                            Cities
+                            <Span color="GrayText" fontSize="xs" ml="1">
+                              - Optional
+                            </Span>
+                          </Field.Label>
+                          <Input
+                            placeholder="Search for a city"
+                            type="text"
+                            value={citySearch}
+                            onChange={e => handleCityInput(e.target.value)}
+                          />
+                          {citySearch.length > 0 && (
+                            <Button
+                              size="2xs"
+                              rounded="sm"
+                              colorPalette="red"
+                              css={{ position: "absolute", bottom: "8px", right: "8px" }}
+                              onClick={handleClearCityInput}
+                            >
+                              X
+                            </Button>
+                          )}
+                        </Field.Root>
 
-                  <Field.Root>
-                    <Field.Label>Start Date</Field.Label>
-                    <Input
-                      name="start-date"
-                      type="date"
-                      value={startDate}
-                      onChange={e => setStartDate(e.currentTarget.value)}
-                    />
-                  </Field.Root>
+                        {cityFetchStatus === "TYPING" && (
+                          <Text>Type 2 or more letters to start searching</Text>
+                        )}
+                        {cityFetchStatus === "NOT FOUND" && <Text>No results found</Text>}
+                        {cityFetchStatus === "FETCHING" && <Text>Loading...</Text>}
+                        {fetchedCities && cityFetchStatus === "RESULTS FOUND" ? (
+                          <Box maxHeight="40" overflowY="scroll">
+                            <Grid
+                              as="ul"
+                              templateColumns="1fr"
+                              gap="1"
+                              lg={{ gridTemplateColumns: "1fr 1fr" }}
+                            >
+                              {fetchedCities.map(city => (
+                                <li key={city.id}>
+                                  <Button
+                                    type="button"
+                                    size="xs"
+                                    width="full"
+                                    variant="outline"
+                                    onClick={() => handleCityAdd(city.id)}
+                                  >
+                                    {`${city.name}${
+                                      city.county
+                                        ? `, ${city.county}`
+                                        : city.state && `, ${city.state}`
+                                    }`}
+                                    <PlusIcon css={{ marginLeft: "5px" }} />
+                                  </Button>
+                                </li>
+                              ))}
+                            </Grid>
+                          </Box>
+                        ) : null}
 
-                  <Field.Root>
-                    <Field.Label>Duration (days)</Field.Label>
-                    <NumberInput.Root value={duration} onValueChange={e => setDuration(e.value)}>
-                      <NumberInput.Control />
-                      <NumberInput.Input />
-                    </NumberInput.Root>
-                  </Field.Root>
-                </Fieldset.Content>
+                        {formData.cities.length > 0 ? (
+                          <Flex as="ul" alignItems="center" gap="4" wrap="1" flexWrap="wrap">
+                            {formData.cities.map(city => (
+                              <li key={city.id}>
+                                <Button
+                                  size="xs"
+                                  rounded="full"
+                                  variant="solid"
+                                  colorPalette="cyan"
+                                  type="button"
+                                  css={{ textTransform: "capitalize" }}
+                                  onClick={() => handleCityRemove(city.id)}
+                                >
+                                  {`${city.name}${
+                                    city.county
+                                      ? `, ${city.county}`
+                                      : city.state && `, ${city.state}`
+                                  }`}
+                                  <XCircle />
+                                </Button>
+                              </li>
+                            ))}
+                          </Flex>
+                        ) : null}
+                      </>
+                    )}
 
-                <ButtonGroup>
-                  <Button type="submit" variant="solid" colorPalette="green">
-                    Submit Changes
-                  </Button>
-                  <Button type="button" variant="solid" colorPalette="red">
-                    Delete Travel
-                  </Button>
-                </ButtonGroup>
-              </Fieldset.Root>
+                    <Field.Root>
+                      <Field.Label>
+                        Description{" "}
+                        <Span color="GrayText" fontSize="xs" ml="1">
+                          - Optional
+                        </Span>
+                      </Field.Label>
+                      <Textarea
+                        rows={4}
+                        value={formData.description}
+                        onChange={e =>
+                          setFormData(prev => ({ ...prev, description: e.target.value }))
+                        }
+                      />
+                    </Field.Root>
+
+                    <Field.Root>
+                      <Field.Label>Start Date</Field.Label>
+                      <Input
+                        name="start-date"
+                        type="date"
+                        value={formData.startDate}
+                        onChange={e =>
+                          setFormData(prev => ({ ...prev, startDate: e.target.value }))
+                        }
+                      />
+                    </Field.Root>
+
+                    <Field.Root>
+                      <Field.Label>Duration (days)</Field.Label>
+                      <NumberInput.Root
+                        value={formData.duration}
+                        onValueChange={e => setFormData(prev => ({ ...prev, duration: e.value }))}
+                      >
+                        <NumberInput.Control />
+                        <NumberInput.Input />
+                      </NumberInput.Root>
+                    </Field.Root>
+                  </Fieldset.Content>
+                  <ButtonGroup size="sm">
+                    <Button
+                      type="submit"
+                      variant="solid"
+                      colorPalette="green"
+                      maxWidth="fit-content"
+                      px="6"
+                    >
+                      Add Travel
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="solid"
+                      colorPalette="red"
+                      maxWidth="fit-content"
+                      px="6"
+                      onClick={_ => setFormData(emptyForm)}
+                    >
+                      Clear Form
+                    </Button>
+                  </ButtonGroup>
+                </Fieldset.Root>
+              </form>
             </Dialog.Body>
           </Dialog.Content>
         </Dialog.Positioner>

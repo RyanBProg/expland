@@ -335,7 +335,7 @@ export default function CreateTravelDialog() {
                         ) : null}
 
                         {formData.cities.length > 0 ? (
-                          <Flex as="ul" alignItems="center" gap="4" wrap="1" mt="3" flexWrap="wrap">
+                          <Flex as="ul" alignItems="center" gap="4" wrap="1" flexWrap="wrap">
                             {formData.cities.map(city => (
                               <li key={city.id}>
                                 <Button
