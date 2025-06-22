@@ -10,7 +10,6 @@ import {
   Portal,
   NativeSelect,
   Textarea,
-  ButtonGroup,
   Box,
   Grid,
   Text,
@@ -29,9 +28,9 @@ type Country = {
 type City = {
   id: number;
   name: string;
-  countryId: number;
-  county: string;
-  state: string;
+  countryId?: number;
+  county?: string;
+  state?: string;
 };
 
 type FormData = {
@@ -60,6 +59,7 @@ export default function EditTravelDialog({ travelId }: { travelId: number }) {
   const [citySearch, setCitySearch] = useState("");
   const [cityFetchStatus, setCityFetchStatus] = useState<CityFetchStatus>("EMPTY");
 
+  // fill in form with current travel data
   useEffect(() => {
     const fetchTravel = async () => {
       try {
@@ -74,10 +74,16 @@ export default function EditTravelDialog({ travelId }: { travelId: number }) {
 
         setFormData({
           country: { id: data.country.id, name: data.country.name },
-          cities: data.cities,
-          description: data.description,
-          startDate: data.startDate,
-          duration: data.duration,
+          cities: data.cities.map((city: City) => ({
+            id: city.id,
+            name: city.name,
+            countryId: city.countryId,
+            state: city.state || "",
+            county: city.county || "",
+          })),
+          description: data.description || "",
+          startDate: data.dateTravel.slice(0, 10) || "",
+          duration: data.duration.toString() || 0,
         });
       } catch (error) {
         console.error("Error fetching countries:", error);
@@ -114,12 +120,6 @@ export default function EditTravelDialog({ travelId }: { travelId: number }) {
 
     fetchCountries();
   }, []);
-
-  // reset selected cities when country is changed
-  useEffect(() => {
-    setFormData(prev => ({ ...prev, cities: [] }));
-    setCitySearch("");
-  }, [formData.country]);
 
   // fetch new cities when typing in search
   useEffect(() => {
@@ -175,6 +175,7 @@ export default function EditTravelDialog({ travelId }: { travelId: number }) {
       country: selectedCountry || null,
       cities: [],
     }));
+    setCitySearch("");
   };
 
   const handleCityInput = (inputVal: string) => {
@@ -223,14 +224,17 @@ export default function EditTravelDialog({ travelId }: { travelId: number }) {
     };
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/account/profile/travels`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/account/profile/travels/${travelId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(payload),
         },
-        credentials: "include",
-        body: JSON.stringify(payload),
-      });
+      );
 
       const data = await res.json();
       if (!res.ok) {
@@ -430,27 +434,16 @@ export default function EditTravelDialog({ travelId }: { travelId: number }) {
                       </NumberInput.Root>
                     </Field.Root>
                   </Fieldset.Content>
-                  <ButtonGroup size="sm">
-                    <Button
-                      type="submit"
-                      variant="solid"
-                      colorPalette="green"
-                      maxWidth="fit-content"
-                      px="6"
-                    >
-                      Add Travel
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="solid"
-                      colorPalette="red"
-                      maxWidth="fit-content"
-                      px="6"
-                      onClick={_ => setFormData(emptyForm)}
-                    >
-                      Clear Form
-                    </Button>
-                  </ButtonGroup>
+                  <Button
+                    type="submit"
+                    variant="solid"
+                    colorPalette="green"
+                    size="sm"
+                    maxWidth="fit-content"
+                    px="6"
+                  >
+                    Save Edits
+                  </Button>
                 </Fieldset.Root>
               </form>
             </Dialog.Body>

@@ -298,6 +298,8 @@ async function getTravel(req: TUserTokenRequest, res: Response) {
                 country_iso_2: true,
                 latitude: true,
                 longitude: true,
+                state: true,
+                county: true,
               },
             },
           },
