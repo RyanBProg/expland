@@ -1,0 +1,204 @@
+{
+  "version": 8,
+  "name": "OSM Liberty",
+  "metadata": {
+    "maputnik:license": "https://github.com/maputnik/osm-liberty/blob/gh-pages/LICENSE.md",
+    "maputnik:renderer": "mbgljs",
+    "openmaptiles:version": "3.x"
+  },
+  "sources": {
+    "openmaptiles": {
+      "type": "vector",
+      "url": "https://api.maptiler.com/tiles/v3-openmaptiles/tiles.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL"
+    },
+    "natural_earth_shaded_relief": {
+      "maxzoom": 6,
+      "tileSize": 256,
+      "tiles": [
+        "https://klokantech.github.io/naturalearthtiles/tiles/natural_earth_2_shaded_relief.raster/{z}/{x}/{y}.png"
+      ],
+      "type": "raster"
+    }
+  },
+  "sprite": "https://maputnik.github.io/osm-liberty/sprites/osm-liberty",
+  "glyphs": "https://orangemug.github.io/font-glyphs/glyphs/{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "layout": {"visibility": "visible"},
+      "paint": {"background-color": "rgb(239,239,239)"}
+    },
+    {
+      "id": "natural_earth",
+      "type": "raster",
+      "source": "natural_earth_shaded_relief",
+      "maxzoom": 6,
+      "layout": {"visibility": "visible"},
+      "paint": {"raster-opacity": {"base": 1.5, "stops": [[0, 0.6], [6, 0.1]]}}
+    },
+    {
+      "id": "water",
+      "type": "fill",
+      "source": "openmaptiles",
+      "source-layer": "water",
+      "filter": ["all", ["!=", "brunnel", "tunnel"]],
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgb(158,189,255)"}
+    },
+    {
+      "id": "boundary_3",
+      "type": "line",
+      "source": "openmaptiles",
+      "source-layer": "boundary",
+      "minzoom": 8,
+      "filter": ["all", ["in", "admin_level", 3, 4]],
+      "layout": {"line-join": "round", "visibility": "visible"},
+      "paint": {
+        "line-color": "#9e9cab",
+        "line-dasharray": [5, 1],
+        "line-width": {"base": 1, "stops": [[4, 0.4], [5, 1], [12, 1.8]]}
+      }
+    },
+    {
+      "id": "boundary_2_z0-4",
+      "type": "line",
+      "source": "openmaptiles",
+      "source-layer": "boundary",
+      "maxzoom": 5,
+      "filter": ["all", ["==", "admin_level", 2], ["!has", "claimed_by"]],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "hsl(248, 1%, 41%)",
+        "line-opacity": {"base": 1, "stops": [[0, 0.4], [4, 1]]},
+        "line-width": {"base": 1, "stops": [[3, 1], [5, 1.2], [12, 3]]}
+      }
+    },
+    {
+      "id": "boundary_2_z5-",
+      "type": "line",
+      "source": "openmaptiles",
+      "source-layer": "boundary",
+      "minzoom": 5,
+      "filter": ["all", ["==", "admin_level", 2]],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "hsl(248, 1%, 41%)",
+        "line-opacity": {"base": 1, "stops": [[0, 0.4], [4, 1]]},
+        "line-width": {"base": 1, "stops": [[3, 1], [5, 1.2], [12, 3]]}
+      }
+    },
+    {
+      "id": "water_name_point",
+      "type": "symbol",
+      "source": "openmaptiles",
+      "source-layer": "water_name",
+      "filter": ["==", "$type", "Point"],
+      "layout": {
+        "text-field": "{name}",
+        "text-font": ["Roboto Regular"],
+        "text-max-width": 5,
+        "text-size": 12,
+        "visibility": "visible"
+      },
+      "paint": {
+        "text-color": "#5d60be",
+        "text-halo-color": "rgba(255,255,255,0.7)",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "continent",
+      "type": "symbol",
+      "source": "openmaptiles",
+      "source-layer": "place",
+      "maxzoom": 1,
+      "filter": ["all", ["==", "class", "continent"]],
+      "layout": {
+        "text-field": "{name_en}",
+        "text-font": ["Roboto Condensed Italic"],
+        "text-size": 13,
+        "text-transform": "uppercase",
+        "text-justify": "center",
+        "visibility": "visible"
+      },
+      "paint": {
+        "text-color": "#633",
+        "text-halo-color": "rgba(255,255,255,0.7)",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "country_3",
+      "type": "symbol",
+      "source": "openmaptiles",
+      "source-layer": "place",
+      "filter": ["all", [">=", "rank", 3], ["==", "class", "country"]],
+      "layout": {
+        "text-field": "{name_en}",
+        "text-font": ["Roboto Condensed Italic"],
+        "text-max-width": 6.25,
+        "text-size": {"stops": [[3, 11], [7, 17]]},
+        "text-transform": "none",
+        "visibility": "visible"
+      },
+      "paint": {
+        "text-color": "#334",
+        "text-halo-blur": 1,
+        "text-halo-color": "rgba(255,255,255,0.8)",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "country_2",
+      "type": "symbol",
+      "source": "openmaptiles",
+      "source-layer": "place",
+      "filter": ["all", ["==", "rank", 2], ["==", "class", "country"]],
+      "layout": {
+        "text-field": "{name_en}",
+        "text-font": ["Roboto Condensed Italic"],
+        "text-max-width": 6.25,
+        "text-size": {"stops": [[2, 11], [5, 17]]},
+        "text-transform": "none",
+        "visibility": "visible"
+      },
+      "paint": {
+        "text-color": "#334",
+        "text-halo-blur": 1,
+        "text-halo-color": "rgba(255,255,255,0.8)",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "country_1",
+      "type": "symbol",
+      "source": "openmaptiles",
+      "source-layer": "place",
+      "filter": ["all", ["==", "rank", 1], ["==", "class", "country"]],
+      "layout": {
+        "text-field": "{name_en}",
+        "text-font": ["Roboto Condensed Italic"],
+        "text-max-width": 6.25,
+        "text-size": {"stops": [[1, 11], [4, 17]]},
+        "text-transform": "none",
+        "visibility": "visible"
+      },
+      "paint": {
+        "text-color": "#334",
+        "text-halo-blur": 1,
+        "text-halo-color": "rgba(255,255,255,0.8)",
+        "text-halo-width": 1
+      }
+    }
+  ],
+  "id": "osm-liberty"
+}

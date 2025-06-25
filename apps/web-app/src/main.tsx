@@ -15,6 +15,7 @@ import Contact from "./routes/Contact";
 import Policies from "./routes/Policies";
 import MyTravels from "./routes/dashboard/MyTravels";
 import { Toaster } from "./components/ui/toaster";
+import MapView from "./routes/dashboard/MapView";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
       { path: "account", Component: ManageAccount },
       { path: "account/profile", Component: MyProfile },
       { path: "trips", Component: MyTravels },
+      { path: "map-view", Component: MapView },
     ],
   },
 ]);
