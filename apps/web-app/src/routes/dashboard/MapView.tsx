@@ -1,8 +1,8 @@
 import { Map, Source, Layer, type MapRef } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import { Button, Card, Flex, NativeSelect, Field } from "@chakra-ui/react";
-import mapStyle from "../../../public/mapStyle2.json";
+import mapStyle from "../../../public/mapStyle.json";
 import { CaretLeft } from "phosphor-react";
 import ProgressBar from "@/components/dashboard/progress/ProgressBar";
 
@@ -26,11 +26,11 @@ const boundsByContinent = {
     [25, -10],
     [180, 80],
   ],
-  NorthAmerica: [
+  "North America": [
     [-170, 5],
     [-50, 83],
   ],
-  SouthAmerica: [
+  "South America": [
     [-82, -56],
     [-34, 13],
   ],
@@ -56,6 +56,7 @@ export type Travel = {
     id: number;
     name: string;
     iso_2: string;
+    continents: string[];
   };
   cities: City[];
 };
@@ -97,13 +98,13 @@ export default function MapView() {
 
   return (
     <div>
-      <StatsDraw flyToBounds={flyToBounds} />
+      <StatsDrawer flyToBounds={flyToBounds} fetchedTravels={fetchedTravels} />
 
       <Map
         ref={mapRef}
         mapLib={import("maplibre-gl")}
         initialViewState={{ longitude: 0, latitude: 20, zoom: 1 }}
-        style={{ width: "100vw", height: "80vh" }}
+        style={{ width: "100vw", height: "calc(100vh - 72px)" }}
         mapStyle={mapStyle}
         maxZoom={5}
         minZoom={1}
@@ -131,12 +132,24 @@ export default function MapView() {
   );
 }
 
-type StatsDrawProps = {
+type StatsDrawerProps = {
   flyToBounds: (bounds: any) => void;
+  fetchedTravels: Travel[];
 };
 
-function StatsDraw({ flyToBounds }: StatsDrawProps) {
-  const [drawOpen, setDrawOpen] = useState(false);
+function StatsDrawer({ flyToBounds, fetchedTravels }: StatsDrawerProps) {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const dropdownRef = useRef<HTMLSelectElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+
+  // focus menu when open
+  useEffect(() => {
+    if (drawerOpen) {
+      dropdownRef.current?.focus();
+    } else {
+      toggleRef.current?.focus();
+    }
+  }, [drawerOpen]);
 
   return (
     <div
@@ -145,20 +158,30 @@ function StatsDraw({ flyToBounds }: StatsDrawProps) {
         zIndex: "100",
         width: "350px",
         margin: "20px",
-        left: drawOpen ? "0" : "-320px",
+        left: drawerOpen ? "0" : "-320px",
         transition: "left 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
       }}
     >
       <Flex>
-        <div css={{ flexGrow: "1" }}>
-          <DropdownCard flyToBounds={flyToBounds} />
-          <ProgressCard />
-        </div>
+        <aside
+          aria-hidden={!drawerOpen}
+          aria-label="Travel statistics"
+          inert={!drawerOpen ? true : undefined}
+          css={{ flexGrow: "1" }}
+        >
+          <DropdownCard flyToBounds={flyToBounds} dropdownRef={dropdownRef} />
+          <ProgressCard fetchedTravels={fetchedTravels} />
+        </aside>
         <Button
+          ref={toggleRef}
           size="sm"
-          variant="subtle"
-          aria-label="toggle menu"
-          onClick={() => setDrawOpen(prev => !prev)}
+          colorPalette="gray"
+          variant="surface"
+          rounded="xl"
+          aria-label={drawerOpen ? "Close stats menu" : "Open stats menu"}
+          aria-expanded={drawerOpen}
+          aria-controls="stats-drawer"
+          onClick={() => setDrawerOpen(prev => !prev)}
           css={{
             display: "flex",
             flexDirection: "column",
@@ -170,7 +193,7 @@ function StatsDraw({ flyToBounds }: StatsDrawProps) {
           <CaretLeft
             size={32}
             css={{
-              transform: drawOpen ? "rotate(0deg)" : "rotate(180deg)",
+              transform: drawerOpen ? "rotate(0deg)" : "rotate(180deg)",
               transition: "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           />
@@ -183,16 +206,18 @@ function StatsDraw({ flyToBounds }: StatsDrawProps) {
 
 type DropdownCardProps = {
   flyToBounds: (bounds: any) => void;
+  dropdownRef: RefObject<HTMLSelectElement | null>;
 };
 
-function DropdownCard({ flyToBounds }: DropdownCardProps) {
+function DropdownCard({ flyToBounds, dropdownRef }: DropdownCardProps) {
   return (
-    <Card.Root width="full" size="sm" colorPalette="gray">
+    <Card.Root width="full" size="sm" colorPalette="gray" rounded="xl">
       <Card.Body gap="4">
         <Field.Root>
           <Field.Label fontSize="xs">Map Area</Field.Label>
           <NativeSelect.Root size="sm" width="full" variant="outline">
             <NativeSelect.Field
+              ref={dropdownRef}
               onChange={e => flyToBounds(boundsByContinent[e.target.value as Continent])}
             >
               {Object.keys(boundsByContinent).map(cont => (
@@ -222,19 +247,45 @@ function DropdownCard({ flyToBounds }: DropdownCardProps) {
   );
 }
 
-function ProgressCard() {
+type ProgressCardType = {
+  fetchedTravels: Travel[];
+};
+
+function ProgressCard({ fetchedTravels }: ProgressCardType) {
+  const today = new Date();
+  const prevTravels = new Set(
+    fetchedTravels.filter(travel => new Date(travel.dateTravel) <= today),
+  );
+  const prevTravelsArr = Array.from(prevTravels);
+
+  const europeCount = prevTravelsArr.filter(travel => travel.country.continents.includes("Europe"));
+  const northAmericaCount = prevTravelsArr.filter(travel =>
+    travel.country.continents.includes("North America"),
+  );
+  const southAmericaCount = prevTravelsArr.filter(travel =>
+    travel.country.continents.includes("South America"),
+  );
+  const asiaCount = prevTravelsArr.filter(travel => travel.country.continents.includes("Asia"));
+  const oceaniaCount = prevTravelsArr.filter(travel =>
+    travel.country.continents.includes("Oceania"),
+  );
+  const africaCount = prevTravelsArr.filter(travel => travel.country.continents.includes("Africa"));
+  const antarctica = prevTravelsArr.filter(travel =>
+    travel.country.continents.includes("Antarctica"),
+  );
+
   return (
-    <Card.Root width="full" size="sm" colorPalette="gray" mt="4">
+    <Card.Root width="full" size="sm" colorPalette="gray" mt="4" rounded="xl">
       <Card.Body gap="2">
         <Flex direction="column" gap="3" justifyItems="center">
-          <ProgressBar label="Total Countries" val={38} maxVal={195} />
-          <ProgressBar label="Europe" val={20} maxVal={46} />
-          <ProgressBar label="North America" val={1} maxVal={23} />
-          <ProgressBar label="South America" val={9} maxVal={12} />
-          <ProgressBar label="Asia" val={5} maxVal={48} />
-          <ProgressBar label="Oceania" val={2} maxVal={14} />
-          <ProgressBar label="Africa" val={1} maxVal={54} />
-          <ProgressBar label="Antarctica" val={0} maxVal={1} />
+          <ProgressBar label="Total Countries" val={prevTravels.size} maxVal={195} size="sm" />
+          <ProgressBar label="Europe" val={europeCount.length} maxVal={46} size="sm" />
+          <ProgressBar label="North America" val={northAmericaCount.length} maxVal={23} size="sm" />
+          <ProgressBar label="South America" val={southAmericaCount.length} maxVal={12} size="sm" />
+          <ProgressBar label="Asia" val={asiaCount.length} maxVal={48} size="sm" />
+          <ProgressBar label="Oceania" val={oceaniaCount.length} maxVal={14} size="sm" />
+          <ProgressBar label="Africa" val={africaCount.length} maxVal={54} size="sm" />
+          <ProgressBar label="Antarctica" val={antarctica.length} maxVal={1} size="sm" />
         </Flex>
       </Card.Body>
     </Card.Root>

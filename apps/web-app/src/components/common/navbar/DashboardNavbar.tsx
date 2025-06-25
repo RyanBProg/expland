@@ -1,5 +1,5 @@
 import { Flex, ButtonGroup, Button, Menu, Portal } from "@chakra-ui/react";
-import { AirplaneInFlight, Compass, House, User } from "phosphor-react";
+import { AirplaneInFlight, Compass, GlobeHemisphereWest, House, User } from "phosphor-react";
 import { Link } from "react-router";
 
 export default function DashboardNavbar() {
@@ -17,9 +17,17 @@ export default function DashboardNavbar() {
           </li>
           <li>
             <Button asChild rounded="2xl">
-              <Link to="/dashboard/trips" aria-label="My Trips">
+              <Link to="/dashboard/trips" aria-label="My Travels">
                 <AirplaneInFlight aria-hidden="true" />
-                Trips
+                Travels
+              </Link>
+            </Button>
+          </li>
+          <li>
+            <Button asChild rounded="2xl">
+              <Link to="/dashboard/map-view" aria-label="Map View">
+                <GlobeHemisphereWest aria-hidden="true" />
+                Map View
               </Link>
             </Button>
           </li>

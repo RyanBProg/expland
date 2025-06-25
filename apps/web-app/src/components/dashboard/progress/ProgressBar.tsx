@@ -9,10 +9,10 @@ type Props = {
 
 export default function ProgressBar({ label, val, maxVal, size = "md" }: Props) {
   return (
-    <Progress.Root defaultValue={val} min={0} max={maxVal} maxWidth="full" size={size}>
+    <Progress.Root value={val} min={0} max={maxVal} maxWidth="full" size={size}>
       <HStack mb="2" alignItems="baseline" justifyContent="space-between">
-        <Progress.Label fontSize="1rem">{label}</Progress.Label>
-        <Text>
+        <Progress.Label fontSize={size}>{label}</Progress.Label>
+        <Text fontSize={size === "xs" || size === "sm" ? "xs" : "sm"}>
           {val} of {maxVal}
         </Text>
       </HStack>
