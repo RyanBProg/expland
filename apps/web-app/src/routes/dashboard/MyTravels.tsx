@@ -40,28 +40,28 @@ export default function MyTravels() {
   const [selectedYear, setSelectedYear] = useState<string | undefined>(undefined);
   const [selectedSort, setSelectedSort] = useState<string>("newest");
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
   const today = new Date();
 
+  const fetchTravels = async () => {
+    try {
+      const res = await fetch(
+        `http://localhost:3000/api/account/profile/travels/?page=${currentPage}&sort=${selectedSort}&year=${selectedYear}`,
+        {
+          method: "GET",
+          credentials: "include",
+        },
+      );
+      const { data, pagination } = await res.json();
+
+      setFetchedTravels(data);
+      setTotalItems(pagination.totalItems);
+    } catch (error) {
+      console.error("Error fetching travels: ", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchTravels = async () => {
-      try {
-        const res = await fetch(
-          `http://localhost:3000/api/account/profile/travels/?page=${currentPage}&sort=${selectedSort}&year=${selectedYear}`,
-          {
-            method: "GET",
-            credentials: "include",
-          },
-        );
-        const { data, pagination } = await res.json();
-
-        setFetchedTravels(data);
-        setTotalPages(pagination.totalPages);
-      } catch (error) {
-        console.error("Error fetching travels: ", error);
-      }
-    };
-
     fetchTravels();
   }, [currentPage, selectedYear, selectedSort]);
 
@@ -79,67 +79,71 @@ export default function MyTravels() {
         selectedSort={selectedSort}
         setSelectedSort={setSelectedSort}
       />
-      <Box>
-        {fetchedTravels.map(travel => (
-          <Card.Root
-            key={travel.id}
-            size="sm"
-            mt="1"
-            rounded="2xl"
-            variant={new Date(travel.dateTravel) > today ? "outline" : "subtle"}
-          >
-            <Card.Header>
-              <Flex justifyContent="space-between">
-                <Box>
-                  <Flex gap="2" alignItems="center">
-                    <ReactCountryFlag
-                      countryCode={travel.country.iso_2}
-                      svg
-                      style={{
-                        width: "16px",
-                        height: "16px",
-                      }}
-                      aria-label={travel.country.name}
-                    />
-                    <Card.Title>{travel.country.name}</Card.Title>
+      {fetchedTravels.length > 0 && (
+        <>
+          <Box>
+            {fetchedTravels.map(travel => (
+              <Card.Root
+                key={travel.id}
+                size="sm"
+                mt="1"
+                rounded="2xl"
+                variant={new Date(travel.dateTravel) > today ? "outline" : "subtle"}
+              >
+                <Card.Header>
+                  <Flex justifyContent="space-between">
+                    <Box>
+                      <Flex gap="2" alignItems="center">
+                        <ReactCountryFlag
+                          countryCode={travel.country.iso_2}
+                          svg
+                          style={{
+                            width: "16px",
+                            height: "16px",
+                          }}
+                          aria-label={travel.country.name}
+                        />
+                        <Card.Title>{travel.country.name}</Card.Title>
+                      </Flex>
+                      <Card.Description>
+                        {travel.dateTravel.substring(8, 10)}/{travel.dateTravel.substring(5, 7)}/
+                        {travel.dateTravel.substring(0, 4)} - {travel.duration} Days
+                      </Card.Description>
+                    </Box>
+                    <EditTravelDialog travelId={travel.id} onSuccess={fetchTravels} />
                   </Flex>
-                  <Card.Description>
-                    {travel.dateTravel.substring(8, 10)}/{travel.dateTravel.substring(5, 7)}/
-                    {travel.dateTravel.substring(0, 4)} - {travel.duration} Days
-                  </Card.Description>
-                </Box>
-                <EditTravelDialog travelId={travel.id} />
-              </Flex>
-            </Card.Header>
-            <Card.Body textStyle="md" lineHeight="tall">
-              {travel.cities.length > 0 && (
-                <Flex direction="column">
-                  <Text fontSize="sm" color="fg.muted">
-                    Cities
-                  </Text>
-                  <Stack
-                    gap="4"
-                    direction="row"
-                    separator={<Separator orientation="vertical" height="26px" />}
-                  >
-                    {travel.cities.map(city => (
-                      <>
-                        <Text>{city.name}</Text>
-                      </>
-                    ))}
-                  </Stack>
-                </Flex>
-              )}
-            </Card.Body>
-          </Card.Root>
-        ))}
-      </Box>
+                </Card.Header>
+                <Card.Body textStyle="md" lineHeight="tall">
+                  {travel.cities.length > 0 && (
+                    <Flex direction="column">
+                      <Text fontSize="sm" color="fg.muted">
+                        Cities
+                      </Text>
+                      <Stack
+                        gap="4"
+                        direction="row"
+                        separator={<Separator orientation="vertical" height="26px" />}
+                      >
+                        {travel.cities.map(city => (
+                          <>
+                            <Text>{city.name}</Text>
+                          </>
+                        ))}
+                      </Stack>
+                    </Flex>
+                  )}
+                </Card.Body>
+              </Card.Root>
+            ))}
+          </Box>
 
-      <PaginationComp
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        pageCount={totalPages}
-      />
+          <PaginationComp
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalItems={totalItems}
+          />
+        </>
+      )}
     </Box>
   );
 }
@@ -191,13 +195,14 @@ function FilterBar({
 type PaginationProps = {
   currentPage: number;
   setCurrentPage: Dispatch<SetStateAction<number>>;
-  pageCount: number;
+  totalItems: number;
 };
 
-function PaginationComp({ currentPage, setCurrentPage, pageCount }: PaginationProps) {
+function PaginationComp({ currentPage, setCurrentPage, totalItems }: PaginationProps) {
   return (
     <Pagination.Root
-      count={pageCount}
+      count={totalItems}
+      pageSize={10}
       page={currentPage}
       onPageChange={e => setCurrentPage(e.page)}
       width="fit-content"
