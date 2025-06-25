@@ -277,7 +277,7 @@ function ProgressCard({ fetchedTravels }: ProgressCardType) {
     <Card.Root width="full" size="sm" colorPalette="gray" mt="4" rounded="xl">
       <Card.Body gap="2">
         <Flex direction="column" gap="3" justifyItems="center">
-          <ProgressBar label="Total Countries" val={prevTravels.size} maxVal={195} size="sm" />
+          <ProgressBar label="Total Countries" val={prevTravelsArr.length} maxVal={195} size="sm" />
           <ProgressBar label="Europe" val={europeCount.length} maxVal={46} size="sm" />
           <ProgressBar label="North America" val={northAmericaCount.length} maxVal={23} size="sm" />
           <ProgressBar label="South America" val={southAmericaCount.length} maxVal={12} size="sm" />
