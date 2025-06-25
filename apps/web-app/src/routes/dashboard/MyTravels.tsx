@@ -71,7 +71,7 @@ export default function MyTravels() {
         <Heading as="h1" textAlign="center" my="10" size="4xl">
           My Travels
         </Heading>
-        <CreateTravelDialog />
+        <CreateTravelDialog onSuccess={fetchTravels} />
       </Flex>
       <FilterBar
         selectedYear={selectedYear}

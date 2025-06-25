@@ -51,7 +51,13 @@ const emptyForm = {
   duration: "5",
 };
 
-export default function EditTravelDialog({ travelId }: { travelId: number }) {
+export default function EditTravelDialog({
+  travelId,
+  onSuccess,
+}: {
+  travelId: number;
+  onSuccess: () => Promise<void>;
+}) {
   const [formData, setFormData] = useState<FormData>(emptyForm);
   const [open, setOpen] = useState(false);
   const [fetchedCountries, setFetchedCountries] = useState<Country[]>([]);
@@ -69,8 +75,6 @@ export default function EditTravelDialog({ travelId }: { travelId: number }) {
         });
 
         const { data } = await res.json();
-
-        console.log(data);
 
         setFormData({
           country: { id: data.country.id, name: data.country.name },
@@ -243,6 +247,7 @@ export default function EditTravelDialog({ travelId }: { travelId: number }) {
 
       setFormData(emptyForm);
       setOpen(false);
+      onSuccess();
       toaster.create({
         title: "Travel Added",
         description: "Travel created successfully",

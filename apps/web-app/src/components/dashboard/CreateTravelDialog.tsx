@@ -52,7 +52,7 @@ const emptyForm = {
   duration: "5",
 };
 
-export default function CreateTravelDialog() {
+export default function CreateTravelDialog({ onSuccess }: { onSuccess: () => Promise<void> }) {
   const [formData, setFormData] = useState<FormData>(emptyForm);
   const [open, setOpen] = useState(false);
   const [fetchedCountries, setFetchedCountries] = useState<Country[]>([]);
@@ -210,6 +210,7 @@ export default function CreateTravelDialog() {
 
       setFormData(emptyForm);
       setOpen(false);
+      onSuccess();
       toaster.create({
         title: "Travel Added",
         description: "Travel created successfully",
