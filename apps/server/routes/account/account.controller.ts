@@ -253,6 +253,41 @@ async function getAllTravels(req: TUserTokenRequest, res: Response) {
   }
 }
 
+async function getAllTravelsPreview(req: TUserTokenRequest, res: Response) {
+  try {
+    const userId = req.user?.userId;
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
+
+    const travels = await prisma.travel.findMany({
+      where: { userId },
+      select: {
+        id: true,
+        dateTravel: true,
+        country: {
+          select: {
+            id: true,
+            iso_2: true,
+            name: true,
+            continents: true,
+            independent: true,
+          },
+        },
+        createdAt: true,
+      },
+      orderBy: {
+        dateTravel: "asc",
+      },
+    });
+
+    res.status(200).json({ data: travels });
+  } catch (error) {
+    handleControllerError(error, res, "getAllTravels");
+  }
+}
+
 async function getTravel(req: TUserTokenRequest, res: Response) {
   try {
     const userId = req.user?.userId;
@@ -527,6 +562,7 @@ export default {
   updateProfile,
   updateProfilePicture,
   getAllTravels,
+  getAllTravelsPreview,
   getTravel,
   addTravel,
   editTravel,

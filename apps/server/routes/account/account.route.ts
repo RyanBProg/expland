@@ -37,6 +37,9 @@ router.put("/profile/profile-picture", authenticateTokens, accountControllers.up
 // List/search all users travels (paginated)
 router.get("/profile/travels", authenticateTokens, accountControllers.getAllTravels);
 
+// Lists all users travels (un-paginated)
+router.get("/profile/travels-preview", authenticateTokens, accountControllers.getAllTravelsPreview);
+
 // Get a specific travel
 router.get("/profile/travels/:travelId", authenticateTokens, accountControllers.getTravel);
 

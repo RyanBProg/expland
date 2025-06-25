@@ -67,7 +67,7 @@ export default function MapView() {
 
   const fetchTravels = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/api/account/profile/travels`, {
+      const res = await fetch(`http://localhost:3000/api/account/profile/travels-preview`, {
         method: "GET",
         credentials: "include",
       });
