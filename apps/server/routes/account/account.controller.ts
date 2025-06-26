@@ -3,6 +3,7 @@ import { TUserTokenRequest, WhereClause } from "../../utils/types/types";
 import prisma from "../../database/prismaClient";
 import { handleControllerError } from "../../utils/handleControllerError";
 import { addTravelSchema, userProfileSchema } from "../../utils/zod/accountSchema";
+import { travelFullSelect, travelPreviewSelect } from "./account.helpers";
 
 async function getAccount(req: TUserTokenRequest, res: Response) {
   try {
@@ -163,7 +164,6 @@ async function getAllTravels(req: TUserTokenRequest, res: Response) {
 
     // Get query parameters with defaults
     const page = parseInt(req.query.page as string) || 1;
-    const sort = (req.query.sort as string) === "oldest" ? "asc" : "desc";
     const year = parseInt(req.query.year as string);
 
     // Validate page number
@@ -193,40 +193,9 @@ async function getAllTravels(req: TUserTokenRequest, res: Response) {
     // Get paginated results
     const travels = await prisma.travel.findMany({
       where: whereClause,
-      select: {
-        id: true,
-        description: true,
-        dateTravel: true,
-        duration: true,
-        country: {
-          select: {
-            id: true,
-            iso_2: true,
-            name: true,
-            continents: true,
-            independent: true,
-            latitude: true,
-            longitude: true,
-          },
-        },
-        cities: {
-          select: {
-            city: {
-              select: {
-                id: true,
-                name: true,
-                countryId: true,
-                country_iso_2: true,
-                latitude: true,
-                longitude: true,
-              },
-            },
-          },
-        },
-        createdAt: true,
-      },
+      select: travelFullSelect,
       orderBy: {
-        dateTravel: sort,
+        dateTravel: "desc",
       },
       skip: (page - 1) * limit,
       take: limit,
@@ -263,22 +232,9 @@ async function getAllTravelsPreview(req: TUserTokenRequest, res: Response) {
 
     const travels = await prisma.travel.findMany({
       where: { userId },
-      select: {
-        id: true,
-        dateTravel: true,
-        country: {
-          select: {
-            id: true,
-            iso_2: true,
-            name: true,
-            continents: true,
-            independent: true,
-          },
-        },
-        createdAt: true,
-      },
+      select: travelPreviewSelect,
       orderBy: {
-        dateTravel: "asc",
+        dateTravel: "desc",
       },
     });
 
@@ -307,41 +263,7 @@ async function getTravel(req: TUserTokenRequest, res: Response) {
         id: travelId,
         userId,
       },
-      select: {
-        id: true,
-        description: true,
-        dateTravel: true,
-        duration: true,
-        country: {
-          select: {
-            id: true,
-            iso_2: true,
-            name: true,
-            continents: true,
-            independent: true,
-            latitude: true,
-            longitude: true,
-          },
-        },
-        cities: {
-          select: {
-            city: {
-              select: {
-                id: true,
-                name: true,
-                countryId: true,
-                country_iso_2: true,
-                latitude: true,
-                longitude: true,
-                state: true,
-                county: true,
-              },
-            },
-          },
-        },
-        createdAt: true,
-        updatedAt: true,
-      },
+      select: travelFullSelect,
     });
 
     if (!travel) {
