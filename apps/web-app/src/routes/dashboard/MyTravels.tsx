@@ -1,6 +1,5 @@
-import CreateTravelDialog from "@/components/dashboard/CreateTravelDialog";
-import EditTravelDialog from "@/components/dashboard/EditTravelDialog";
 import {
+  Badge,
   Box,
   ButtonGroup,
   Card,
@@ -9,36 +8,17 @@ import {
   IconButton,
   NativeSelect,
   Pagination,
-  Separator,
-  Stack,
   Text,
 } from "@chakra-ui/react";
-import { CaretLeft, CaretRight } from "phosphor-react";
+import { ArrowDown, ArrowUp, CaretLeft, CaretRight } from "phosphor-react";
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import ReactCountryFlag from "react-country-flag";
-
-type City = {
-  id: number;
-  name: string;
-};
-
-export type Travel = {
-  id: number;
-  description: string;
-  dateTravel: string;
-  duration: number;
-  country: {
-    id: number;
-    name: string;
-    iso_2: string;
-  };
-  cities: City[];
-};
+import type { TravelFull, TravelsListResponse } from "@/utils/types";
+import TravelDialog from "@/components/dashboard/TravelDialog";
 
 export default function MyTravels() {
-  const [fetchedTravels, setFetchedTravels] = useState<Travel[]>([]);
+  const [fetchedTravels, setFetchedTravels] = useState<TravelFull[]>([]);
   const [selectedYear, setSelectedYear] = useState<string | undefined>(undefined);
-  const [selectedSort, setSelectedSort] = useState<string>("newest");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const today = new Date();
@@ -46,13 +26,13 @@ export default function MyTravels() {
   const fetchTravels = async () => {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/account/profile/travels/?page=${currentPage}&sort=${selectedSort}&year=${selectedYear}`,
+        `http://localhost:3000/api/account/profile/travels/?page=${currentPage}&year=${selectedYear}`,
         {
           method: "GET",
           credentials: "include",
         },
       );
-      const { data, pagination } = await res.json();
+      const { data, pagination } = (await res.json()) as TravelsListResponse;
 
       setFetchedTravels(data);
       setTotalItems(pagination.totalItems);
@@ -63,7 +43,10 @@ export default function MyTravels() {
 
   useEffect(() => {
     fetchTravels();
-  }, [currentPage, selectedYear, selectedSort]);
+  }, [currentPage, selectedYear]);
+
+  const futureTravel = fetchedTravels.filter(travel => new Date(travel.dateTravel) > today);
+  const previousTravel = fetchedTravels.filter(travel => new Date(travel.dateTravel) <= today);
 
   return (
     <Box p="4" maxWidth="4xl" mx="auto">
@@ -71,71 +54,49 @@ export default function MyTravels() {
         <Heading as="h1" textAlign="center" my="10" size="4xl">
           My Travels
         </Heading>
-        <CreateTravelDialog onSuccess={fetchTravels} />
+        <TravelDialog onSuccess={fetchTravels} mode="create" />
       </Flex>
-      <FilterBar
-        selectedYear={selectedYear}
-        setSelectedYear={setSelectedYear}
-        selectedSort={selectedSort}
-        setSelectedSort={setSelectedSort}
-      />
+      <FilterBar selectedYear={selectedYear} setSelectedYear={setSelectedYear} />
       {fetchedTravels.length > 0 && (
         <>
-          <Box>
-            {fetchedTravels.map(travel => (
-              <Card.Root
-                key={travel.id}
-                size="sm"
-                mt="1"
-                rounded="2xl"
-                variant={new Date(travel.dateTravel) > today ? "outline" : "subtle"}
-              >
-                <Card.Header>
-                  <Flex justifyContent="space-between">
-                    <Box>
-                      <Flex gap="2" alignItems="center">
-                        <ReactCountryFlag
-                          countryCode={travel.country.iso_2}
-                          svg
-                          style={{
-                            width: "16px",
-                            height: "16px",
-                          }}
-                          aria-label={travel.country.name}
-                        />
-                        <Card.Title>{travel.country.name}</Card.Title>
-                      </Flex>
-                      <Card.Description>
-                        {travel.dateTravel.substring(8, 10)}/{travel.dateTravel.substring(5, 7)}/
-                        {travel.dateTravel.substring(0, 4)} - {travel.duration} Days
-                      </Card.Description>
-                    </Box>
-                    <EditTravelDialog travelId={travel.id} onSuccess={fetchTravels} />
-                  </Flex>
-                </Card.Header>
-                <Card.Body textStyle="md" lineHeight="tall">
-                  {travel.cities.length > 0 && (
-                    <Flex direction="column">
-                      <Text fontSize="sm" color="fg.muted">
-                        Cities
-                      </Text>
-                      <Stack
-                        gap="4"
-                        direction="row"
-                        separator={<Separator orientation="vertical" height="26px" />}
-                      >
-                        {travel.cities.map(city => (
-                          <>
-                            <Text>{city.name}</Text>
-                          </>
-                        ))}
-                      </Stack>
-                    </Flex>
-                  )}
-                </Card.Body>
-              </Card.Root>
-            ))}
-          </Box>
+          <Flex direction="column" gap="1">
+            {futureTravel.length > 0 &&
+              futureTravel.map(travel => (
+                <TravelCard
+                  key={travel.id}
+                  travel={travel}
+                  fetchTravels={fetchTravels}
+                  variant="outline"
+                />
+              ))}
+
+            {futureTravel.length > 0 && previousTravel.length > 0 && (
+              <Flex my="6" justifyContent="space-around">
+                <Flex justifyContent="end" alignItems="center" gap="2">
+                  <Text color="fg.muted" fontSize="sm">
+                    Future Travels
+                  </Text>
+                  <ArrowUp size={12} />
+                </Flex>
+                <Flex justifyContent="start" alignItems="center" gap="2">
+                  <ArrowDown size={12} />
+                  <Text color="fg.muted" fontSize="sm">
+                    Past Travels
+                  </Text>
+                </Flex>
+              </Flex>
+            )}
+
+            {previousTravel.length > 0 &&
+              previousTravel.map(travel => (
+                <TravelCard
+                  key={travel.id}
+                  travel={travel}
+                  fetchTravels={fetchTravels}
+                  variant="subtle"
+                />
+              ))}
+          </Flex>
 
           <PaginationComp
             currentPage={currentPage}
@@ -151,18 +112,11 @@ export default function MyTravels() {
 type FilterbarProps = {
   selectedYear: string | undefined;
   setSelectedYear: Dispatch<SetStateAction<string | undefined>>;
-  selectedSort: string;
-  setSelectedSort: Dispatch<SetStateAction<string>>;
 };
 
-function FilterBar({
-  selectedYear,
-  setSelectedYear,
-  selectedSort,
-  setSelectedSort,
-}: FilterbarProps) {
+function FilterBar({ selectedYear, setSelectedYear }: FilterbarProps) {
   return (
-    <Flex justify="space-between" mb="5" gap="4">
+    <div css={{ marginBottom: "20px" }}>
       <NativeSelect.Root width="150px">
         <NativeSelect.Field
           placeholder="Filter by Year"
@@ -177,18 +131,7 @@ function FilterBar({
         </NativeSelect.Field>
         <NativeSelect.Indicator />
       </NativeSelect.Root>
-
-      <NativeSelect.Root width="150px">
-        <NativeSelect.Field
-          value={selectedSort}
-          onChange={e => setSelectedSort(e.currentTarget.value)}
-        >
-          <option value="newest">Newest</option>
-          <option value="oldest">Oldest</option>
-        </NativeSelect.Field>
-        <NativeSelect.Indicator />
-      </NativeSelect.Root>
-    </Flex>
+    </div>
   );
 }
 
@@ -223,5 +166,59 @@ function PaginationComp({ currentPage, setCurrentPage, totalItems }: PaginationP
         </Pagination.NextTrigger>
       </ButtonGroup>
     </Pagination.Root>
+  );
+}
+
+type TravelCardProps = {
+  travel: TravelFull;
+  fetchTravels: () => Promise<void>;
+  variant: "outline" | "elevated" | "subtle";
+};
+
+function TravelCard({ travel, fetchTravels, variant }: TravelCardProps) {
+  return (
+    <Card.Root key={travel.id} size="sm" mt="1" rounded="2xl" variant={variant}>
+      <Card.Header>
+        <Flex justifyContent="space-between">
+          <Box>
+            <Flex gap="2" alignItems="center">
+              {travel.country && (
+                <ReactCountryFlag
+                  countryCode={travel.country.iso_2}
+                  svg
+                  style={{
+                    width: "16px",
+                    height: "16px",
+                  }}
+                  aria-label={travel.country.name}
+                />
+              )}
+              <Card.Title>{travel.country?.name || "Country Removed"}</Card.Title>
+            </Flex>
+            <Card.Description>
+              {travel.dateTravel.substring(8, 10)}/{travel.dateTravel.substring(5, 7)}/
+              {travel.dateTravel.substring(0, 4)} - {travel.duration} Days
+            </Card.Description>
+          </Box>
+          <TravelDialog onSuccess={fetchTravels} mode="edit" travelId={travel.id} />
+        </Flex>
+      </Card.Header>
+      <Card.Body textStyle="md" lineHeight="tall">
+        {travel.cities.length > 0 && (
+          <Flex direction="column">
+            <Text fontSize="sm" color="fg.muted">
+              Cities
+            </Text>
+            <Flex flexWrap="wrap" gap="2" direction="row" mt="1">
+              {travel.cities.map(city => (
+                <Badge key={city.id} variant="solid" colorPalette="cyan">
+                  {city.name}
+                </Badge>
+              ))}
+            </Flex>
+          </Flex>
+        )}
+      </Card.Body>
+    </Card.Root>
   );
 }
