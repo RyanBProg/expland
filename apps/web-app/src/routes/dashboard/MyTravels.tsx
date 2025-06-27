@@ -9,6 +9,7 @@ import {
   NativeSelect,
   Pagination,
   Text,
+  Spinner,
 } from "@chakra-ui/react";
 import { ArrowDown, ArrowUp, CaretLeft, CaretRight } from "phosphor-react";
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
@@ -21,10 +22,12 @@ export default function MyTravels() {
   const [selectedYear, setSelectedYear] = useState<string | undefined>(undefined);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const today = new Date();
 
   const fetchTravels = async () => {
     try {
+      setIsLoading(true);
       const res = await fetch(
         `http://localhost:3000/api/account/profile/travels/?page=${currentPage}&year=${selectedYear}`,
         {
@@ -38,6 +41,8 @@ export default function MyTravels() {
       setTotalItems(pagination.totalItems);
     } catch (error) {
       console.error("Error fetching travels: ", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -57,7 +62,19 @@ export default function MyTravels() {
         <TravelDialog onSuccess={fetchTravels} mode="create" />
       </Flex>
       <FilterBar selectedYear={selectedYear} setSelectedYear={setSelectedYear} />
-      {fetchedTravels.length > 0 && (
+      {isLoading && (
+        <div
+          css={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "100px",
+          }}
+        >
+          <Spinner size="xl" />
+        </div>
+      )}
+      {!isLoading && fetchedTravels.length > 0 ? (
         <>
           <Flex direction="column" gap="1">
             {futureTravel.length > 0 &&
@@ -104,6 +121,16 @@ export default function MyTravels() {
             totalItems={totalItems}
           />
         </>
+      ) : (
+        <Flex direction="column" alignItems="center" pt="20" md={{ pt: "28" }}>
+          <Text fontSize="3xl">No Travels Found</Text>
+          <Text color="fg.muted" mb="10" textAlign="center">
+            We couldn't find any travels.
+            <br /> Start adding your trips here.
+          </Text>
+          <ArrowDown css={{ marginBottom: "20px" }} />
+          <TravelDialog onSuccess={fetchTravels} mode="create" />
+        </Flex>
       )}
     </Box>
   );

@@ -27,6 +27,7 @@ import type {
   CountryPreview,
   TravelResponse,
 } from "@/utils/types";
+import { Tooltip } from "../ui/tooltip";
 
 type FormData = {
   country: CountryPreview | undefined;
@@ -66,8 +67,20 @@ export default function TravelDialog({ onSuccess, mode, travelId }: TravelDialog
     >
       <Dialog.Trigger asChild>
         {mode === "create" ? (
-          <Button rounded="2xl" size="md" variant="surface">
-            <PlusCircle />
+          <Button rounded="2xl" size="md" variant="surface" position="relative">
+            <Tooltip openDelay={300} content="Add a Travel">
+              <div
+                css={{
+                  position: "absolute",
+                  inset: "0",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <PlusCircle />
+              </div>
+            </Tooltip>
           </Button>
         ) : (
           <Button size="sm" variant="surface">
@@ -380,11 +393,16 @@ function TravelForm({ onSuccess, open, setOpen, mode, travelId }: TravelFormProp
                 value={formData.country?.name || ""}
                 onChange={e => handleCountryChange(e.currentTarget.value)}
               >
-                {fetchedCountries.map(country => (
-                  <option key={country.id} value={country.name}>
-                    {country.name}
-                  </option>
-                ))}
+                {fetchedCountries.map(country => {
+                  const name =
+                    country.name.length > 38 ? country.name.slice(0, 36) + "..." : country.name;
+
+                  return (
+                    <option key={country.id} value={country.name} title={country.name}>
+                      {name}
+                    </option>
+                  );
+                })}
               </NativeSelect.Field>
               <NativeSelect.Indicator />
             </NativeSelect.Root>
@@ -440,9 +458,18 @@ function TravelForm({ onSuccess, open, setOpen, mode, travelId }: TravelFormProp
                           variant="outline"
                           onClick={() => handleCityAdd(city.id)}
                         >
-                          {`${city.name}${
-                            city.county ? `, ${city.county}` : city.state ? `, ${city.state}` : ""
-                          }`}
+                          <Span
+                            style={{
+                              maxWidth: "220px",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            {`${city.name}${
+                              city.county ? `, ${city.county}` : city.state ? `, ${city.state}` : ""
+                            }`}
+                          </Span>
                           <PlusIcon css={{ marginLeft: "5px" }} />
                         </Button>
                       </li>
@@ -504,6 +531,8 @@ function TravelForm({ onSuccess, open, setOpen, mode, travelId }: TravelFormProp
             <Field.Label>Duration (days)</Field.Label>
             <NumberInput.Root
               value={formData.duration}
+              maxWidth="100px"
+              max={180}
               onValueChange={e => setFormData(prev => ({ ...prev, duration: e.value }))}
             >
               <NumberInput.Control />
