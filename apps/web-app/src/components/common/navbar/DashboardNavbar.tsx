@@ -1,43 +1,67 @@
-import { Flex, ButtonGroup, Button, Menu, Portal } from "@chakra-ui/react";
+import { Tooltip } from "@/components/ui/tooltip";
+import { Flex, ButtonGroup, Button, Menu, Portal, Span } from "@chakra-ui/react";
 import { AirplaneInFlight, Compass, GlobeHemisphereWest, House, User } from "phosphor-react";
 import { Link } from "react-router";
 
 export default function DashboardNavbar() {
   return (
     <header>
-      <Flex as="nav" aria-label="main navigation" justify="space-between" p="4" alignItems="center">
-        <ButtonGroup as="ul" variant="subtle">
+      <Flex
+        as="nav"
+        aria-label="main navigation"
+        justify="space-between"
+        p="2.5"
+        sm={{ padding: "4" }}
+        alignItems="center"
+      >
+        <ButtonGroup as="ul" variant="subtle" gap="2" sm={{ gap: "3" }}>
           <li>
-            <Button asChild rounded="2xl">
-              <Link to="/dashboard" aria-label="Dashboard Home">
-                <House aria-hidden="true" />
-                Dashboard
-              </Link>
-            </Button>
+            <Tooltip openDelay={300} content="Dashboard">
+              <Button asChild rounded="2xl">
+                <Link to="/dashboard" aria-label="Dashboard Home">
+                  <House aria-hidden="true" />
+                  <Span display="none" md={{ display: "inline" }}>
+                    Dashboard
+                  </Span>
+                </Link>
+              </Button>
+            </Tooltip>
           </li>
           <li>
-            <Button asChild rounded="2xl">
-              <Link to="/dashboard/trips" aria-label="My Travels">
-                <AirplaneInFlight aria-hidden="true" />
-                Travels
-              </Link>
-            </Button>
+            <Tooltip openDelay={300} content="My Travels">
+              <Button asChild rounded="2xl">
+                <Link to="/dashboard/trips" aria-label="My Travels">
+                  <AirplaneInFlight aria-hidden="true" />
+                  <Span display="none" md={{ display: "inline" }}>
+                    Travels
+                  </Span>
+                </Link>
+              </Button>
+            </Tooltip>
           </li>
           <li>
-            <Button asChild rounded="2xl">
-              <Link to="/dashboard/map-view" aria-label="Map View">
-                <GlobeHemisphereWest aria-hidden="true" />
-                Map View
-              </Link>
-            </Button>
+            <Tooltip openDelay={300} content="Map View">
+              <Button asChild rounded="2xl">
+                <Link to="/dashboard/map-view" aria-label="Map View">
+                  <GlobeHemisphereWest aria-hidden="true" />
+                  <Span display="none" md={{ display: "inline" }}>
+                    Map View
+                  </Span>
+                </Link>
+              </Button>
+            </Tooltip>
           </li>
           <li>
-            <Button asChild rounded="2xl">
-              <Link to="/dashboard" aria-label="Explore Destinations">
-                <Compass aria-hidden="true" />
-                Explore
-              </Link>
-            </Button>
+            <Tooltip openDelay={300} content="Explore Destinations">
+              <Button asChild rounded="2xl">
+                <Link to="/dashboard" aria-label="Explore Destinations">
+                  <Compass aria-hidden="true" />
+                  <Span display="none" md={{ display: "inline" }}>
+                    Explore
+                  </Span>
+                </Link>
+              </Button>
+            </Tooltip>
           </li>
         </ButtonGroup>
 
