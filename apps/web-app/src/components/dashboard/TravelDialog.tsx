@@ -19,7 +19,7 @@ import {
 import { Pencil, PlusCircle, XCircle } from "phosphor-react";
 import { useEffect, useState, type Dispatch, type FormEvent, type SetStateAction } from "react";
 import { toaster } from "../ui/toaster";
-import { PlusIcon } from "lucide-react";
+import { Plus } from "phosphor-react";
 import type {
   CitiesPreviewAllResponse,
   CityPreview,
@@ -470,7 +470,7 @@ function TravelForm({ onSuccess, open, setOpen, mode, travelId }: TravelFormProp
                               city.county ? `, ${city.county}` : city.state ? `, ${city.state}` : ""
                             }`}
                           </Span>
-                          <PlusIcon css={{ marginLeft: "5px" }} />
+                          <Plus css={{ marginLeft: "5px" }} />
                         </Button>
                       </li>
                     ))}
