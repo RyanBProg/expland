@@ -1,13 +1,10 @@
 import {
   Button,
-  CloseButton,
-  Dialog,
   Field,
   Fieldset,
   Flex,
   Input,
   NumberInput,
-  Portal,
   NativeSelect,
   Textarea,
   ButtonGroup,
@@ -16,9 +13,9 @@ import {
   Text,
   Span,
 } from "@chakra-ui/react";
-import { Pencil, PlusCircle, XCircle } from "phosphor-react";
+import { XCircle } from "phosphor-react";
 import { useEffect, useState, type Dispatch, type FormEvent, type SetStateAction } from "react";
-import { toaster } from "../ui/toaster";
+import { toaster } from "../../ui/toaster";
 import { Plus } from "phosphor-react";
 import type {
   CitiesPreviewAllResponse,
@@ -27,7 +24,6 @@ import type {
   CountryPreview,
   TravelResponse,
 } from "@/utils/types";
-import { Tooltip } from "../ui/tooltip";
 
 type FormData = {
   country: CountryPreview | undefined;
@@ -47,74 +43,6 @@ const emptyForm = {
   duration: "5",
 };
 
-type TravelDialogProps = {
-  onSuccess: () => Promise<void>;
-  mode: "edit" | "create";
-  travelId?: number;
-};
-
-export default function TravelDialog({ onSuccess, mode, travelId }: TravelDialogProps) {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <Dialog.Root
-      lazyMount
-      size="full"
-      placement="center"
-      motionPreset="slide-in-bottom"
-      open={open}
-      onOpenChange={e => setOpen(e.open)}
-    >
-      <Dialog.Trigger asChild>
-        {mode === "create" ? (
-          <Button rounded="2xl" size="md" variant="surface" position="relative">
-            <Tooltip openDelay={300} content="Add a Travel">
-              <div
-                css={{
-                  position: "absolute",
-                  inset: "0",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <PlusCircle />
-              </div>
-            </Tooltip>
-          </Button>
-        ) : (
-          <Button size="sm" variant="surface">
-            Edit Travel
-            <Pencil />
-          </Button>
-        )}
-      </Dialog.Trigger>
-      <Portal>
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Header>
-              <Dialog.Title textTransform="capitalize">{mode} a Travel</Dialog.Title>
-              <Dialog.CloseTrigger asChild>
-                <CloseButton size="sm" />
-              </Dialog.CloseTrigger>
-            </Dialog.Header>
-            <Dialog.Body>
-              <TravelForm
-                onSuccess={onSuccess}
-                open={open}
-                setOpen={setOpen}
-                mode={mode}
-                travelId={travelId}
-              />
-            </Dialog.Body>
-          </Dialog.Content>
-        </Dialog.Positioner>
-      </Portal>
-    </Dialog.Root>
-  );
-}
-
 type TravelFormProps = {
   onSuccess: () => Promise<void>;
   open: boolean;
@@ -123,7 +51,7 @@ type TravelFormProps = {
   travelId?: number;
 };
 
-function TravelForm({ onSuccess, open, setOpen, mode, travelId }: TravelFormProps) {
+export default function TravelForm({ onSuccess, open, setOpen, mode, travelId }: TravelFormProps) {
   const [formData, setFormData] = useState<FormData>(emptyForm);
   const [fetchedCountries, setFetchedCountries] = useState<CountryPreview[]>([]);
   const [fetchedCities, setFetchedCities] = useState<CityPreview[]>([]);

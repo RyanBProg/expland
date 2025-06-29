@@ -1,21 +1,11 @@
-import {
-  Badge,
-  Box,
-  ButtonGroup,
-  Card,
-  Flex,
-  Heading,
-  IconButton,
-  NativeSelect,
-  Pagination,
-  Text,
-  Spinner,
-} from "@chakra-ui/react";
-import { ArrowDown, ArrowUp, CaretLeft, CaretRight } from "phosphor-react";
-import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
-import ReactCountryFlag from "react-country-flag";
+import { Box, Flex, Heading, Text, Spinner } from "@chakra-ui/react";
+import { ArrowDown, ArrowUp } from "phosphor-react";
+import { useEffect, useState } from "react";
 import type { TravelFull, TravelsListResponse } from "@/utils/types";
-import TravelDialog from "@/components/dashboard/TravelDialog";
+import TravelDialog from "@/components/dashboard/my-travels/TravelDialog";
+import PaginationSection from "@/components/common/PaginationSection";
+import FilterbarSection from "@/components/dashboard/my-travels/FilterbarSection";
+import TravelCard from "@/components/dashboard/my-travels/TravelCard";
 
 export default function MyTravels() {
   const [fetchedTravels, setFetchedTravels] = useState<TravelFull[]>([]);
@@ -61,7 +51,7 @@ export default function MyTravels() {
         </Heading>
         <TravelDialog onSuccess={fetchTravels} mode="create" />
       </Flex>
-      <FilterBar selectedYear={selectedYear} setSelectedYear={setSelectedYear} />
+      <FilterbarSection selectedYear={selectedYear} setSelectedYear={setSelectedYear} />
       {isLoading && (
         <div
           css={{
@@ -115,7 +105,7 @@ export default function MyTravels() {
               ))}
           </Flex>
 
-          <PaginationComp
+          <PaginationSection
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             totalItems={totalItems}
@@ -133,119 +123,5 @@ export default function MyTravels() {
         </Flex>
       )}
     </Box>
-  );
-}
-
-type FilterbarProps = {
-  selectedYear: string | undefined;
-  setSelectedYear: Dispatch<SetStateAction<string | undefined>>;
-};
-
-function FilterBar({ selectedYear, setSelectedYear }: FilterbarProps) {
-  return (
-    <div css={{ marginBottom: "20px" }}>
-      <NativeSelect.Root width="150px">
-        <NativeSelect.Field
-          placeholder="Filter by Year"
-          value={selectedYear}
-          onChange={e => setSelectedYear(e.currentTarget.value)}
-        >
-          <option value="2021">2021</option>
-          <option value="2022">2022</option>
-          <option value="2023">2023</option>
-          <option value="2024">2024</option>
-          <option value="2025">2025</option>
-        </NativeSelect.Field>
-        <NativeSelect.Indicator />
-      </NativeSelect.Root>
-    </div>
-  );
-}
-
-type PaginationProps = {
-  currentPage: number;
-  setCurrentPage: Dispatch<SetStateAction<number>>;
-  totalItems: number;
-};
-
-function PaginationComp({ currentPage, setCurrentPage, totalItems }: PaginationProps) {
-  return (
-    <Pagination.Root
-      count={totalItems}
-      pageSize={10}
-      page={currentPage}
-      onPageChange={e => setCurrentPage(e.page)}
-      width="fit-content"
-      mx="auto"
-      mt="10"
-    >
-      <ButtonGroup gap="4" size="sm" variant="ghost">
-        <Pagination.PrevTrigger asChild>
-          <IconButton>
-            <CaretLeft size={32} />
-          </IconButton>
-        </Pagination.PrevTrigger>
-        <Pagination.PageText />
-        <Pagination.NextTrigger asChild>
-          <IconButton>
-            <CaretRight size={32} />
-          </IconButton>
-        </Pagination.NextTrigger>
-      </ButtonGroup>
-    </Pagination.Root>
-  );
-}
-
-type TravelCardProps = {
-  travel: TravelFull;
-  fetchTravels: () => Promise<void>;
-  variant: "outline" | "elevated" | "subtle";
-};
-
-function TravelCard({ travel, fetchTravels, variant }: TravelCardProps) {
-  return (
-    <Card.Root key={travel.id} size="sm" mt="1" rounded="2xl" variant={variant}>
-      <Card.Header>
-        <Flex justifyContent="space-between">
-          <Box>
-            <Flex gap="2" alignItems="center">
-              {travel.country && (
-                <ReactCountryFlag
-                  countryCode={travel.country.iso_2}
-                  svg
-                  style={{
-                    width: "16px",
-                    height: "16px",
-                  }}
-                  aria-label={travel.country.name}
-                />
-              )}
-              <Card.Title>{travel.country?.name || "Country Removed"}</Card.Title>
-            </Flex>
-            <Card.Description>
-              {travel.dateTravel.substring(8, 10)}/{travel.dateTravel.substring(5, 7)}/
-              {travel.dateTravel.substring(0, 4)} - {travel.duration} Days
-            </Card.Description>
-          </Box>
-          <TravelDialog onSuccess={fetchTravels} mode="edit" travelId={travel.id} />
-        </Flex>
-      </Card.Header>
-      <Card.Body textStyle="md" lineHeight="tall">
-        {travel.cities.length > 0 && (
-          <Flex direction="column">
-            <Text fontSize="sm" color="fg.muted">
-              Cities
-            </Text>
-            <Flex flexWrap="wrap" gap="2" direction="row" mt="1">
-              {travel.cities.map(city => (
-                <Badge key={city.id} variant="solid" colorPalette="cyan">
-                  {city.name}
-                </Badge>
-              ))}
-            </Flex>
-          </Flex>
-        )}
-      </Card.Body>
-    </Card.Root>
   );
 }

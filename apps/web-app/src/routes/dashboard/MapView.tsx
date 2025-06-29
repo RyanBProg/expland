@@ -2,7 +2,7 @@ import { Map, Source, Layer, type MapRef } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { Button, Card, Flex, NativeSelect, Field, Spinner } from "@chakra-ui/react";
-import mapStyle from "../../../public/mapStyle.json";
+import mapStyle from "../../../src/data/mapStyle.json";
 import { CaretLeft } from "phosphor-react";
 import ProgressBar from "@/components/dashboard/progress/ProgressBar";
 import type { TravelPreview, TravelsPreviewResponse } from "@/utils/types";
