@@ -240,7 +240,7 @@ async function getAllTravelsPreview(req: TUserTokenRequest, res: Response) {
 
     res.status(200).json({ data: travels });
   } catch (error) {
-    handleControllerError(error, res, "getAllTravels");
+    handleControllerError(error, res, "getAllTravelsPreview");
   }
 }
 
@@ -253,7 +253,7 @@ async function getTravel(req: TUserTokenRequest, res: Response) {
     }
 
     const travelId = parseInt(req.params.travelId);
-    if (isNaN(travelId)) {
+    if (!travelId || isNaN(travelId)) {
       res.status(400).json({ message: "Invalid Travel ID" });
       return;
     }
@@ -336,7 +336,7 @@ async function addTravel(req: TUserTokenRequest, res: Response) {
       return newTravel;
     });
 
-    res.status(200).json({ message: "Travel added successfully", data: travel });
+    res.status(201).json({ message: "Travel added successfully", data: travel });
   } catch (error) {
     handleControllerError(error, res, "addTravel");
   }

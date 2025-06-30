@@ -134,3 +134,13 @@ export type CityPreview = {
 export type CitiesPreviewAllResponse = {
   data: CityPreview[];
 };
+
+// create/update travel req payload
+
+export type SubmitTravelPayload = {
+  countryId: number;
+  cityIds: number[];
+  description: string;
+  dateTravel: string;
+  duration: number;
+};

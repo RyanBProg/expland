@@ -51,7 +51,7 @@ export default function DashboardNavbar() {
               </Button>
             </Tooltip>
           </li>
-          <li>
+          {/* <li>
             <Tooltip openDelay={300} content="Explore Destinations">
               <Button asChild rounded="2xl">
                 <Link to="/dashboard" aria-label="Explore Destinations">
@@ -62,7 +62,7 @@ export default function DashboardNavbar() {
                 </Link>
               </Button>
             </Tooltip>
-          </li>
+          </li> */}
         </ButtonGroup>
 
         <Menu.Root>

@@ -1,11 +1,14 @@
-import type { TravelFull } from "@/utils/types";
+import type { TravelFull, TravelsListResponse } from "@/utils/types";
 import { Badge, Box, Card, Flex, Text } from "@chakra-ui/react";
 import ReactCountryFlag from "react-country-flag";
 import TravelDialog from "./TravelDialog";
+import type { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 
 type TravelCardProps = {
   travel: TravelFull;
-  fetchTravels: () => Promise<void>;
+  fetchTravels: (
+    options?: RefetchOptions,
+  ) => Promise<QueryObserverResult<TravelsListResponse, Error>>;
   variant: "outline" | "elevated" | "subtle";
 };
 
@@ -34,7 +37,7 @@ export default function TravelCard({ travel, fetchTravels, variant }: TravelCard
               {travel.dateTravel.substring(0, 4)} - {travel.duration} Days
             </Card.Description>
           </Box>
-          <TravelDialog onSuccess={fetchTravels} mode="edit" travelId={travel.id} />
+          <TravelDialog fetchTravels={fetchTravels} mode="edit" travelId={travel.id} />
         </Flex>
       </Card.Header>
       <Card.Body textStyle="md" lineHeight="tall">

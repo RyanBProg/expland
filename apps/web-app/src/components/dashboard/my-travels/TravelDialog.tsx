@@ -3,15 +3,47 @@ import { Pencil, PlusCircle } from "phosphor-react";
 import { useState } from "react";
 import { Tooltip } from "../../ui/tooltip";
 import TravelForm from "./TravelForm";
+import type { TravelsListResponse } from "@/utils/types";
+import type { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 
 type TravelDialogProps = {
-  onSuccess: () => Promise<void>;
+  fetchTravels: (
+    options?: RefetchOptions,
+  ) => Promise<QueryObserverResult<TravelsListResponse, Error>>;
   mode: "edit" | "create";
   travelId?: number;
 };
 
-export default function TravelDialog({ onSuccess, mode, travelId }: TravelDialogProps) {
+export default function TravelDialog({ fetchTravels, mode, travelId }: TravelDialogProps) {
   const [open, setOpen] = useState(false);
+
+  let buttonMode = null;
+  if (mode === "create") {
+    buttonMode = (
+      <Button rounded="2xl" size="md" variant="surface" position="relative">
+        <Tooltip openDelay={300} content="Add a Travel">
+          <div
+            css={{
+              position: "absolute",
+              inset: "0",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <PlusCircle />
+          </div>
+        </Tooltip>
+      </Button>
+    );
+  } else {
+    buttonMode = (
+      <Button size="sm" variant="surface">
+        Edit Travel
+        <Pencil />
+      </Button>
+    );
+  }
 
   return (
     <Dialog.Root
@@ -22,30 +54,7 @@ export default function TravelDialog({ onSuccess, mode, travelId }: TravelDialog
       open={open}
       onOpenChange={e => setOpen(e.open)}
     >
-      <Dialog.Trigger asChild>
-        {mode === "create" ? (
-          <Button rounded="2xl" size="md" variant="surface" position="relative">
-            <Tooltip openDelay={300} content="Add a Travel">
-              <div
-                css={{
-                  position: "absolute",
-                  inset: "0",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <PlusCircle />
-              </div>
-            </Tooltip>
-          </Button>
-        ) : (
-          <Button size="sm" variant="surface">
-            Edit Travel
-            <Pencil />
-          </Button>
-        )}
-      </Dialog.Trigger>
+      <Dialog.Trigger asChild>{buttonMode}</Dialog.Trigger>
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
@@ -58,7 +67,7 @@ export default function TravelDialog({ onSuccess, mode, travelId }: TravelDialog
             </Dialog.Header>
             <Dialog.Body>
               <TravelForm
-                onSuccess={onSuccess}
+                fetchTravels={fetchTravels}
                 open={open}
                 setOpen={setOpen}
                 mode={mode}

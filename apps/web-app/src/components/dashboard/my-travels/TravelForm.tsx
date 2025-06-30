@@ -12,18 +12,20 @@ import {
   Grid,
   Text,
   Span,
+  Spinner,
 } from "@chakra-ui/react";
-import { XCircle } from "phosphor-react";
+import { XCircle, Plus } from "phosphor-react";
 import { useEffect, useState, type Dispatch, type FormEvent, type SetStateAction } from "react";
 import { toaster } from "../../ui/toaster";
-import { Plus } from "phosphor-react";
-import type {
-  CitiesPreviewAllResponse,
-  CityPreview,
-  CountriesPreviewAllResponse,
-  CountryPreview,
-  TravelResponse,
-} from "@/utils/types";
+import type { CityPreview, CountryPreview, TravelsListResponse } from "@/utils/types";
+import type { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
+import { useGetCitiesPreview, useGetCountriesPreview } from "@/hooks/useCountries";
+import {
+  useGetTravel,
+  useCreateTravel,
+  useUpdateTravel,
+  useDeleteTravel,
+} from "@/hooks/useTravels";
 
 type FormData = {
   country: CountryPreview | undefined;
@@ -33,9 +35,7 @@ type FormData = {
   duration: string;
 };
 
-type CityFetchStatus = "NOT FOUND" | "RESULTS FOUND" | "TYPING" | "EMPTY" | "FETCHING";
-
-const emptyForm = {
+const emptyForm: FormData = {
   country: undefined,
   cities: [],
   description: "",
@@ -44,131 +44,116 @@ const emptyForm = {
 };
 
 type TravelFormProps = {
-  onSuccess: () => Promise<void>;
+  fetchTravels: (
+    options?: RefetchOptions,
+  ) => Promise<QueryObserverResult<TravelsListResponse, Error>>;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   mode: "edit" | "create";
   travelId?: number;
 };
 
-export default function TravelForm({ onSuccess, open, setOpen, mode, travelId }: TravelFormProps) {
+export default function TravelForm({
+  fetchTravels,
+  open,
+  setOpen,
+  mode,
+  travelId,
+}: TravelFormProps) {
   const [formData, setFormData] = useState<FormData>(emptyForm);
-  const [fetchedCountries, setFetchedCountries] = useState<CountryPreview[]>([]);
-  const [fetchedCities, setFetchedCities] = useState<CityPreview[]>([]);
   const [citySearch, setCitySearch] = useState("");
-  const [cityFetchStatus, setCityFetchStatus] = useState<CityFetchStatus>("EMPTY");
+  const [debouncedCitySearch, setDebouncedCitySearch] = useState(citySearch);
+  const [cityFetchStatus, setCityFetchStatus] = useState<
+    "NOT FOUND" | "RESULTS FOUND" | "TYPING" | "EMPTY" | "FETCHING" | "ERROR"
+  >("EMPTY");
 
-  // fill in form with current travel data
+  // Fetch countries
+  const {
+    data: countries = [],
+    isPending: countriesPending,
+    error: countriesError,
+  } = useGetCountriesPreview();
+
+  // Fetch cities for selected country and search
+  const {
+    data: cities = [],
+    isPending: citiesPending,
+    error: citiesError,
+  } = useGetCitiesPreview(formData.country?.id, debouncedCitySearch, {
+    enabled: !!formData.country?.id && debouncedCitySearch.length >= 2,
+  });
+
+  // Fetch travel for edit mode
+  const {
+    data: travel,
+    isPending: travelPending,
+    error: travelError,
+  } = useGetTravel(travelId as number, { enabled: open && mode === "edit" && !!travelId });
+
+  // Mutations
+  const createTravelMutation = useCreateTravel();
+  const updateTravelMutation = useUpdateTravel();
+  const deleteTravelMutation = useDeleteTravel();
+  const isMutating =
+    createTravelMutation.isPending ||
+    updateTravelMutation.isPending ||
+    deleteTravelMutation.isPending;
+
+  // Fill in form with current travel data
   useEffect(() => {
-    const fetchTravel = async () => {
-      try {
-        const res = await fetch(`http://localhost:3000/api/account/profile/travels/${travelId}`, {
-          method: "GET",
-          credentials: "include",
-        });
-
-        const { data } = (await res.json()) as TravelResponse;
-
-        setFormData({
-          country: data.country
-            ? { id: data.country.id, name: data.country.name, iso_2: data.country.iso_2 }
-            : undefined,
-          cities: data.cities.map((city: any) => ({
-            id: city.id,
-            name: city.name,
-            countryId: city.countryId,
-            state: city.state ?? undefined,
-            county: city.county ?? undefined,
-          })),
-          description: data.description || "",
-          startDate: data.dateTravel.slice(0, 10) || "",
-          duration: data.duration ? data.duration.toString() : "0",
-        });
-      } catch (error) {
-        console.error("Error fetching countries:", error);
-      }
-    };
-
-    if (open && mode === "edit" && travelId) {
-      fetchTravel();
+    if (open && mode === "edit" && travel) {
+      setFormData({
+        country: travel.country
+          ? { id: travel.country.id, name: travel.country.name, iso_2: travel.country.iso_2 }
+          : undefined,
+        cities: travel.cities.map((city: any) => ({
+          id: city.id,
+          name: city.name,
+          countryId: city.countryId,
+          state: city.state ?? undefined,
+          county: city.county ?? undefined,
+        })),
+        description: travel.description || "",
+        startDate: travel.dateTravel.slice(0, 10) || "",
+        duration: travel.duration ? travel.duration.toString() : "0",
+      });
     }
-  }, [open, mode, travelId]);
-
-  // fetch countries on mount
-  useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        const res = await fetch(`http://localhost:3000/api/countries/?detail=summary&limit=all`, {
-          method: "GET",
-          credentials: "include",
-        });
-        const { data } = (await res.json()) as CountriesPreviewAllResponse;
-        const countries = data.sort((a, b) => a.name.localeCompare(b.name));
-        setFetchedCountries(countries);
-      } catch (error) {
-        console.error("Error fetching countries:", error);
-      }
-    };
-
-    fetchCountries();
-  }, []);
-
-  // fetch new cities when typing in search
-  useEffect(() => {
-    if (!formData.country) return;
-    if (citySearch.length < 2 && citySearch.length > 0) {
-      setCityFetchStatus("TYPING");
-      return;
-    } else if (citySearch.length === 0) {
-      setCityFetchStatus("EMPTY");
-      return;
-    }
-
-    setCityFetchStatus("FETCHING");
-
-    const fetchCities = async () => {
-      try {
-        const res = await fetch(
-          `http://localhost:3000/api/countries/cities/?countryId=${
-            formData.country!.id
-          }&detail=summary&limit=all&search=${citySearch}`,
-          {
-            method: "GET",
-            credentials: "include",
-          },
-        );
-        const { data } = (await res.json()) as CitiesPreviewAllResponse;
-        const cities = data.sort((a, b) => a.name.localeCompare(b.name));
-
-        if (cities.length === 0) {
-          setCityFetchStatus("NOT FOUND");
-        } else {
-          setCityFetchStatus("RESULTS FOUND");
-        }
-
-        setFetchedCities(cities);
-      } catch (error) {
-        console.error("Error fetching cities:", error);
-        setCityFetchStatus("NOT FOUND");
-      }
-    };
-
-    const timeout = setTimeout(() => {
-      fetchCities();
-    }, 1000);
-
-    return () => clearTimeout(timeout);
-  }, [citySearch, formData.country]);
-
-  // clear form on close
-  useEffect(() => {
     if (!open) {
       setFormData(emptyForm);
     }
-  }, [open]);
+  }, [open, mode, travel]);
 
+  // City search status
+  useEffect(() => {
+    if (!formData.country || citySearch.length === 0) {
+      setCityFetchStatus("EMPTY");
+      return;
+    } else if (citiesError) {
+      setCityFetchStatus("ERROR");
+    } else if (citySearch.length < 2) {
+      setCityFetchStatus("TYPING");
+      return;
+    } else if (citySearch.length >= 2 && citiesPending) {
+      setCityFetchStatus("FETCHING");
+    } else if (formData.country && citySearch.length >= 2 && cities.length === 0) {
+      setCityFetchStatus("NOT FOUND");
+    } else {
+      setCityFetchStatus("RESULTS FOUND");
+    }
+  }, [citySearch, formData.country, cities, citiesPending, citiesError]);
+
+  // Debounce the city search
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setDebouncedCitySearch(citySearch);
+    }, 300); // 0.3 second debounce
+
+    return () => clearTimeout(timeout);
+  }, [citySearch]);
+
+  // Handlers
   const handleCountryChange = (countryName: string) => {
-    const selectedCountry = fetchedCountries.find(c => c.name === countryName);
+    const selectedCountry = countries.find(c => c.name === countryName);
     setFormData(prev => ({
       ...prev,
       country: selectedCountry || undefined,
@@ -179,18 +164,14 @@ export default function TravelForm({ onSuccess, open, setOpen, mode, travelId }:
 
   const handleCityInput = (inputVal: string) => {
     setCitySearch(inputVal);
-    if (inputVal.length < 2) {
-      setFetchedCities([]);
-    }
   };
 
   const handleClearCityInput = () => {
     setCitySearch("");
-    setFetchedCities([]);
   };
 
   const handleCityAdd = (cityId: number) => {
-    const cityToAdd = fetchedCities?.find(c => c.id === cityId);
+    const cityToAdd = cities?.find(c => c.id === cityId);
     if (cityToAdd && !formData.cities.some(c => c.id === cityId)) {
       setFormData(prev => ({
         ...prev,
@@ -207,39 +188,33 @@ export default function TravelForm({ onSuccess, open, setOpen, mode, travelId }:
   };
 
   const handleDeleteTravel = async () => {
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/account/profile/travels/${travelId}`,
-        {
-          method: "DELETE",
-          credentials: "include",
-        },
-      );
-
-      if (!res.ok) {
-        throw Error("Error deleting travel, please try again.");
-      }
-
-      setFormData(emptyForm);
-      setOpen(false);
-      onSuccess();
-      toaster.create({
-        title: "Travel Deleted",
-        description: "Travel deleted successfully",
-        type: "success",
-      });
-    } catch (error) {
-      console.error("Error deleting travel: ", error);
-      toaster.create({
-        title: "Travel Error",
-        description: "Error deleting travel, please try again.",
-        type: "error",
-      });
-    }
+    if (!travelId) return;
+    deleteTravelMutation.mutate(travelId, {
+      onSuccess: () => {
+        setFormData(emptyForm);
+        setOpen(false);
+        fetchTravels();
+        toaster.create({
+          title: "Travel Deleted",
+          description: "Travel deleted successfully",
+          type: "success",
+        });
+      },
+      onError: () => {
+        toaster.create({
+          title: "Travel Error",
+          description: "Error deleting travel, please try again.",
+          type: "error",
+        });
+      },
+    });
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (isMutating) {
+      return;
+    }
     if (!formData.country) {
       toaster.create({
         title: "No Country Selected",
@@ -250,7 +225,6 @@ export default function TravelForm({ onSuccess, open, setOpen, mode, travelId }:
     }
 
     const payload = {
-      userId: "c177a183-77a8-48eb-b6bc-6b27ce13ebea",
       countryId: formData.country.id,
       cityIds: formData.cities.map(city => city.id),
       description: formData.description,
@@ -258,82 +232,113 @@ export default function TravelForm({ onSuccess, open, setOpen, mode, travelId }:
       duration: parseInt(formData.duration),
     };
 
-    try {
-      // set url and method based on dialog mode
-      let url = "";
-      let method = "";
-      if (mode === "edit") {
-        url = `${import.meta.env.VITE_BACKEND_URL}/api/account/profile/travels/${travelId}`;
-        method = "PUT";
-      } else {
-        url = `${import.meta.env.VITE_BACKEND_URL}/api/account/profile/travels`;
-        method = "POST";
-      }
-      const res = await fetch(url, {
-        method,
-        headers: {
-          "Content-Type": "application/json",
+    if (mode === "edit" && travelId) {
+      updateTravelMutation.mutate(
+        { travelId, payload },
+        {
+          onSuccess: () => {
+            setFormData(emptyForm);
+            setOpen(false);
+            fetchTravels();
+            toaster.create({
+              title: "Travel Updated",
+              description: "Travel updated successfully",
+              type: "success",
+            });
+          },
+          onError: () => {
+            toaster.create({
+              title: "Travel Error",
+              description: "Error updating travel, please try again.",
+              type: "error",
+            });
+          },
         },
-        credentials: "include",
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-      if (!res.ok) {
-        throw Error(data.message || "Unkown error");
-      }
-
-      setFormData(emptyForm);
-      setOpen(false);
-      onSuccess();
-      if (mode === "create") {
-        toaster.create({
-          title: "Travel Added",
-          description: "Travel created successfully",
-          type: "success",
-        });
-      } else {
-        toaster.create({
-          title: "Travel Updated",
-          description: "Travel updated successfully",
-          type: "success",
-        });
-      }
-    } catch (error) {
-      console.error("Error submitting travel: ", error);
-      toaster.create({
-        title: "Travel Error",
-        description: "Error submitting travel, please try again.",
-        type: "error",
+      );
+    } else {
+      createTravelMutation.mutate(payload, {
+        onSuccess: () => {
+          setFormData(emptyForm);
+          setOpen(false);
+          fetchTravels();
+          toaster.create({
+            title: "Travel Added",
+            description: "Travel created successfully",
+            type: "success",
+          });
+        },
+        onError: () => {
+          toaster.create({
+            title: "Travel Error",
+            description: "Error creating travel, please try again.",
+            type: "error",
+          });
+        },
       });
     }
   };
 
+  if (mode === "edit" && travelError) {
+    return (
+      <Flex justifyContent="center" mt="10">
+        <Text color="red.500" fontSize="xl">
+          Error loading travel: {(travelError as Error).message}
+        </Text>
+      </Flex>
+    );
+  }
+
+  if (mode === "edit" && travelPending) {
+    return (
+      <Flex justifyContent="center" alignItems="center" gap="5" mt="20">
+        <Spinner size="lg" />
+        <Text fontSize="lg">Loading Travel...</Text>
+      </Flex>
+    );
+  }
+
+  if (countriesError) {
+    return (
+      <Flex justifyContent="center" mt="20">
+        <Text color="red.500" fontSize="xl">
+          Error loading Countries: {(countriesError as Error).message}
+        </Text>
+      </Flex>
+    );
+  }
+
   return (
     <form onSubmit={handleSubmit}>
-      <Fieldset.Root size="lg" width="full" maxWidth="2xl" mx="auto">
+      <Fieldset.Root disabled={isMutating} size="lg" width="full" maxWidth="2xl" mx="auto">
         <Fieldset.Content>
           <Field.Root>
             <Field.Label>Country</Field.Label>
-            <NativeSelect.Root>
-              <NativeSelect.Field
-                placeholder="Select country"
-                value={formData.country?.name || ""}
-                onChange={e => handleCountryChange(e.currentTarget.value)}
-              >
-                {fetchedCountries.map(country => {
-                  const name =
-                    country.name.length > 38 ? country.name.slice(0, 36) + "..." : country.name;
+            {countriesPending ? (
+              <Flex align="center" gap="2" mt="2">
+                <Spinner size="sm" />
+                <Text>Loading cities...</Text>
+              </Flex>
+            ) : (
+              <NativeSelect.Root>
+                <NativeSelect.Field
+                  placeholder="Select country"
+                  value={formData.country?.name || ""}
+                  onChange={e => handleCountryChange(e.currentTarget.value)}
+                >
+                  {countries.map(country => {
+                    const name =
+                      country.name.length > 38 ? country.name.slice(0, 36) + "..." : country.name;
 
-                  return (
-                    <option key={country.id} value={country.name} title={country.name}>
-                      {name}
-                    </option>
-                  );
-                })}
-              </NativeSelect.Field>
-              <NativeSelect.Indicator />
-            </NativeSelect.Root>
+                    return (
+                      <option key={country.id} value={country.name} title={country.name}>
+                        {name}
+                      </option>
+                    );
+                  })}
+                </NativeSelect.Field>
+                <NativeSelect.Indicator />
+              </NativeSelect.Root>
+            )}
           </Field.Root>
 
           {formData.country && (
@@ -364,12 +369,22 @@ export default function TravelForm({ onSuccess, open, setOpen, mode, travelId }:
                 )}
               </Field.Root>
 
+              {cityFetchStatus === "ERROR" && (
+                <Text color="red.500" fontSize="xl">
+                  Error loading cities, please try again
+                </Text>
+              )}
               {cityFetchStatus === "TYPING" && (
                 <Text>Type 2 or more letters to start searching</Text>
               )}
               {cityFetchStatus === "NOT FOUND" && <Text>No results found</Text>}
-              {cityFetchStatus === "FETCHING" && <Text>Loading...</Text>}
-              {fetchedCities && cityFetchStatus === "RESULTS FOUND" ? (
+              {cityFetchStatus === "FETCHING" && (
+                <Flex align="center" gap="2" mt="2">
+                  <Spinner size="sm" />
+                  <Text>Loading cities...</Text>
+                </Flex>
+              )}
+              {cities && cityFetchStatus === "RESULTS FOUND" && (
                 <Box maxHeight="40" overflowY="scroll">
                   <Grid
                     as="ul"
@@ -377,7 +392,7 @@ export default function TravelForm({ onSuccess, open, setOpen, mode, travelId }:
                     gap="1"
                     lg={{ gridTemplateColumns: "1fr 1fr" }}
                   >
-                    {fetchedCities.map(city => (
+                    {cities.map(city => (
                       <li key={city.id}>
                         <Button
                           type="button"
@@ -404,7 +419,7 @@ export default function TravelForm({ onSuccess, open, setOpen, mode, travelId }:
                     ))}
                   </Grid>
                 </Box>
-              ) : null}
+              )}
 
               {formData.cities.length > 0 ? (
                 <Flex as="ul" alignItems="center" gap="4" wrap="1" flexWrap="wrap">
