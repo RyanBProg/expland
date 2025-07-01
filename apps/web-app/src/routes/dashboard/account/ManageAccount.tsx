@@ -5,15 +5,65 @@ import {
   Flex,
   Grid,
   Heading,
-  Input,
   Stack,
   Text,
+  Spinner,
   Badge,
+  Separator,
 } from "@chakra-ui/react";
-import { Link } from "react-router";
-import { PencilSimple, User } from "phosphor-react";
+import { User } from "phosphor-react";
+import { useAccount } from "@/hooks/useAccount";
+import EditUsername from "@/components/ManageAccount/EditUsername";
+import EditName from "@/components/ManageAccount/EditName";
+import EditPassword from "@/components/ManageAccount/EditPassword";
+import { useLogout, useLogoutAll } from "@/hooks/useAuth";
+import { useNavigate } from "react-router";
 
 export default function ManageAccountPage() {
+  const { data: account, isLoading, error, refetch: refetchAccount } = useAccount();
+
+  // Mutations
+  const logoutMutation = useLogout();
+  const logoutAllMutation = useLogoutAll();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logoutMutation.mutateAsync();
+      navigate("/");
+    } catch (e) {
+      // Optionally show a toast or error
+    }
+  };
+
+  const handleLogoutAll = async () => {
+    try {
+      await logoutAllMutation.mutateAsync();
+      navigate("/");
+    } catch (e) {
+      // Optionally show a toast or error
+    }
+  };
+
+  if (isLoading)
+    return (
+      <Flex justify="center" align="center" minH="40vh">
+        <Spinner size="xl" />
+      </Flex>
+    );
+  if (error)
+    return (
+      <Flex justify="center" align="center" minH="40vh">
+        <Text color="red.500">Error loading account: {error.message}</Text>
+      </Flex>
+    );
+  if (!account)
+    return (
+      <Flex justify="center" align="center" minH="40vh">
+        <Text color="red.500">No account data found</Text>
+      </Flex>
+    );
+
   return (
     <Flex direction="column" maxW="3xl" mx="auto" p="8">
       <Stack gap="6">
@@ -31,86 +81,60 @@ export default function ManageAccountPage() {
         {/* Account Details Card */}
         <Card.Root rounded="2xl" p="6">
           <Stack gap="6">
-            {/* Username */}
-            <Box>
-              <Text mb="2" color="gray.500">
-                Username
-              </Text>
-              <Text fontSize="lg" fontWeight="medium">
-                @username
-              </Text>
-            </Box>
-
             {/* Email */}
             <Box>
               <Text mb="2" color="gray.500">
                 Email
               </Text>
               <Flex gap="3" alignItems="center">
-                <Text fontSize="lg">user@example.com</Text>
-                {/* Email verification badge */}
+                <Text fontSize={{ base: "md", md: "lg" }}>{account.email}</Text>
                 <Badge colorScheme="yellow" variant="subtle">
                   Unverified
                 </Badge>
               </Flex>
             </Box>
 
+            {/* Username */}
+            <EditUsername username={account.username} refetchAccount={refetchAccount} />
+
+            <Separator />
+
             {/* Name Fields */}
-            <Grid templateColumns="repeat(2, 1fr)" gap="6">
-              {/* Given Name */}
-              <Box>
-                <Text mb="2" color="gray.500">
-                  First Name
-                </Text>
-                <Flex gap="3" alignItems="center">
-                  <Text fontSize="lg">John</Text>
-                  <Button size="sm" variant="ghost" rounded="full" aria-label="Edit first name">
-                    <PencilSimple />
-                  </Button>
-                </Flex>
-              </Box>
+            <EditName title="Given Name" name={account.givenName} refetchAccount={refetchAccount} />
+            <EditName
+              title="Family Name"
+              name={account.familyName}
+              refetchAccount={refetchAccount}
+            />
 
-              {/* Family Name */}
-              <Box>
-                <Text mb="2" color="gray.500">
-                  Last Name
-                </Text>
-                <Flex gap="3" alignItems="center">
-                  <Text fontSize="lg">Doe</Text>
-                  <Button size="sm" variant="ghost" rounded="full" aria-label="Edit last name">
-                    <PencilSimple />
-                  </Button>
-                </Flex>
-              </Box>
-            </Grid>
+            <Separator />
 
-            {/* Actions */}
-            <Stack gap="4" pt="4">
-              <Button variant="surface" size="lg" rounded="xl">
-                Change Password
-              </Button>
+            <EditPassword refetchAccount={refetchAccount} />
 
-              <Button asChild variant="outline" size="lg" rounded="xl">
-                <Link to="/dashboard/account/profile">View Profile</Link>
-              </Button>
+            <Separator />
 
-              <Button colorScheme="red" variant="ghost" size="lg" rounded="xl">
-                Delete Account
-              </Button>
-            </Stack>
-          </Stack>
-        </Card.Root>
-
-        {/* Password Change Section (Initially Hidden) */}
-        <Card.Root rounded="2xl" p="6" display="none">
-          <Stack gap="4">
-            <Heading size="md">Change Password</Heading>
-            <Input type="password" placeholder="Current password" size="lg" rounded="xl" />
-            <Input type="password" placeholder="New password" size="lg" rounded="xl" />
-            <Input type="password" placeholder="Confirm new password" size="lg" rounded="xl" />
-            <Button colorScheme="cyan" size="lg" rounded="xl">
-              Update Password
-            </Button>
+            <Flex direction="column" gap="5">
+              <Grid templateColumns="repeat(2, 1fr)" gap="3">
+                <Button
+                  variant="surface"
+                  size="lg"
+                  rounded="xl"
+                  disabled={logoutMutation.isPending}
+                  onClick={handleLogout}
+                >
+                  {logoutMutation.isPending ? <Spinner size="md" /> : "Logout"}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  rounded="xl"
+                  disabled={logoutAllMutation.isPending}
+                  onClick={handleLogoutAll}
+                >
+                  {logoutAllMutation.isPending ? <Spinner size="md" /> : "Logout All"}
+                </Button>
+              </Grid>
+            </Flex>
           </Stack>
         </Card.Root>
       </Stack>

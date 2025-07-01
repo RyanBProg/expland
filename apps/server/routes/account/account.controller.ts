@@ -4,6 +4,8 @@ import prisma from "../../database/prismaClient";
 import { handleControllerError } from "../../utils/handleControllerError";
 import { addTravelSchema, userProfileSchema } from "../../utils/zod/accountSchema";
 import { travelFullSelect, travelPreviewSelect } from "./account.helpers";
+import bcrypt from "bcryptjs";
+import { nameSchema, strongPasswordSchema, usernameSchema } from "../../utils/zod/authSchema";
 
 async function getAccount(req: TUserTokenRequest, res: Response) {
   try {
@@ -109,30 +111,58 @@ async function createProfile(req: TUserTokenRequest, res: Response) {
   }
 }
 
-async function updateEmail(req: Request, res: Response) {
+async function updatePassword(req: TUserTokenRequest, res: Response) {
   try {
-    // TODO
-    res.status(200).json({ message: "Not implemented yet" });
-  } catch (error) {
-    handleControllerError(error, res, "updateEmail");
-  }
-}
+    const userId = req.user?.userId;
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized", success: false });
+      return;
+    }
 
-async function updatePassword(req: Request, res: Response) {
-  try {
-    // TODO
-    res.status(200).json({ message: "Not implemented yet" });
+    const { currentPassword, newPassword } = req.body;
+    if (!currentPassword || !newPassword) {
+      res.status(400).json({ message: "Missing password fields", success: false });
+      return;
+    }
+
+    const user = await prisma.userAccount.findFirst({ where: { id: userId } });
+    if (!user || !user.passwordHash) {
+      res.status(404).json({ message: "User not found", success: false });
+      return;
+    }
+
+    const valid = await bcrypt.compare(currentPassword, user.passwordHash);
+    if (!valid) {
+      res.status(403).json({ message: "Current password incorrect", success: false });
+      return;
+    }
+
+    const parsedResult = strongPasswordSchema.safeParse(newPassword);
+    if (!parsedResult.success) {
+      if (parsedResult.error.errors[0]?.code === "invalid_type") {
+        res.status(422).json({
+          message: `${parsedResult.error.errors[0].path[0]} ${parsedResult.error.errors[0].message}`,
+        });
+        return;
+      } else {
+        res.status(422).json({
+          message: parsedResult.error.errors[0].message,
+        });
+        return;
+      }
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const newHash = await bcrypt.hash(parsedResult.data, salt);
+
+    await prisma.userAccount.update({
+      where: { id: userId },
+      data: { passwordHash: newHash },
+    });
+
+    res.status(200).json({ message: "Password updated", success: true });
   } catch (error) {
     handleControllerError(error, res, "updatePassword");
-  }
-}
-
-async function deleteAccount(req: Request, res: Response) {
-  try {
-    // TODO
-    res.status(200).json({ message: "Not implemented yet" });
-  } catch (error) {
-    handleControllerError(error, res, "deleteAccount");
   }
 }
 
@@ -142,6 +172,116 @@ async function updateProfile(req: Request, res: Response) {
     res.status(200).json({ message: "Not implemented yet" });
   } catch (error) {
     handleControllerError(error, res, "updateProfile");
+  }
+}
+
+async function updateUsername(req: TUserTokenRequest, res: Response) {
+  try {
+    const userId = req.user?.userId;
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized", success: false });
+      return;
+    }
+
+    const { username } = req.body;
+    if (!username) {
+      res.status(400).json({ message: "No username provided", success: false });
+      return;
+    }
+
+    const parsedResult = usernameSchema.safeParse(username);
+    if (!parsedResult.success) {
+      res.status(422).json({
+        message: parsedResult.error.errors[0].message,
+        success: false,
+      });
+      return;
+    }
+
+    const user = await prisma.userAccount.findUnique({
+      where: { username: parsedResult.data },
+      select: { id: true },
+    });
+    if (user) {
+      res.status(409).json({ success: false, message: "Username is taken" });
+    }
+
+    await prisma.userAccount.update({
+      where: { id: userId },
+      data: { username: parsedResult.data },
+    });
+
+    res.status(200).json({ message: "Username updated", success: true });
+  } catch (error) {
+    handleControllerError(error, res, "updateUsername");
+  }
+}
+
+async function updateGivenName(req: TUserTokenRequest, res: Response) {
+  try {
+    const userId = req.user?.userId;
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized", success: false });
+      return;
+    }
+
+    const { givenName } = req.body;
+    if (!givenName) {
+      res.status(400).json({ message: "No given name provided", success: false });
+      return;
+    }
+
+    const parsedResult = nameSchema.safeParse(givenName);
+    if (!parsedResult.success) {
+      res.status(422).json({
+        message: parsedResult.error.errors[0].message,
+        success: false,
+      });
+      return;
+    }
+
+    await prisma.userAccount.update({
+      where: { id: userId },
+      data: { givenName: parsedResult.data },
+    });
+
+    res.status(200).json({ message: "Given name updated", success: true });
+  } catch (error) {
+    handleControllerError(error, res, "updateGivenName");
+  }
+}
+
+async function updateFamilyName(req: TUserTokenRequest, res: Response) {
+  try {
+    const userId = req.user?.userId;
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized", success: false });
+      return;
+    }
+
+    const { familyName } = req.body;
+    if (!familyName) {
+      res.status(400).json({ message: "No family name provided", success: false });
+      return;
+    }
+
+    const parsedResult = nameSchema.safeParse(familyName);
+    if (!parsedResult.success) {
+      res.status(422).json({
+        message: parsedResult.error.errors[0].message,
+        success: false,
+      });
+      return;
+    }
+
+    await prisma.userAccount.update({
+      where: { id: userId },
+      data: { familyName: parsedResult.data },
+    });
+
+    res.status(200).json({ message: "Family name updated", success: true });
+  } catch (error) {
+    handleControllerError(error, res, "updateFamilyName");
   }
 }
 
@@ -478,9 +618,10 @@ export default {
   getAccount,
   getProfile,
   createProfile,
-  updateEmail,
   updatePassword,
-  deleteAccount,
+  updateUsername,
+  updateGivenName,
+  updateFamilyName,
   updateProfile,
   updateProfilePicture,
   getAllTravels,

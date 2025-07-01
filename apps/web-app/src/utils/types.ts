@@ -135,6 +135,14 @@ export type CitiesPreviewAllResponse = {
   data: CityPreview[];
 };
 
+// Account response types
+
+export type AccountResponse = {
+  data: { familyName: string; id: string; username: string; email: string; givenName: string };
+};
+
+export type AccountUpdateResponse = { message: string; success: boolean };
+
 // create/update travel req payload
 
 export type SubmitTravelPayload = {

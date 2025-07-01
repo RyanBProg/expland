@@ -9,14 +9,17 @@ const router = express.Router();
 // Get user account details
 router.get("/", authenticateTokens, accountControllers.getAccount);
 
-// Update user email
-router.put("/email", authenticateTokens, accountControllers.updateEmail);
-
 // Update user password
 router.put("/password", authenticateTokens, accountControllers.updatePassword);
 
-// Delete user account
-router.delete("/", authenticateTokens, accountControllers.deleteAccount);
+// Update username
+router.put("/username", authenticateTokens, accountControllers.updateUsername);
+
+// Update given name
+router.put("/given-name", authenticateTokens, accountControllers.updateGivenName);
+
+// Update family name
+router.put("/family-name", authenticateTokens, accountControllers.updateFamilyName);
 
 // - Profile Management -
 

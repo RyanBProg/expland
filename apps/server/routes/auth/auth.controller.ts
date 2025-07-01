@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import {
   cookieDefaults,
   generateAccessToken,
@@ -171,7 +171,7 @@ async function resetPassword(req: Request, res: Response) {
   }
 }
 
-const logoutOnAll = async (req: TUserTokenRequest, res: Response) => {
+async function logoutOnAll(req: TUserTokenRequest, res: Response) {
   try {
     const userId = req.user?.userId;
     if (!userId) {
@@ -194,7 +194,7 @@ const logoutOnAll = async (req: TUserTokenRequest, res: Response) => {
   } catch (error) {
     handleControllerError(error, res, "logoutOnAll");
   }
-};
+}
 
 async function checkUsername(req: Request, res: Response) {
   try {

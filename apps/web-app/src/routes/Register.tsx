@@ -75,12 +75,16 @@ export default function Register() {
       );
       const data = await response.json();
 
-      if (response.ok) {
+      if (!response.ok) {
+        throw Error;
+      }
+
+      if (data.available) {
         setUsernameAvailable(data.available);
-        setZodErrors(prev => ({
-          ...prev,
-          username: data.available ? undefined : "Username is taken",
-        }));
+        setZodErrors({});
+      } else {
+        setUsernameAvailable(data.available);
+        setZodErrors(prev => ({ ...prev, username: "Username is taken" }));
       }
     } catch (err) {
       setZodErrors(prev => ({ ...prev, username: "Error checking username" }));
