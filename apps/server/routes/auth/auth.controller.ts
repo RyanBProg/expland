@@ -139,7 +139,7 @@ async function login(req: Request, res: Response) {
   }
 }
 
-async function logout(_: Request, res: Response) {
+async function logout(req: TUserTokenRequest, res: Response) {
   try {
     // Clear cookies
     res.clearCookie("accessToken", cookieDefaults);
@@ -150,24 +150,6 @@ async function logout(_: Request, res: Response) {
     });
   } catch (error) {
     handleControllerError(error, res, "logout");
-  }
-}
-
-async function forgotPassword(req: Request, res: Response) {
-  try {
-    // TODO
-    res.status(200).json({ message: "Not implemented yet" });
-  } catch (error) {
-    handleControllerError(error, res, "forgotPassword");
-  }
-}
-
-async function resetPassword(req: Request, res: Response) {
-  try {
-    // TODO
-    res.status(200).json({ message: "Not implemented yet" });
-  } catch (error) {
-    handleControllerError(error, res, "resetPassword");
   }
 }
 
@@ -231,8 +213,6 @@ export default {
   register,
   login,
   logout,
-  forgotPassword,
-  resetPassword,
   logoutOnAll,
   checkUsername,
 };

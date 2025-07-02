@@ -17,6 +17,7 @@ import MyTravels from "./routes/dashboard/MyTravels";
 import { Toaster } from "./components/ui/toaster";
 import MapView from "./routes/dashboard/MapView";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -36,14 +37,19 @@ const router = createBrowserRouter([
 
   {
     path: "dashboard",
-    Component: DashboardLayout,
-    errorElement: <NotFound />,
+    element: <ProtectedRoute />,
     children: [
-      { index: true, Component: Dashboard },
-      { path: "account", Component: ManageAccount },
-      { path: "account/profile", Component: MyProfile },
-      { path: "trips", Component: MyTravels },
-      { path: "map-view", Component: MapView },
+      {
+        Component: DashboardLayout,
+        errorElement: <NotFound />,
+        children: [
+          { index: true, Component: Dashboard },
+          { path: "account", Component: ManageAccount },
+          { path: "account/profile", Component: MyProfile },
+          { path: "trips", Component: MyTravels },
+          { path: "map-view", Component: MapView },
+        ],
+      },
     ],
   },
 ]);

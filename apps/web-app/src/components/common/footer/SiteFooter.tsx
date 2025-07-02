@@ -14,7 +14,7 @@ export default function SiteFooter() {
       justifyContent={{ md: "space-between" }}
       align={{ base: "center", md: "end" }}
     >
-      <Text>© {date.getFullYear()} Worldly. All rights reserved</Text>
+      <Text>© {date.getFullYear()} Expland. All rights reserved</Text>
       <Flex
         as="nav"
         aria-label="footer navigation"
@@ -23,7 +23,7 @@ export default function SiteFooter() {
       >
         <Link
           to="/"
-          aria-label="Worldly Home"
+          aria-label="Expland Home"
           css={{
             transition: "opacity 300ms ease-in-out",
             ":hover": {
@@ -32,7 +32,7 @@ export default function SiteFooter() {
           }}
         >
           <Text fontWeight="500">
-            <span aria-hidden="true">🌎</span> Worldly
+            <span aria-hidden="true">🌎</span> Expland
           </Text>
         </Link>
         <Separator orientation="vertical" height="4" color="bg" aria-hidden="true" />

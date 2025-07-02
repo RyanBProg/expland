@@ -37,9 +37,11 @@ export default function MyTravels() {
     );
   } else if (fetchedTravels.length === 0) {
     content = (
-      <Flex direction="column" alignItems="center" pt="20">
-        <Text fontSize="3xl">No Travels Found</Text>
-        <Text color="fg.muted" mb="10" textAlign="center">
+      <Flex direction="column" alignItems="center" pt="28">
+        <Text fontSize="2xl" mb="2" color="fg.muted">
+          No Travels Found
+        </Text>
+        <Text fontSize="sm" color="fg.muted" mb="10" textAlign="center">
           We couldn't find any travels.
           <br /> Add your trips to view them.
         </Text>

@@ -13,6 +13,9 @@ import {
   Text,
   Span,
   Spinner,
+  Dialog,
+  CloseButton,
+  Portal,
 } from "@chakra-ui/react";
 import { XCircle, Plus } from "phosphor-react";
 import { useEffect, useState, type Dispatch, type FormEvent, type SetStateAction } from "react";
@@ -517,16 +520,45 @@ export default function TravelForm({
             >
               Save Edits
             </Button>
-            <Button
-              onClick={handleDeleteTravel}
-              type="button"
-              variant="solid"
-              colorPalette="red"
-              maxWidth="fit-content"
-              px="6"
-            >
-              Delete Travel
-            </Button>
+            <Dialog.Root lazyMount placement="center">
+              <Dialog.Trigger asChild>
+                <Button
+                  type="button"
+                  variant="solid"
+                  colorPalette="red"
+                  maxWidth="fit-content"
+                  px="6"
+                >
+                  Delete Travel
+                </Button>
+              </Dialog.Trigger>
+
+              <Portal>
+                <Dialog.Backdrop />
+                <Dialog.Positioner>
+                  <Dialog.Content maxWidth="400px">
+                    <Dialog.Header>Delete Travel</Dialog.Header>
+                    <Dialog.CloseTrigger asChild>
+                      <CloseButton size="sm" />
+                    </Dialog.CloseTrigger>
+                    <Dialog.Body>
+                      Are you sure you want to delete this travel entry? This action cannot be
+                      undone.
+                    </Dialog.Body>
+                    <Dialog.Footer>
+                      <Button
+                        colorPalette="red"
+                        onClick={() => {
+                          handleDeleteTravel();
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </Dialog.Footer>
+                  </Dialog.Content>
+                </Dialog.Positioner>
+              </Portal>
+            </Dialog.Root>
           </ButtonGroup>
         )}
       </Fieldset.Root>

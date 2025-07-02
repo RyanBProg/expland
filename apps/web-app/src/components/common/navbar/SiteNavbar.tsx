@@ -20,7 +20,7 @@ export default function SiteNavbar() {
               }}
             >
               <Text fontWeight="900" fontSize={{ base: "1.4rem", sm: "1.7rem" }}>
-                <span aria-hidden="true">🌎</span> Worldly
+                <span aria-hidden="true">🌎</span> Expland
               </Text>
             </Link>
           </li>

@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useLogout = () => {
   return useMutation({
@@ -25,3 +25,18 @@ export const useLogoutAll = () => {
     },
   });
 };
+
+export function useAuthAccount() {
+  return useQuery({
+    queryKey: ["account-check"],
+    queryFn: async () => {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/account`, {
+        credentials: "include",
+      });
+      if (!res.ok) throw new Error("Not authenticated");
+      return (await res.json()).data;
+    },
+    retry: false,
+    staleTime: 0,
+  });
+}

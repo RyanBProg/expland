@@ -8,10 +8,9 @@ import {
   Stack,
   Text,
   Spinner,
-  Badge,
   Separator,
+  Avatar,
 } from "@chakra-ui/react";
-import { User } from "phosphor-react";
 import { useAccount } from "@/hooks/useAccount";
 import EditUsername from "@/components/ManageAccount/EditUsername";
 import EditName from "@/components/ManageAccount/EditName";
@@ -65,13 +64,14 @@ export default function ManageAccountPage() {
     );
 
   return (
-    <Flex direction="column" maxW="3xl" mx="auto" p="8">
+    <Flex direction="column" maxW="3xl" mx="auto" p="4" pt="10">
       <Stack gap="6">
         {/* Header */}
         <Flex alignItems="center" gap="4">
-          <Box p="4" rounded="full" bg="gray.800">
-            <User size={44} />
-          </Box>
+          <Avatar.Root size="2xl">
+            <Avatar.Fallback name={`${account.givenName} ${account.familyName}`} />
+          </Avatar.Root>
+
           <Box>
             <Heading size="lg">Account Settings</Heading>
             <Text color="gray.500">Manage your account details and preferences</Text>
@@ -86,12 +86,7 @@ export default function ManageAccountPage() {
               <Text mb="2" color="gray.500">
                 Email
               </Text>
-              <Flex gap="3" alignItems="center">
-                <Text fontSize={{ base: "md", md: "lg" }}>{account.email}</Text>
-                <Badge colorScheme="yellow" variant="subtle">
-                  Unverified
-                </Badge>
-              </Flex>
+              <Text fontSize={{ base: "md", md: "lg" }}>{account.email}</Text>
             </Box>
 
             {/* Username */}

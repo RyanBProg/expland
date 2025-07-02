@@ -2,8 +2,28 @@ import { Tooltip } from "@/components/ui/tooltip";
 import { Flex, ButtonGroup, Button, Menu, Portal, Span } from "@chakra-ui/react";
 import { AirplaneInFlight, Compass, GlobeHemisphereWest, House, User } from "phosphor-react";
 import { Link } from "react-router";
+import { useLogout } from "@/hooks/useAuth";
+import { useNavigate } from "react-router";
+import { toaster } from "@/components/ui/toaster";
 
 export default function DashboardNavbar() {
+  const logoutMutation = useLogout();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logoutMutation.mutateAsync();
+      navigate("/");
+    } catch (e) {
+      console.log(e);
+      toaster.create({
+        title: "Travel Error",
+        description: "Failed to logout",
+        type: "error",
+      });
+    }
+  };
+
   return (
     <header>
       <Flex
@@ -79,6 +99,11 @@ export default function DashboardNavbar() {
                 </Menu.Item>
                 <Menu.Item asChild value="account">
                   <Link to="/dashboard/account">Manage Account</Link>
+                </Menu.Item>
+                <Menu.Item asChild value="logout">
+                  <button type="button" onClick={handleLogout} disabled={logoutMutation.isPending}>
+                    Logout
+                  </button>
                 </Menu.Item>
               </Menu.Content>
             </Menu.Positioner>
